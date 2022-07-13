@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286" />
+  
+  
+  
+  
+  
+  
+  <title>可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="方程求根二分法对于给定精度 $\varepsilon$ ，若取 $k$ 使得 $\frac{1}{2^{k+1}}(b-a)\le\varepsilon$ ，则 $|x_k-x^*|\le\varepsilon$，$k\ge\frac{\ln (b-a)-\ln\varepsilon}{\ln2}-1$ 迭代法$x_k&#x3D;\varphi(x_{k-1})$ 条件：  $\forall x\in[a,">
+<meta property="og:type" content="website">
+<meta property="og:title" content="可能是VCode的博客">
+<meta property="og:url" content="https://vcode28629.github.io/note/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/%E5%B9%B2%E8%B4%A7">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="方程求根二分法对于给定精度 $\varepsilon$ ，若取 $k$ 使得 $\frac{1}{2^{k+1}}(b-a)\le\varepsilon$ ，则 $|x_k-x^*|\le\varepsilon$，$k\ge\frac{\ln (b-a)-\ln\varepsilon}{\ln2}-1$ 迭代法$x_k&#x3D;\varphi(x_{k-1})$ 条件：  $\forall x\in[a,">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-07-13T14:12:51.592Z">
+<meta property="article:modified_time" content="2021-11-11T14:30:09.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/note/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/%E5%B9%B2%E8%B4%A7" data-id="cl5joxkup0039mouedhv97xk6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h1 id="方程求根"><a href="#方程求根" class="headerlink" title="方程求根"></a>方程求根</h1><h2 id="二分法"><a href="#二分法" class="headerlink" title="二分法"></a>二分法</h2><p>对于给定精度 $\varepsilon$ ，若取 $k$ 使得 $\frac{1}{2^{k+1}}(b-a)\le\varepsilon$ ，则 $|x_k-x^*|\le\varepsilon$，$k\ge\frac{\ln (b-a)-\ln\varepsilon}{\ln2}-1$</p>
+<h2 id="迭代法"><a href="#迭代法" class="headerlink" title="迭代法"></a>迭代法</h2><p>$x_k=\varphi(x_{k-1})$</p>
+<p>条件：</p>
+<ol>
+<li>$\forall x\in[a, b], \varphi(x)$存在且连续 </li>
+<li>$\forall x\in[a, b],\varphi(x)\in[a, b]$</li>
+<li>$\forall x\in[a,b], |\varphi’(x)|\lt1$ </li>
+</ol>
+<p>事前误差估计：$|x_k-x^*|\le\frac{L^k}{1-L}|x_1-x_0|$</p>
+<p>事后误差估计：$|x_k-x^*|\le\frac{L}{1-L}|x_k-x_{k-1}|$</p>
+<h2 id="收敛速度"><a href="#收敛速度" class="headerlink" title="收敛速度"></a>收敛速度</h2><p>设序列 $\{x_k\}$ 收敛于 $x^*$ ，并记 $e_k=x_k-x^*$ 。如果存在非零常数 $c$ 和正常数 $p$ ，使得 $\lim_{k\rightarrow\infty}\frac{e_{k+1}}{e_k^p}=c$ ，则称序列是 $p$ 阶收敛的。</p>
+<p>简单迭代法线性收敛。</p>
+<p>若 $\varphi(x)$ 在 $x^*$ 的某个邻域内有 $p(p\ge1)$ 阶导数，且 $\left\{\begin{array}{l}<br>\varphi(x^*)=x^*&amp;\\<br>\varphi^{(k)}(x^*)=0&amp;k=1,2,\cdots,p-1\\<br>\varphi^{(p)}(x^*)\ne0&amp;<br>\end{array}\right.$ ，则对一个任意靠近 $x^*$ 的初始值 $x_0$ ，迭代公式 $x_{k+1}=\varphi(x_k)$ 是 $p$ 阶收敛的，且有 $\lim_{k\rightarrow\infty}\frac{x_{k+1}-x^*}{(x_k-x^*)^p}=\frac{\varphi^{(p)}(x^*)}{p!}$ 。如果 $p=1$ ，要求 $|\varphi’(x^*)|\lt1$</p>
+<h2 id="埃特金加速法"><a href="#埃特金加速法" class="headerlink" title="埃特金加速法"></a>埃特金加速法</h2><p>迭代格式 $x_{k+1}=\varPhi(x_k)=\frac{x_k\varphi(\varphi(x_k))-\varphi^2(x_k)}{\varphi(\varphi(x_k))-2\varphi(x_k)+x_k}$</p>
+<p>设在 $x^*$ 附近 $\varphi(x)$ 有 $(p+1)$ 阶连续导数，则对一个充分靠近 $x^*$ 的初始值 $x_0$ ：</p>
+<ol>
+<li>如果 $x_{k+1}=\varphi(x_k)$ 是线性收敛的，则 $x_{k+1}=\varPhi(x_k)$ 是二阶收敛的。</li>
+<li>如果 $x_{k+1}=\varphi(x_k)$ 是 $p(p\ge2)$ 阶收敛的，则 $x_{k+1}=\varPhi(x_k)$ 是 $(2p-1)$ 阶收敛的。</li>
+</ol>
+<h2 id="牛顿法"><a href="#牛顿法" class="headerlink" title="牛顿法"></a>牛顿法</h2><p>$f(x^*)=0$</p>
+<p>$x_{k+1}=x_k-\frac{f(x_k)}{f’(x_k)}$</p>
+<p>牛顿法对单根至少是二阶局部收敛的；对重根是一阶局部收敛的。</p>
+<p>若</p>
+<ol>
+<li>$\forall x\in[a,b],f’’(x)$ 存在且连续</li>
+<li>$f(a)f(b)\lt0$：唯一根存在</li>
+<li>$\forall x\in[a, b], f’(x)\ne0$：唯一根存在</li>
+<li>$\forall x\in[a,b], f’’(x)\text{保号}$： $f(x)$ 在 $[a, b]$ 内上凸或下凸</li>
+<li>$a-\frac{f(a)}{f’(a)}\le b, b-\frac{f(b)}{f’(b)}\ge a$：迭代过程可一直进行下去</li>
+</ol>
+<p>则对任意初值 $x_0\in[a, b]$ ，由牛顿迭代产生的序列二阶收敛到方程 $f(x)=0$ 在 $[a,b]$ 上的唯一根。</p>
+<h2 id="割线法"><a href="#割线法" class="headerlink" title="割线法"></a>割线法</h2><p>为了避免导数，可以用差商代替导数。</p>
+<p>$x_{k+1}=x_k-\frac{f(x_k)}{\frac{f(x_k)-f(x_{k-1})}{x_k-x_{k-1}}}$</p>
+<h1 id="线性方程组数值解法"><a href="#线性方程组数值解法" class="headerlink" title="线性方程组数值解法"></a>线性方程组数值解法</h1><h2 id="高斯消去法"><a href="#高斯消去法" class="headerlink" title="高斯消去法"></a>高斯消去法</h2><h2 id="追赶法"><a href="#追赶法" class="headerlink" title="追赶法"></a>追赶法</h2><h2 id="列主元高斯消去法"><a href="#列主元高斯消去法" class="headerlink" title="列主元高斯消去法"></a>列主元高斯消去法</h2><h2 id="平方根法"><a href="#平方根法" class="headerlink" title="平方根法"></a>平方根法</h2><h2 id="改进平方根法"><a href="#改进平方根法" class="headerlink" title="改进平方根法"></a>改进平方根法</h2><h2 id="列主元三角分解法"><a href="#列主元三角分解法" class="headerlink" title="列主元三角分解法"></a>列主元三角分解法</h2><h2 id="雅可比迭代法"><a href="#雅可比迭代法" class="headerlink" title="雅可比迭代法"></a>雅可比迭代法</h2><h2 id="高斯-赛德尔迭代法"><a href="#高斯-赛德尔迭代法" class="headerlink" title="高斯-赛德尔迭代法"></a>高斯-赛德尔迭代法</h2><h1 id="插值法"><a href="#插值法" class="headerlink" title="插值法"></a>插值法</h1><h2 id="拉格朗日插值"><a href="#拉格朗日插值" class="headerlink" title="拉格朗日插值"></a>拉格朗日插值</h2><script type="math/tex; mode=display">l_k=\prod\limits_{\begin{subarray}{c}
+    i=0\\ i\ne k
+\end{subarray}}^n\frac{x-x_i}{x_k-x_i}</script><script type="math/tex; mode=display">
+L_n(x)=\sum_{k=0}^n
+y_kl_k(x)=\sum_{k=0}^n\left(\prod\limits_{\begin{subarray}{c}
+    i=0\\ i\ne k
+\end{subarray}}^n\frac{x-x_i}{x_k-x_i}\right)y_k</script><h2 id="带导数"><a href="#带导数" class="headerlink" title="带导数"></a>带导数</h2><p>$P(x)=L(x)+Q(x), Q(x_i)=0$</p>
+<h2 id="牛顿插值"><a href="#牛顿插值" class="headerlink" title="牛顿插值"></a>牛顿插值</h2><p>$h(x)=a_k\prod\limits_{i=0}^{k-1}(x-x_i)$</p>
+<script type="math/tex; mode=display">L_n(x)=\sum\limits_{k=0}^na_k\prod\limits_{i=0}^{k-1}(x-x_i)</script><script type="math/tex; mode=display">a_k=\sum_{m=0}^k\frac{f(x_m)}{\prod\limits_{\begin{subarray}{c}
+i=0\\i\ne m
+\end{subarray}}^k(x_m-x_i)}</script><h2 id="差商"><a href="#差商" class="headerlink" title="差商"></a>差商</h2><p>$f[x_0, x_1]=\frac{f(x_0)-f(x_1)}{x_0-x_1}$</p>
+<p>$f[x_0, x_1, \cdots, x_k]=\frac{f[x_0, x_1, \cdots, x_{k-1}] - f[x_1, x_2, \cdots, x_k]}{x_0-x_k}$ </p>
+<p>差商表：</p>
+<script type="math/tex; mode=display">\begin{array}{c}
+\hline
+k & x_k & f[x_k] & f[x_k, x_{k+1}] & f[x_k, x_{k+1}, x_{k+2}] & f[x_k, x_{k+1}, x_{k+2}, x_{k+3}]\\
+\hline
+0 & x_0 & f[x_0] & f[x_0, x_1] & f[x_0, x_1, x_2] & f[x_0, x_1, x_2, x_3]\\
+1 & x_1 & f[x_1] & f[x_1, x_2] & f[x_1, x_2, x_3]\\
+2 & x_2 & f[x_2] & f[x_2, x_3]\\
+3 & x_3 & f[x_3]\\
+\end{array}</script><script type="math/tex; mode=display">f[x_0, x_1, \cdots, x_k]=a_k=\sum\limits_{m=0}^k\frac{f(x_m)}{\prod\limits_{\begin{subarray}{c}
+i=0\\i\ne m
+\end{subarray}}^k(x_m-x_i)}</script><script type="math/tex; mode=display">L_n(x)=\sum\limits_{k=0}^nf[x_0, x_1, \cdots, x_k]\prod\limits_{i=0}^{k-1}(x-x_i)</script><h2 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h2><p> $x_i=x_0+ih$ ，称 $h$ 为步长</p>
+<p> $\Delta f_i=f_{i+1}-f_i$</p>
+<p> $\Delta^mf_i=\Delta^{m-1}f_{i+1}-\Delta^{m-1}f_i$ </p>
+<p>差分表</p>
+<script type="math/tex; mode=display">\begin{array}{c}
+\hline
+x_k & f_k & \Delta f_k & \Delta^2f_k & \Delta^3f_k & \Delta^4f_k\\
+\hline
+x_0 & f_0 & \Delta f_0 & \Delta^2f_0 & \Delta^3f_0 & \Delta^4f_0\\
+x_1 & f_1 & \Delta f_1 & \Delta^2f_1 & \Delta^3f_1\\
+x_2 & f_2 & \Delta f_2 & \Delta^2f_2 \\
+x_3 & f_3 & \Delta f_3\\
+x_4 & f_4\\\hline
+\end{array}</script><p> $f[x_i, x_{i+1}, \cdots, x_{i+k}]=\frac{\Delta^kf_i}{k!h^k}$</p>
+<p>$\prod\limits_{j=0}^{k-1}(x-x_j)=\prod\limits_{j=0}^{k-1}[(x_0+th-x_0-jh)]=h^k\sum\limits_{j=0}^{k-1}(x-x_j)$</p>
+<script type="math/tex; mode=display">N_n(x_0+th)=\sum_{k=0}^n\frac{\Delta^kf_0}{k!}\prod_{j=0}^{k-1}(t-j)</script><script type="math/tex; mode=display">L_n(x)=\sum\limits_{k=0}^n\frac{\Delta^kf_0}{k!h^k}\prod\limits_{i=0}^{k-1}(x-x_i)</script>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/note/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/%E5%B9%B2%E8%B4%A7">
+    <time datetime="2022-07-13T14:12:51.592Z" class="entry-date">
+        2022-07-13
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

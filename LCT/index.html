@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="LCT,动态树" />
+  
+  
+  
+  
+  
+  
+  <title>【模板】动态树LCT | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="用Splay解决序列区间问题用树剖解决序列问题上树用LCT解决形状变化的树剖 ——VCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【模板】动态树LCT">
+<meta property="og:url" content="https://vcode28629.github.io/LCT/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="用Splay解决序列区间问题用树剖解决序列问题上树用LCT解决形状变化的树剖 ——VCode">
+<meta property="og:locale">
+<meta property="og:image" content="https://vcode28629.github.io/images/008.jpg">
+<meta property="article:published_time" content="2018-12-12T13:23:36.000Z">
+<meta property="article:modified_time" content="2021-08-31T06:45:10.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="模版">
+<meta property="article:tag" content="LCT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vcode28629.github.io/images/008.jpg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-LCT" class="post-LCT post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      【模板】动态树LCT
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/LCT/" data-id="cl5joxktq000amouehbgi3yln" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <blockquote>
+<p>用Splay解决序列区间问题<br>用树剖解决序列问题上树<br>用LCT解决形状变化的树剖 ——VCode</p>
+</blockquote>
+<span id="more"></span>
+<p>前置技能：树链剖分，Splay</p>
+<p>树剖要求到知道怎么回事的程度。</p>
+<p>Splay要求到能支持基本操作的程度。</p>
+<p>P1 给一个序列，问<strong>区间xor和</strong>。</p>
+<p>A1 前缀和</p>
+<p>P2 给一个序列，<strong>带修改</strong>，问区间xor和。</p>
+<p>A2 树状数组/线段树</p>
+<p>P3 <strong>给一棵树</strong>，带修改，问链xor和。</p>
+<p>A3 树剖</p>
+<p>P4 给一棵树，带修改，<strong>可以改变树上连边的情况</strong>，问链xor和。</p>
+<p><img src="/images/008.jpg" alt=""></p>
+<p>这时候就需要我们的LCT出场了！</p>
+<h2 id="树链剖分与LCT"><a href="#树链剖分与LCT" class="headerlink" title="树链剖分与LCT"></a>树链剖分与LCT</h2><p>我们大家都会熟练剖分（啪）。</p>
+<p>树链剖分常见有几种剖法。一种按长度剖，一种按重量剖。</p>
+<p>当然为了解决我们的link和cut的问题，我们还需要一种剖分方法，就是瞎剖。</p>
+<p>当然不是随机剖分，而是按照最近访问过的儿子和不是最近访问过的儿子来剖分。</p>
+<p>也就是说，当我们访问了一个节点，我们就让根到这个节点之间的路径变成重链。</p>
+<p>当然我们知道一个节点是不会有两个重儿子的，所以如果有冲突的地方就把原来的重边变回轻边，它已经不适合现在这个版本了。</p>
+<p>特殊地，我们所想访问的那个节点的重儿子摸掉，使其变成轻儿子。因为这样一来，根到这个节点的的路径就是一条完整的重链了。</p>
+<p><del>好了，现在你已经学会了LCT。</del></p>
+<p>那么问题来了，这么个恶心的东西，代码要怎么写？！</p>
+<h2 id="Splay与树链剖分与LCT"><a href="#Splay与树链剖分与LCT" class="headerlink" title="Splay与树链剖分与LCT"></a>Splay与树链剖分与LCT</h2><p>树链剖分是用数据结构维护链的。但是这个链如此善变，肯定不能再用线段树了。于是我们需要考虑同样善变的Splay。</p>
+<blockquote>
+<p>Splay可以解决一切线段树可以解决的问题，除了线段树优化建图。 ——VCode</p>
+<p>这句话有bug吧。Splay怎么做SegmentTreeBeats。 ——Xenoacid</p>
+</blockquote>
+<p>对于每个LCT上的节点，我们对应Splay上的一个节点。</p>
+<p>对于每个LCT上的重链，我们开一棵以深度为关键字排序的Splay来维护。</p>
+<p>当重链断开时，我们让Splay断开。</p>
+<p>当有重链连接时，我们将Splay连接。</p>
+<p>当询问一条链上的信息时，我们直接在Splay上操作。</p>
+<p>现在我们知道用Splay可以维护所有重边了，但是轻边怎么办？</p>
+<p>我们回忆一下Splay的根节点的父亲，一般都是空。但是我们可以利用一下这个信息，让轻边下面的点所对应的Splay的根节点的父亲设置为轻边上面的点。</p>
+<p>于是我们就会看到一个神奇的现象，一个点 $A$ 是另一个点 $B$ 的父亲（Splay上），但点 $B$ 却既不是 $A$ 的左儿子也不是 $A$ 的右儿子。这时候我们就知道 $A$ 和 $B$ 之间有一条轻边。</p>
+<p>也许你看到这里还是很迷，不知道怎么写。没关系，让我们继续看下去，你会发现，根本不需要维护原树，你所需要维护的只有一堆Splay而已。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>首先，<strong>假设</strong>我们已经会写了一个 $access(x)$ 操作，表示访问一下节点 $x$ ，使根到 $x$ 的路径变为重链。</p>
+<p>当然还有你应该早就会了的 $splay(x)$ 操作，表示把 $x$ 转为这棵Splay的根。</p>
+<p>Let’s go!</p>
+<h3 id="makeRoot-x"><a href="#makeRoot-x" class="headerlink" title="makeRoot(x)"></a>makeRoot(x)</h3><p>反正我们都是动态树了，我们干脆就让它动一动，让它可以换根。</p>
+<p>我们可以先访问一下新的根节点并 $splay$ 一下，然后打上子树反转标记。</p>
+<p>这样一来，原来在左子树的东西就都跑到右子树了，相当于在原树上深度大小变了，也就是换了根。</p>
+<pre><code class="lang-cpp">void makeRoot(int now) &#123;
+  access(now);
+  splay(now);
+  reverse(now);//Splay子树翻转
+&#125;
+</code></pre>
+<h3 id="split-a-b"><a href="#split-a-b" class="headerlink" title="split(a, b)"></a>split(a, b)</h3><p>让 $a$ 与 $b$ 之间的路径成为一条重链。</p>
+<pre><code class="lang-cpp">void split(int a, int b) &#123;
+  makeRoot(a);
+  access(b);
+  splay(b);//礼貌性splay一下，同时可以简化cut代码。
+&#125;
+</code></pre>
+<h3 id="link-a-b"><a href="#link-a-b" class="headerlink" title="link(a, b)"></a>link(a, b)</h3><p>把 $a$ 和 $b$ 之间连一条新边。</p>
+<p>先考虑一定合法，也就是 $a$ 和 $b$ 不在同一棵LCT中的情况。</p>
+<pre><code class="lang-cpp">void link(int a, int b) &#123;
+  makeRoot(a);
+  node[b].fa = a;
+  //access(b);可以礼貌性访问一下，但没必要。
+&#125;
+</code></pre>
+<p>完美。</p>
+<p>但是如果在同一棵LCT怎么办？</p>
+<pre><code class="lang-cpp">void link(int a, int b) &#123;
+  makeRoot(a);
+  if(findRoot(b) == a) return;//加这一句就好了。
+  node[b].fa = a;
+  //access(b)
+&#125;
+</code></pre>
+<p>$findRoot(x)$ 就是找到 $x$ 的LCT的根。怎么写一会再说。</p>
+<h3 id="cut-a-b"><a href="#cut-a-b" class="headerlink" title="cut(a, b)"></a>cut(a, b)</h3><p>断开 $a$ 和 $b$ 之间的边。</p>
+<p>先考虑一定合法，也就是 $a$ 和 $b$ 之间有边的情况。</p>
+<pre><code class="lang-cpp">void link(int a, int b) &#123;
+  split(a, b);
+  node[b].son[0] = NIL;
+  node[a].fa = NIL;
+  update(a);//更新Splay信息
+&#125;
+</code></pre>
+<p>然后考虑什么情况下不合法：</p>
+<ol>
+<li>a和b不在一棵LCT里</li>
+<li>a和b在一棵LCT里，但a和b之间还有其他节点</li>
+</ol>
+<p>优先考虑第二种情况。此时在Splay中的表现有两种情况：</p>
+<ol>
+<li>b为根时，a不是b的左儿子</li>
+<li>b为根时，a是b的左儿子，但a有右儿子</li>
+</ol>
+<p>再考虑a和b不在同一棵LCT中的情况。显然满足第二种情况中说的“b为根时，a不是b的左儿子”。</p>
+<p>于是可以在代码里加一句就可以了：</p>
+<pre><code class="lang-cpp">void cut(int a, int b) &#123;
+  split(a, b);
+  if(node[b].son[0] != a || node[a].son[1] != NIL) return;
+  node[b].son[0] = NIL;
+  node[a].fa = NIL;
+  update(b);
+&#125;
+</code></pre>
+<p>还有我们刚才跳过的两个操作， $access(x)$ 和 $findRoot(x)$ </p>
+<h3 id="access-x"><a href="#access-x" class="headerlink" title="access(x)"></a>access(x)</h3><p>你会发现我们没有记录LCT的根，所以我们需要从下往上走。</p>
+<p>沿着重链向上跳，遇到轻链就修改成重链，直到Splay根为空就可以了。</p>
+<pre><code class="lang-cpp">void access(int now) &#123;
+  int last = NIL;//NIL = -1
+  while(~now) &#123;
+    splay(now);//now变为Splay根
+    node[now].son[1] = last;//更改轻重边状态
+    update(now);
+    last = now;
+    now = node[now].fa;
+  &#125;
+&#125;
+</code></pre>
+<h3 id="findRoot-x"><a href="#findRoot-x" class="headerlink" title="findRoot(x)"></a>findRoot(x)</h3><p>看完 $access(x)$ 你真的就一点想法都没有吗？</p>
+<pre><code class="lang-cpp">int findRoot(int now) &#123;
+  access(now);
+  splay(now);
+  while(now != NIL) &#123;
+    pushdown(now);//Splay pushdown
+    if(node[now].son[0] == NIL) break;
+    now = node[now].son[0];
+  &#125;
+  return now;
+&#125;
+</code></pre>
+<p>现在我们已经可以写出LCT了，需要区间异或就在Splay维护异或，需要深度就维护深度之类的即可，矛盾具有特殊性（具体问题具体分析）。</p>
+<h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><p>不会，Tarjan告诉我是 $nlogn$ </p>
+<h2 id="题"><a href="#题" class="headerlink" title="题"></a>题</h2><p><a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P3690">【模板】Link Cut Tree （动态树）</a><br><a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P3203">[HNOI2010]弹飞绵羊</a></p>
+<p>LCT乍一看很难，但熟练之后会发现其实挺好写的。</p>
+<p><a href="/code/LCT/">代码</a></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/LCT/">
+    <time datetime="2018-12-12T13:23:36.000Z" class="entry-date">
+        2018-12-12
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LCT/" rel="tag">LCT</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/XiAnD1T1/" rel="prev"><span class="meta-nav">←</span> 西安集训D1T1 欧拉回路 - 欧拉定理</a></span>
+    
+    
+        <span class="nav-next"><a href="/UnionSet/" rel="next">【模板】并查集及几种变化 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

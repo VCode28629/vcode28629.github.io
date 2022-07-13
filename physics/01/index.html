@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="大学物理" />
+  
+  
+  
+  
+  
+  
+  <title>大学物理电学笔记——01静电场 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="$e&#x3D;1.602\times10^{-19}C$  $q&#x3D;ne,n&#x3D;1,2,3,…$  单位：库仑(C) 库仑定律： $F&#x3D;k\frac{q_1q_2}{r^2}&#x3D;\frac{1}{4\pi\varepsilon_0}\frac{q_1q_2}{r^2}$  $k&#x3D;\frac{1}{4\pi\varepsilon_0}&#x3D;9\times10^9 Nm^{-2}C^{-2}$  $\varepsilo">
+<meta property="og:type" content="website">
+<meta property="og:title" content="大学物理电学笔记——01静电场">
+<meta property="og:url" content="https://vcode28629.github.io/physics/01/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="$e&#x3D;1.602\times10^{-19}C$  $q&#x3D;ne,n&#x3D;1,2,3,…$  单位：库仑(C) 库仑定律： $F&#x3D;k\frac{q_1q_2}{r^2}&#x3D;\frac{1}{4\pi\varepsilon_0}\frac{q_1q_2}{r^2}$  $k&#x3D;\frac{1}{4\pi\varepsilon_0}&#x3D;9\times10^9 Nm^{-2}C^{-2}$  $\varepsilo">
+<meta property="og:locale">
+<meta property="og:image" content="https://vcode28629.github.io/images/011.png">
+<meta property="og:image" content="https://vcode28629.github.io/images/012.png">
+<meta property="og:image" content="https://vcode28629.github.io/images/013.png">
+<meta property="og:image" content="https://vcode28629.github.io/images/010.png">
+<meta property="og:image" content="https://vcode28629.github.io/images/010.png">
+<meta property="article:published_time" content="2022-07-13T14:12:51.591Z">
+<meta property="article:modified_time" content="2021-09-30T05:56:26.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vcode28629.github.io/images/011.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      大学物理电学笔记——01静电场
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/physics/01/" data-id="cl5joxkuk002lmouea922ftkm" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>$e=1.602\times10^{-19}C$ </p>
+<p>$q=ne,n=1,2,3,…$ </p>
+<p>单位：库仑(C)</p>
+<p>库仑定律：</p>
+<p>$F=k\frac{q_1q_2}{r^2}=\frac{1}{4\pi\varepsilon_0}\frac{q_1q_2}{r^2}$ </p>
+<p>$k=\frac{1}{4\pi\varepsilon_0}=9\times10^9 Nm^{-2}C^{-2}$ </p>
+<p>$\varepsilon_0$ 为真空中的介电常数，为 $8.85\times10^{-12}N^{-1}m^2C^{-2}$ </p>
+<p>矢量形式： $\vec{F}=\frac{1}{4\pi\varepsilon_0}\frac{q_1q_2}{r^2}\vec{e_r}$ ，表示力的方向</p>
+<p>电场强度：$\vec{E}=\frac{\vec{F}}{q}$</p>
+<p>点电荷电场强度：$\vec{E}=\frac{q}{4\pi\varepsilon_0r^2}\vec{e_r}$</p>
+<p>点电荷系电场强度：$\vec{E}=\sum_{i=1}^n\vec{E}_i=\frac{\vec{F}}{q_0}=\sum_{i=1}^n\frac{\vec{F_i}}{q_0}$</p>
+<p>连续带电体：将物体分为多个电荷元</p>
+<script type="math/tex; mode=display">
+E=\int\mathrm d\vec{E}=\int\frac{\mathrm dq}{4\pi\varepsilon_0r^2}\vec e_r</script><ul>
+<li>线电荷$dq=\lambda\mathrm dl$</li>
+<li>面电荷$dq=\sigma\mathrm ds$</li>
+<li>体电荷$dq=\rho\mathrm dv$</li>
+</ul>
+<p>点偶极子：大小相等，符号相反且存在一微小间距 $l$ 的两个点电荷构成的复合体</p>
+<p>电偶极矩：$\vec{p}=q\vec{l}$</p>
+<hr>
+<p>电偶极子延长线上任意一点 A 的场强：</p>
+<p><img src="/images/011.png" alt=""></p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+E_+&=\frac{q}{4\pi\varepsilon_0(r-\frac{l}{2})^2}\\
+E_-&=\frac{-q}{4\pi\varepsilon_0(r+\frac{l}{2})^2}\\
+E_A&=E_++E_-\\&=\frac{q}{4\pi\varepsilon_0}\frac{2rl}{r^4}\frac{1}{(1-\frac{l^2}{4r^2})^2}\\
+&\because r\gg l\\
+&\therefore \frac{l^2}{4r^2}\approx 0\\
+E_A&\approx \frac{2ql}{4\pi\varepsilon_0r^3}=\frac{2p}{4\pi\varepsilon_0r^3}
+\end{aligned}</script><hr>
+<p>电偶极子中垂线上任意一点 B 的场强：</p>
+<p><img src="/images/012.png" alt=""></p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+E_B&=E_+\cos\theta+E_-\cos\theta\\
+E_+&=E_-=\frac{q}{4\pi\varepsilon_0(r^2+\frac{l^2}{4})}\\
+\cos\theta&=\frac{l}{2\sqrt{r^2+\frac{l^2}{4}}}\\
+E_B&=2E_+\cos\theta=\frac{ql}{4\pi\varepsilon_0(r^2+\frac{l^2}{4})^{\frac{3}{2}}}\\
+&\because r\gg l\\
+&\therefore E_B=\frac{ql}{4\pi\varepsilon_0r^3}=\frac{p}{4\pi\varepsilon_0r^3}
+\end{aligned}</script><hr>
+<p>均匀带电棒</p>
+<p><img src="/images/013.png" alt=""></p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathrm dq&=\lambda\mathrm dx\\&=\frac QL\mathrm dx\\
+\mathrm dE&=\frac{\frac QL\mathrm dx}{4\pi\varepsilon_0r^2}\\
+\mathrm dE_x&=\mathrm dE\cos\theta\\
+\mathrm dE_y&=\mathrm dE\sin\theta\\
+r&=\frac a{\sin\theta}\\&=a\csc\theta\\
+x&=\frac{-a}{\tan\theta}\\
+\mathrm dx&=a\csc^2\theta\mathrm d\theta\\
+\mathrm dE_x&=\frac{\frac QLa\csc^2\theta\cos\theta\mathrm d\theta}{4\pi\varepsilon_0a^2\csc^2\theta}=\frac{\lambda\cos\theta}{4\pi\varepsilon_0a}\mathrm d\theta\\
+E_x&=\frac{\lambda}{4\pi\varepsilon_0a}\int_{\theta_1}^{\theta_2}\cos\theta\mathrm d\theta\\&=\frac{\lambda}{4\pi\varepsilon_0a}(\sin\theta_2-\sin\theta_1)\\
+\mathrm dE_y&=\frac{\frac QLa\csc^2\theta\sin\theta\mathrm d\theta}{4\pi\varepsilon_0a^2\csc^2\theta}=\frac{\lambda\sin\theta}{4\pi\varepsilon_0a}\mathrm d\theta\\
+E_y&=\frac{\lambda}{4\pi\varepsilon_0a}\int_{\theta_1}^{\theta_2}\sin\theta\mathrm d\theta\\&=\frac{\lambda}{4\pi\varepsilon_0a}(\cos\theta_1-\cos\theta_2)
+\end{aligned}</script><hr>
+<p>均匀带电直线</p>
+<script type="math/tex; mode=display">
+\theta_1=0\\
+\theta_2=\pi\\
+E_x=0\\
+E=E_y=\frac{\lambda}{2\pi\varepsilon_0a}</script><p>高斯定理版：</p>
+<p>作高为 $h$ 半径为 $a$ 的圆柱面为高斯面</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\oint_S\vec E\cdot\mathrm d\vec S&=\frac{\lambda h}{\varepsilon_0}\\
+\oint_S\vec E\cdot\mathrm d\vec S&=\Phi_1+\oint_{S_2}\vec E\cdot\mathrm d\vec S+\Phi_3\\
+\Phi_1&=\Phi_3=0\\
+\oint_{S_2}\vec E\cdot\mathrm d\vec S&=E\oint_{S_2}\mathrm dS\\
+&=2\pi ahE\\
+\therefore2\pi ahE&=\frac{\lambda h}{\varepsilon_0}\\
+E&=\frac{\lambda}{2\pi\varepsilon_0a}
+\end{aligned}</script><hr>
+<p>均匀带电 $q$ 圆环，计算轴线上任一点 $P$ 的场强</p>
+<p><img src="/images/010.png" alt=""></p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathrm dq&=\frac{q}{2\pi R}\mathrm dl\\
+\mathrm dE&=\frac{\mathrm dq}{4\pi\varepsilon_0r^2}=\frac{q\mathrm dl}{8\pi^2R\varepsilon_0r^2}\\
+E&=E_x=\int_L\mathrm dE_x\\
+&=\int_L\mathrm dE\cos\theta\\
+&=\int_L\frac{x}{r}\mathrm dE\\
+&=\int_L\frac{x}{r}\frac{\mathrm dq}{4\pi\varepsilon_0r^2}\\
+&=\int_L\frac{x}{r}\frac{\lambda}{4\pi\varepsilon_0r^2}\mathrm dl\\
+&=\int_L\frac{x}{r}\frac{q}{2\pi R}\frac{1}{4\pi\varepsilon_0r^2}\mathrm dl\\
+&=\int_0^{2\pi R}\frac{qx}{8\pi^2\varepsilon_0Rr^3}\mathrm dl\\
+&=\frac{qx}{8\pi^2\varepsilon_0Rr^3}\times2\pi R\\
+&=\frac{qx}{4\pi\varepsilon_0r^3}=\frac{qx}{4\pi\varepsilon_0(x^2+R^2)^\frac{3}{2}}
+\end{aligned}</script><hr>
+<p>均匀带电圆盘</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+E&=E_x=\int_D\mathrm dE_x\\
+&=\int_D\cos\theta\mathrm dE\\
+&=\int_D\cos\theta\frac{\mathrm dq}{4\pi\varepsilon_0r^2}\\
+&=\int_D\cos\theta\frac{\sigma\mathrm ds}{4\pi\varepsilon_0r^2}\\
+&=\frac{q}{\pi R^2}\int_0^R\mathrm dR\int_0^{2\pi}\cos\theta\frac{1}{4\pi\varepsilon_0(R^2+x^2)}R\mathrm d\theta\\
+&=\frac{q}{4\pi^2\varepsilon_0R^2}\int_0^R\frac{R}{R^2+x^2}\mathrm dR\int_0^{2\pi}\cos\theta\mathrm d\theta\\
+&=
+\end{aligned}</script><script type="math/tex; mode=display">
+\begin{aligned}
+E&=\int\mathrm dE=\int\frac{x\sigma2\pi r\mathrm dr}{4\pi\varepsilon_0(x^2+r^2)^\frac32}\\
+&=\int_0^R\mathrm dE=\frac{\sigma}{2\varepsilon_0}(1-\frac{x}{\sqrt{x^2+R^2}})
+\end{aligned}</script><hr>
+<p>均匀带电平面</p>
+<script type="math/tex; mode=display">
+R\rightarrow\infty\\
+E=\frac{\sigma}{2\varepsilon}</script><p>当考察点很接近带电平面时 $x\ll R$ ，可以把带电平面近似看作无限大来处理</p>
+<p>$R\ll x$ 时 $E=\frac{q}{4\pi\varepsilon_0x^2}$</p>
+<hr>
+<h1 id="静电场中电场线的特点"><a href="#静电场中电场线的特点" class="headerlink" title="静电场中电场线的特点"></a>静电场中电场线的特点</h1><ol>
+<li>电场线起始于正电荷，终止于负电荷</li>
+<li>电场线不闭合，不相交</li>
+<li>曲线上每一点的切线方向表示该点处电场强度的方向</li>
+<li>电场线密集处电场强，电场线稀疏处电场弱</li>
+<li>垂直通过单位面积的电场线条数，在数值上就等于该点处电场强度的大小。即：曲线的疏密表示该点处电场强度的大小。 $E=\frac{\mathrm d\Phi_e}{\mathrm dS_\bot}$</li>
+</ol>
+<h1 id="电通量"><a href="#电通量" class="headerlink" title="电通量"></a>电通量</h1><p>电场强度通量（电通量） $\Phi_e$ ：通过电场中任一曲面的电场线条数。</p>
+<p>$E=\frac{\mathrm d\Phi_e}{\mathrm dS_\bot}$</p>
+<p>$\Phi_e=\vec E\cdot\vec S$</p>
+<h2 id="非均匀电场的电通量"><a href="#非均匀电场的电通量" class="headerlink" title="非均匀电场的电通量"></a>非均匀电场的电通量</h2><p>$\mathrm d\Phi_e=E\cos\theta\mathrm dS=\vec E\cdot\mathrm d\vec S$</p>
+<p>$\mathrm \Phi_e=\int_SE\cos\theta\mathrm dS=\int_S\vec E\cdot\mathrm d\vec S$</p>
+<p>对于闭合曲面的电通量： $\Phi_e=\oint_S\vec E\cdot\mathrm d\vec S$ 。规定外法线方向为正</p>
+<ul>
+<li>当 $\theta\lt90\degree$ 时 $\Phi_e\gt 0$ 。电场线穿出闭合曲面</li>
+<li>当 $\theta\gt90\degree$ 时 $\Phi_e\lt 0$ 。电场线穿进闭合曲面</li>
+<li>当 $\theta=90\degree$ 时 $\Phi_e=0$ 。电场线与曲面相切</li>
+</ul>
+<h1 id="高斯定理"><a href="#高斯定理" class="headerlink" title="高斯定理"></a>高斯定理</h1><p>在真空中静电场内，通过任一闭合曲面的电场强度通量等于该曲面所包围的所有电电荷的代数和的 $\frac1{\varepsilon_0}$ 倍</p>
+<p>$\Phi_e=\oint_S\vec E\cdot\mathrm d\vec S=\left\{\begin{aligned}&amp;=\frac1{\varepsilon_0}\sum q_i&amp;\text{（分立）}\\&amp;=\frac1{\varepsilon_0}\int\mathrm dq&amp;\text{（连续）}\end{aligned}\right.$</p>
+<p>$\sum q_i$ 表示高斯面内电荷的代数和</p>
+<p>关于高斯定理的说明：</p>
+<ul>
+<li>高斯定离是反映静电场性质（有源性）的一条基本定理</li>
+<li>高斯定理是在库仑定律的基础上得出的，但它的应用范围比库仑定律更为广泛</li>
+<li>高斯定理反映闭合曲线内电荷代数和与电通量关系，不是与电场强度关系</li>
+<li>若高斯面内的电荷的电量为零，则通过高斯面的电通量为零，但高斯面上各点的电场强度并不一定为零</li>
+<li>通过任意闭合曲面的电通量只决定于它所包围的电荷的代数和，闭合曲面外的电荷对电通量无贡献。但电荷的空间分布会影响闭合面上各电处的场强大小和方向</li>
+<li>高斯定理中所说的闭合曲面，通常称为高斯面</li>
+</ul>
+<h2 id="高斯定理的应用——求电场强度"><a href="#高斯定理的应用——求电场强度" class="headerlink" title="高斯定理的应用——求电场强度"></a>高斯定理的应用——求电场强度</h2><p>高斯定理计算电场强度的条件：</p>
+<ol>
+<li>带电体的电场强度分布要具有高度对称性</li>
+<li>高斯面上的电场强度大小处处相等</li>
+<li>面积元 $\mathrm dS$ 的法线方向与该处的电场强度的方向一致</li>
+</ol>
+<hr>
+<p>均匀带电球体场强分布</p>
+<p>点在球体外：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\oint_S\vec E\cdot\mathrm d\vec S&=\frac1{\varepsilon_0}q\\
+E\oint_S\mathrm dS&=\frac1{\varepsilon_0}\frac{4}{3}\pi R^3\rho\\
+4\pi r^2E&=\frac{4\pi R^3\rho}{3\varepsilon_0}\\
+E&=\frac{\rho R^3}{3\varepsilon_0r^2}
+\end{aligned}</script><p>点在球体内：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\oint_S\vec E\cdot\mathrm d\vec S&=\frac1{\varepsilon_0}q\\
+E\oint_S\mathrm dS&=\frac1{\varepsilon_0}\frac{4}{3}\pi r^3\rho\\
+4\pi r^2E&=\frac{4\pi r^3\rho}{3\varepsilon_0}\\
+E&=\frac{\rho r}{3\varepsilon_0}
+\end{aligned}</script><hr>
+<p>无限长带电圆柱面，单位长度带电 $\lambda$</p>
+<p>柱面内： $E=0$</p>
+<p>柱面外：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\oint_S\vec E\cdot\mathrm d\vec S&=\frac1{\varepsilon_0}\lambda h\\
+\oint_S\vec E\cdot\mathrm d\vec S&=E\oint_{S_{侧面}}\mathrm dS\\
+&=2\pi rhE\\
+\therefore E&=\frac{\lambda}{2\pi \varepsilon_0r}
+\end{aligned}</script><hr>
+<p>无限长均匀带电圆柱体</p>
+<p>柱面内：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\oint_S\vec E\cdot\mathrm d\vec S&=\frac1{\varepsilon_0}h\pi r^2\rho\\
+\oint_S\vec E\cdot\mathrm d\vec S&=E\oint_{S_{侧面}}\mathrm dS\\
+&=2\pi rhE\\
+\therefore E&=\frac{r\rho}{2\varepsilon_0}
+\end{aligned}</script><p>柱面外：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\oint_S\vec E\cdot\mathrm d\vec S&=\frac1{\varepsilon_0}h\pi R^2\rho\\
+\oint_S\vec E\cdot\mathrm d\vec S&=E\oint_{S_{侧面}}\mathrm dS\\
+&=2\pi rhE\\
+\therefore E&=\frac{R^2\rho}{2r\varepsilon_0}
+\end{aligned}</script><hr>
+<p>无限大均匀带电平面</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\oint_S\vec E\cdot\mathrm d\vec S&=\frac1{\varepsilon_0}S\sigma\\
+\oint_S\vec E\cdot\mathrm d\vec S&=2E\oint_{S_{底面}}\mathrm dS\\
+&=2ES\\
+\therefore E=\frac{\sigma}{2\varepsilon_0}
+\end{aligned}</script><hr>
+<p>两无限大带异号电荷平面的场强分布</p>
+<script type="math/tex; mode=display">E_A=E_B=\frac{\sigma}{2\varepsilon_0}</script><p>两平面之间：</p>
+<script type="math/tex; mode=display">
+E=E_A+E_B=\frac{\sigma}{\varepsilon_0}</script><p>两平面外侧：</p>
+<script type="math/tex; mode=display">
+E=E_A-E_B=0</script><h1 id="静电场环路定理"><a href="#静电场环路定理" class="headerlink" title="静电场环路定理"></a>静电场环路定理</h1><h2 id="静电场的保守性"><a href="#静电场的保守性" class="headerlink" title="静电场的保守性"></a>静电场的保守性</h2><p>静电场力作功的特点：与路径无关</p>
+<p>在点电荷 $q$ 的电场中移动 $q_0$ 由 $a\rightarrow b$ 的过程中，电场力 $F=qE$ ，对 $q_0$ 作的功：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathrm dW&=q_0\vec E\cdot\mathrm d\vec l\\&=q_0E\cos\theta\mathrm dl\\
+E&=\frac q{4\pi\varepsilon_0r^2}\\
+\mathrm dl\cos\theta&=\mathrm dr\\
+\mathrm dW&=\frac{q_0q}{4\pi\varepsilon_0r^2}\cos\theta\mathrm dl\\&=\frac{q_0q}{4\pi\varepsilon_0r^2}\mathrm dr\\
+W_{ab}&=\int_{r_a}^{r_b}\frac{q_0q}{4\pi\varepsilon_0r^2}\mathrm dr\\&=\frac{q_0q}{4\pi\varepsilon_0}(\frac 1{r_a}-\frac1{r_b})
+\end{aligned}</script><p>所以试验电荷在静电场中移动时，电场力作用的功只与试验电荷的起点和终点的位置有关，与路径无关。即电场力是保守力，静电场是保守场。</p>
+<h2 id="静电场的环路定理"><a href="#静电场的环路定理" class="headerlink" title="静电场的环路定理"></a>静电场的环路定理</h2><p>在静电场中，沿闭合回路移动 $q_0$ 电场力做的功为 $0$</p>
+<p>静电场的环路定理：静电场中电场强度沿任意闭合路径的线积分（称 $\vec E$ 的环流）为 $0$</p>
+<script type="math/tex; mode=display">\oint_l \vec E\cdot\mathrm d\vec l=0</script><h3 id="环路定理的意义"><a href="#环路定理的意义" class="headerlink" title="环路定理的意义"></a>环路定理的意义</h3><ol>
+<li>静电场是保守场（无旋场）</li>
+<li>静电场力是保守力，做功与路径无关</li>
+<li>环路定理要求电场线不能闭合</li>
+</ol>
+<p>结论： $\vec E$ 遵守高斯定理和环路定理说明静电场是有源保守场。</p>
+<h2 id="电势能"><a href="#电势能" class="headerlink" title="电势能"></a>电势能</h2><p>保守力做功等于势能的减少</p>
+<script type="math/tex; mode=display">W_{ab}=q_0\int_a^b\vec E\cdot\mathrm d\vec l=E_{pa}-E_{pb}</script><p>令 $b$ 点的势能为零，则 $a$ 点的电势能 $E_{pa}=\int_a^bq_0\vec E\cdot\mathrm d\vec l$</p>
+<p>结论： 试验电荷 $q_0$ 在空间某处的电势能在数值上就等于将 $q_0$ 从该处移至势能的零点电场力所做的功</p>
+<p>注意：</p>
+<ol>
+<li>对于有限带电体，一般取无限远为势能零点</li>
+<li>对于无限大带电体，常取有限远为势能零点</li>
+<li>实际问题时常取大地、仪器外壳等为势能零点</li>
+<li>电势能为电场和位于电场中的电荷这个系统所有</li>
+<li>电势能是标量，可正可负</li>
+</ol>
+<h2 id="电势差和电势"><a href="#电势差和电势" class="headerlink" title="电势差和电势"></a>电势差和电势</h2><p>电势 $V_a=\frac{E_{pa}}{q_0}=\int_a^\infty\vec E\cdot\mathrm d\vec l$</p>
+<p>单位：伏特 $V=JC^{-1}$</p>
+<p>电势的意义：电场中 $a$ 点的电势在数值上等于把单位正电荷从 $a$ 点移至势能零点处电场力所作的功</p>
+<p>电势差： $V_{ab}=V_a-V_b=\int_a^b\vec E\cdot \mathrm d\vec l$</p>
+<p>静电场中 $a$ ， $b$两点的电势差，等于将单位正电荷从 $a$ 点移至 $b$ 点电场力所作的功</p>
+<script type="math/tex; mode=display">W_{ab}=q_0(V_a-V_b)</script><hr>
+<p>点电荷场中的电势</p>
+<p>$V_a=\frac q{4\pi\varepsilon_0r_a}$</p>
+<hr>
+<p>均匀带电球体的电势</p>
+<p>由高斯定理求出电场强度分布</p>
+<script type="math/tex; mode=display">
+E=\left\{
+\begin{aligned}
+\frac{qr}{4\pi\varepsilon_0R^3}& &r\le R\\
+\frac{q}{4\pi\varepsilon_0r^2}& &r\gt R\\
+\end{aligned}  
+\right.</script><p>当 $r\le R$时</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+V&=\int_r^R\frac{qr}{4\pi\varepsilon_0R^3}\mathrm dr+\int_R^\infty\frac{q}{4\pi\varepsilon_0r^2}\mathrm dr\\&=\frac{q(3R^2-r^2)}{8\pi\varepsilon_0R^3}
+\end{aligned}</script><p>当 $r\gt R$ 时</p>
+<script type="math/tex; mode=display">
+V=\int_r^\infty\frac q{4\pi\varepsilon_0r^2}\mathrm dr=\frac{q}{4\pi\varepsilon_0r}</script><hr>
+<p>求无限长均匀带电直线外任一点 $P$ 的电势，电荷密度 $\lambda$</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+E&=\frac\lambda{2\pi\varepsilon_0r}\\
+V&=\int_r^{r_0}\frac\lambda{2\pi\varepsilon_0r}\mathrm dr\\&=\frac\lambda{2\pi\varepsilon_0}\ln\frac{r_0}r
+\end{aligned}</script><p>若取零势能点 $r_0=1(m)$ ，则 $V=\frac{-\lambda}{2\pi\varepsilon_0}\ln r$</p>
+<hr>
+<p>均匀带电圆环上一点的电势</p>
+<p><img src="/images/010.png" alt=""></p>
+<p>可以使用定义法求电势，但更好的是使用叠加法</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathrm dq=\lambda\mathrm dl=\frac q{2\pi R}\mathrm dl\\
+\mathrm dV=\int_L\frac{\mathrm dq}{4\pi\varepsilon_0r}\\
+=\int_L\frac{q}{8\pi^2\varepsilon_0 Rr}\mathrm dl\\
+=\frac{q}{4\pi\varepsilon_0 r}\\
+=\frac{q}{4\pi\varepsilon_0\sqrt{R^2+x^2}}\\
+\end{aligned}</script><hr>
+<h2 id="等势面-电势梯度"><a href="#等势面-电势梯度" class="headerlink" title="等势面 电势梯度"></a>等势面 电势梯度</h2><ol>
+<li>沿等势面移动电荷，电场力不做功</li>
+<li>等势面处处与电场线正交</li>
+<li>等势面稠密处电场强度大</li>
+</ol>
+<h3 id="电场强度与电势梯度的关系"><a href="#电场强度与电势梯度的关系" class="headerlink" title="电场强度与电势梯度的关系"></a>电场强度与电势梯度的关系</h3><script type="math/tex; mode=display">
+\mathrm dW=-q_0\mathrm dV=q_0E\cos\theta\mathrm dl
+E\\E\cos\theta=-\frac{\mathrm dV}{\mathrm dl}\\
+\therefore E_l=-\frac{\partial V}{\partial l}</script><p>结论：电场中给定点的电场强度沿某一方向的分量等于这一点电势沿该方向变化率的负值。</p>
+<p>电势梯度 $\nabla V$ 的大小等于电势在该点最大空间变化率；方向沿等势面法向，指向电势增加的方向。</p>
+<p>$\nabla V=\frac{\partial V}{\partial x}\vec i+\frac{\partial V}{\partial y}\vec j+\frac{\partial V}{\partial z}\vec k$ </p>
+<h1 id="静电场小结"><a href="#静电场小结" class="headerlink" title="静电场小结"></a>静电场小结</h1><p>计算电势的方法</p>
+<ol>
+<li>点电荷场的电势及叠加原理</li>
+</ol>
+<p>$V=\int\frac{\mathrm dq}{4\pi\varepsilon_0r}$</p>
+<ol>
+<li>根据电势的定义</li>
+</ol>
+<p>$V_p=\int_p^{\text{0势能点}}\vec E\mathrm d\vec l$</p>
+<ol>
+<li>电势差</li>
+</ol>
+<p>$V_{ab}=V_a-V_b=\int_a^b\vec E\mathrm d\vec l$</p>
+<p>计算场强的方法</p>
+<ol>
+<li>点电荷场的场强及叠加原理</li>
+</ol>
+<p>$\vec E=\int\frac{\vec r\mathrm dq}{4\pi\varepsilon_0r^3}$</p>
+<ol>
+<li>电势梯度</li>
+</ol>
+<p>$-\nabla V=\vec E$</p>
+<ol>
+<li>高斯定理</li>
+</ol>
+<p>$\Phi_e=\oint_S\vec E\mathrm d\vec S=\frac 1{\varepsilon_0}\iiint_\Sigma \mathrm dq$</p>
+<p>两个基本定理：</p>
+<ol>
+<li>高斯定理</li>
+<li>环路定理</li>
+</ol>
+<p>主要公式</p>
+<ol>
+<li><p>点电荷的场强 $E=\frac q{4\pi\varepsilon_0r^2}$ 和电势 $V=\frac q{4\pi\varepsilon_0 r}$</p>
+</li>
+<li><p>均匀带电球面的场强 $E=\left\{\begin{aligned}&amp;\frac q{4\pi\varepsilon_0r^2}&amp;(r\ge R)\\&amp;0&amp;(r\le R)\end{aligned}\right.$ 和电势 $V=\left\{\begin{aligned}<br>&amp;\frac q{4\pi\varepsilon_0r}&amp;(r\ge R)\\&amp;\frac q{4\pi\varepsilon_0R}&amp;(r\le R)<br>\end{aligned}\right.$</p>
+</li>
+<li><p>无限长均匀带电直线的场强 $E=\frac\lambda{2\pi\varepsilon_0r}$</p>
+</li>
+<li>带电圆环轴线上的的场强$E=\frac{qx}{4\pi\varepsilon_0(x^2+R^2)^{\frac32}}$</li>
+<li>无限大均匀带电平面的场强 $E=\frac\sigma{2\varepsilon_0}$</li>
+<li>电通量 $\Phi_e=\int_S\vec E\mathrm dS=\int_SE\cos\theta\mathrm dS$</li>
+<li>静电力的功 $W_{ab}=q_0\int_a^b\vec E\mathrm dl=q_0(V_a-V_b)=q_0V_{ab}$</li>
+<li>场强与电势的关系 $\begin{aligned}<br>V_a=\int_a^\infty\vec E\mathrm d\vec l\\<br>\vec E=-\nabla V=-\frac{\partial V}{\partial n}\vec n_0<br>\end{aligned}$</li>
+</ol>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/physics/01/">
+    <time datetime="2022-07-13T14:12:51.591Z" class="entry-date">
+        2022-07-13
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

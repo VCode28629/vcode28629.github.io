@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286" />
+  
+  
+  
+  
+  
+  
+  <title>河童重工的计算机 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#include&lt;cstdio&gt; #include&lt;cstring&gt; #include&lt;cstdlib&gt; #include&lt;map&gt;  typedef unsigned long long hash_t; const hash_t HASH_MODE &#x3D; 131;  class StringHasher &amp;#123;  private:   bool">
+<meta property="og:type" content="website">
+<meta property="og:title" content="河童重工的计算机">
+<meta property="og:url" content="https://vcode28629.github.io/code/problem/luoguP4911">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="#include&lt;cstdio&gt; #include&lt;cstring&gt; #include&lt;cstdlib&gt; #include&lt;map&gt;  typedef unsigned long long hash_t; const hash_t HASH_MODE &#x3D; 131;  class StringHasher &amp;#123;  private:   bool">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-07-13T14:12:51.616Z">
+<meta property="article:modified_time" content="2018-10-05T12:27:33.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      河童重工的计算机
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/code/problem/luoguP4911" data-id="cl5joxkui002cmoue29t79m1p" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <pre><code class="lang-cpp">#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;cstdlib&gt;
+#include&lt;map&gt;
+
+typedef unsigned long long hash_t;
+const hash_t HASH_MODE = 131;
+
+class StringHasher &#123;
+ private:
+  bool inHash(char ch) &#123;
+    if(ch == &#39;;&#39;) return false;
+    if(ch == &#39; &#39;) return false;
+    if(ch == &#39;\0&#39;) return false;
+    if(ch == &#39;\r&#39;) return false;
+    if(ch == &#39;\n&#39;) return false;
+    return true;
+  &#125;
+ public:
+  hash_t getHash(char str[]) &#123;
+    hash_t res = 0;
+    for(char *ptr = str; inHash(*ptr); ++ptr) &#123;
+      res = res * HASH_MODE + *ptr;
+    &#125;
+    return res;
+  &#125;
+&#125;;
+
+class Calculate &#123;
+ private:
+  int *Val;
+ public:
+  Calculate(int *Val) : Val(Val) &#123;  &#125;
+  void inv(int *a, int *b) &#123;
+    *b = -*a;
+  &#125;
+  void inv(int *a) &#123;
+    *Val = -*a;
+  &#125;
+  void add(int *a, int *b, int *c) &#123;
+    *c = (*a + *b);
+  &#125;
+  void add(int *a, int *b) &#123;
+    *Val = (*a + *b);
+  &#125;
+  void sub(int *a, int *b, int *c) &#123;
+    *c = (*a - *b);
+  &#125;
+  void sub(int *a, int *b) &#123;
+    *Val = (*a - *b);
+  &#125;
+  void mult(int *a, int *b, int *c) &#123;
+    *c = (*a * *b);
+  &#125;
+  void mult(int *a, int *b) &#123;
+    *Val = (*a * *b);
+  &#125;
+  void idiv(int *a, int *b, int *c) &#123;
+    *c = (*a / *b);
+  &#125;
+  void idiv(int *a, int *b) &#123;
+    *Val = (*a / *b);
+  &#125;
+  void mod(int *a, int *b, int *c) &#123;
+    *c = (*a % *b);
+  &#125;
+  void mod(int *a, int *b) &#123;
+    *Val = (*a % *b);
+  &#125;
+  void lsft(int *a, int *b, int *c) &#123;
+    *c = (*a &lt;&lt; *b);
+  &#125;
+  void lsft(int *a, int *b) &#123;
+    *Val = (*a &lt;&lt; *b);
+  &#125;
+  void rsft(int *a, int *b, int *c) &#123;
+    *c = (*a &gt;&gt; *b);
+  &#125;
+  void rsft(int *a, int *b) &#123;
+    *Val = (*a &gt;&gt; *b);
+  &#125;
+  void band(int *a, int *b, int *c) &#123;
+    *c = (*a &amp; *b);
+  &#125;
+  void band(int *a, int *b) &#123;
+    *Val = (*a &amp; *b);
+  &#125;
+  void bor(int *a, int *b, int *c) &#123;
+    *c = (*a | *b);
+  &#125;
+  void bor(int *a, int *b) &#123;
+    *Val = (*a | *b);
+  &#125;
+  void bxor(int *a, int *b, int *c) &#123;
+    *c = (*a ^ *b);
+  &#125;
+  void bxor(int *a, int *b) &#123;
+    *Val = (*a ^ *b);
+  &#125;
+&#125;;
+
+class Logic &#123;
+ private:
+  int *Flag;
+ public:
+  Logic(int *Flag) : Flag(Flag) &#123;  &#125;
+  void lgr(int *a, int *b, int *c) &#123;
+    *c = (*a &gt; *b);
+  &#125;
+  void lgr(int *a, int *b) &#123;
+    *Flag = (*a &gt; *b);
+  &#125;
+  void lls(int *a, int *b, int *c) &#123;
+    *c = (*a &lt; *b);
+  &#125;
+  void lls(int *a, int *b) &#123;
+    *Flag = (*a &lt; *b);
+  &#125;
+  void lge(int *a, int *b, int *c) &#123;
+    *c = (*a &gt;= *b);
+  &#125;
+  void lge(int *a, int *b) &#123;
+    *Flag = (*a &gt;= *b);
+  &#125;
+  void lle(int *a, int *b, int *c) &#123;
+    *c = (*a &lt;= *b);
+  &#125;
+  void lle(int *a, int *b) &#123;
+    *Flag = (*a &lt;= *b);
+  &#125;
+  void leql(int *a, int *b, int *c) &#123;
+    *c = (*a == *b);
+  &#125;
+  void leql(int *a, int *b) &#123;
+    *Flag = (*a == *b);
+  &#125;
+  void land(int *a, int *b, int *c) &#123;
+    *c = (*a &amp;&amp; *b);
+  &#125;
+  void land(int *a, int *b) &#123;
+    *Flag = (*a &amp;&amp; *b);
+  &#125;
+  void lor(int *a, int *b, int *c) &#123;
+    *c = (*a || *b);
+  &#125;
+  void lor(int *a, int *b) &#123;
+    *Flag = (*a || *b);
+  &#125;
+&#125;;
+
+class IO &#123;
+ private:
+  int *Val;
+ public:
+  IO(int *Val) : Val(Val) &#123;  &#125;
+  void rint(int *a) &#123;
+    scanf(&quot;%d&quot;, a);
+  &#125;
+  void rint() &#123;
+    scanf(&quot;%d&quot;, Val); 
+  &#125;
+  void rch(int *a) &#123;
+    char ch = getchar();
+    *a = (int)ch;
+  &#125;
+  void rch() &#123;
+    char ch = getchar();
+    *Val = (int)ch;
+  &#125;
+  void wint(int *a) &#123;
+    printf(&quot;%d&quot;, *a);
+  &#125;
+  void wint() &#123;
+    printf(&quot;%d&quot;, *Val);
+  &#125;
+  void wch(int *a) &#123;
+    printf(&quot;%c&quot;, *a);
+  &#125;
+  void wch() &#123;
+    printf(&quot;%c&quot;, *Val);
+  &#125;
+&#125;;
+
+class Control &#123;
+ private:
+  int *Flag;
+  int *Line;
+  int *Ret;
+  int *sAddr;
+  int *top;
+  int *row;
+  int *column;
+ public:
+  Control(int *Flag, int *Line, int *Ret, int *sAddr, int *top, int *row, int *column) : 
+        Flag(Flag), Line(Line), Ret(Ret), sAddr(sAddr), top(top), row(row), column(column) &#123;  &#125;
+  void udef() &#123;  &#125;
+  void hlt() &#123;
+    fflush(stdin);
+    exit(0);
+  &#125;
+  void nop() &#123;  &#125;
+  void set(int *a, int *b) &#123;
+    *b = *a;
+  &#125;
+  void jmp(int *a) &#123;
+    *row = *Line + *a;
+    *column = 0;
+  &#125;  
+  void jif(int *a, int *b) &#123;
+    if(*b) &#123;
+      *row = *Line + *a;
+    &#125; else &#123;
+      ++*row;
+    &#125;
+    *column = 0;
+  &#125;
+  void jif(int *a) &#123; 
+    if(*Flag) &#123;
+      *row = *Line + *a;
+    &#125; else &#123;
+      ++*row;
+    &#125;
+    *column = 0;
+  &#125;
+  void call(int *a) &#123;
+    sAddr[++(*top)] = *row + 1;
+    sAddr[++(*top)] = *Line;
+    *row = *a;
+    *column = 0;
+  &#125;
+  void ret(int *a) &#123;
+    *Line = sAddr[(*top)--];
+    *row = sAddr[(*top)--];
+    *column = 0;
+    *Ret = *a;
+  &#125;
+  void ret() &#123;
+    *Line = sAddr[(*top)--];
+    *row = sAddr[(*top)--];
+    *column = 0;
+  &#125;
+&#125;;
+
+class ProgramManager &#123;
+ private:
+  char program[50005][2005];
+  int ram[16 * 1024 * 1024];
+  int sAddr[1024 * 1024];
+  int top;
+  int R[4];
+  int E[4];
+  int Flag;
+  int Val;
+  int Ret;
+  int Line;
+  int row;
+  int column;
+  Calculate *calculate;
+  Logic *logic;
+  IO *io;
+  Control *control;
+  int maxLine;
+  void noComment() &#123;
+    int ignore = 0;
+    int i = 0;
+    int j = 0;
+    while(i &lt; maxLine) &#123;
+      if(program[i][j] == &#39;\0&#39;) &#123;
+        ++i;
+        j = 0;
+        continue;
+      &#125;
+      if(program[i][j] == &#39;[&#39;) &#123;
+        ++ignore;
+      &#125;
+      if(program[i][j] == &#39;]&#39;) &#123;
+        program[i][j] = &#39; &#39;;
+        --ignore;
+        if(ignore &lt; 0) ignore = 0;
+      &#125;
+      if(ignore &gt; 0 &amp;&amp; program[i][j] != &#39;\0&#39;) &#123;
+        program[i][j] = &#39; &#39;;
+      &#125;
+      ++j;
+    &#125;
+    for(i = 0; i &lt; maxLine; ++i) &#123;
+      int p = 0;
+      int j = 0;
+      while(program[i][j] != &#39;\0&#39;) &#123;
+        program[i][p++] = program[i][j++];
+        if(program[i][j] == &#39; &#39; &amp;&amp; program[i][p - 1] == &#39; &#39;) --p;
+        if(p == 1 &amp;&amp; program[i][0] == &#39; &#39;) --p;
+      &#125;
+      if(p &gt; 0 &amp;&amp; program[i][p - 1] == &#39; &#39;) &#123;
+        program[i][p - 1] = &#39;\0&#39;;
+      &#125;
+      program[i][p] = &#39;\0&#39;;
+      if(program[i][0] == &#39;\0&#39;) &#123;
+        sprintf(program[i], &quot;nop;&quot;);
+      &#125;
+    &#125;
+  &#125;
+  void setFunction() &#123;
+    std::map&lt;hash_t, int&gt; func;
+    StringHasher hasher;
+    hash_t goal = hasher.getHash(&quot;function&quot;);
+    for(int i = 0; i &lt; maxLine; ++i) &#123;
+      hash_t oper = hasher.getHash(program[i]);
+      if(oper == goal) &#123;
+        func[hasher.getHash(&amp;program[i][9])] = i;
+        sprintf(program[i], &quot;set %d %%line;&quot;, i);
+      &#125;
+    &#125;
+    goal = hasher.getHash(&quot;callfunc&quot;);
+    for(int i = 0; i &lt; maxLine; ++i) &#123;
+      hash_t oper = hasher.getHash(program[i]);
+      if(oper == goal) &#123;
+        sprintf(program[i], &quot;call %d;&quot;, func[hasher.getHash(&amp;program[i][9])]);
+      &#125;
+    &#125;
+  &#125;
+  int toNumber(char *str) &#123;
+    int ope = 1;
+    if(*str == &#39;-&#39;) &#123;
+      ope == -1;
+      ++str;
+    &#125;
+    int res = 0;
+    while(&#39;0&#39; &lt;= *str &amp;&amp; *str &lt;= &#39;9&#39;) &#123;
+      res = res * 10 + *str - &#39;0&#39;;
+      ++str;
+    &#125;
+    return res * ope;
+  &#125;
+  int *getVar(char *str, int *ori) &#123;
+    if(str[0] == &#39;%&#39;) &#123;
+      if(str[1] == &#39;r&#39;) &#123;
+        if(str[2] == &#39;e&#39;) &#123;
+          return &amp;Ret;
+        &#125;
+        return R + str[2] - &#39;1&#39;;
+      &#125; else if(str[1] == &#39;e&#39;) &#123;
+        return E + str[2] - &#39;1&#39;;
+      &#125; else if(str[1] == &#39;f&#39;) &#123;
+        return &amp;Flag;
+      &#125; else if(str[1] == &#39;v&#39;) &#123;
+        return &amp;Val;
+      &#125; else if(str[1] == &#39;l&#39;) &#123;
+        return &amp;Line;
+      &#125;
+    &#125; else if(str[0] == &#39;@&#39;) &#123;
+      if(str[1] == &#39;%&#39;) &#123;
+        if(str[1] == &#39;r&#39;) &#123;
+          if(str[2] == &#39;e&#39;) &#123;
+            return ram + Ret;
+          &#125;
+          return ram + R[str[2] - &#39;1&#39;];
+        &#125; else if(str[1] == &#39;e&#39;) &#123;
+          return ram + E[str[2] - &#39;1&#39;];
+        &#125; else if(str[1] == &#39;f&#39;) &#123;
+          return ram + Flag;
+        &#125; else if(str[1] == &#39;v&#39;) &#123;
+          return ram + Val;
+        &#125; else if(str[1] == &#39;l&#39;) &#123;
+          return ram + Line;
+        &#125;
+      &#125; else &#123;
+        return ram + toNumber(str + 1);
+      &#125;
+    &#125; else &#123;
+      *ori = toNumber(str);
+      return ori;
+    &#125;
+  &#125;
+ public:
+  ProgramManager(int maxLine) : maxLine(maxLine) &#123;
+    memset(ram, 0, sizeof(ram));
+    memset(sAddr, 0, sizeof(sAddr));
+    top = -1;
+    memset(R, 0, sizeof(R));
+    memset(E, 0, sizeof(E));
+    Flag = 0;
+    Val = 0;
+    Ret = 0;
+    Line = 0;
+    calculate = new Calculate(&amp;Val);
+    logic = new Logic(&amp;Flag);
+    io = new IO(&amp;Val);
+    control = new Control(&amp;Flag, &amp;Line, &amp;Ret, sAddr, &amp;top, &amp;row, &amp;column);
+  &#125;
+  void init() &#123;
+    for(int i = 0; i &lt; maxLine; ++i) &#123;
+      char ch = getchar();
+      while(ch == &#39; &#39;) ch = getchar();
+      int p = 0;
+      while(ch != &#39;\n&#39;) &#123;
+        program[i][p++] = ch;
+        ch = getchar();
+      &#125;
+      program[i][p] = &#39;\0&#39;;
+    &#125;
+    noComment();
+    setFunction();
+  &#125;
+  void start() &#123;
+
+    /*
+    for(int i = 0; i &lt; maxLine; ++i) &#123;
+      printf(&quot;%5d: %s\n&quot;, i, program[i]);
+    &#125;
+    //*/
+    static char oper[2005];
+    while(true) &#123;
+      sscanf(&amp;program[row][column], &quot;%s&quot;, oper);
+      switch(oper[0]) &#123;
+        case &#39;a&#39;: &#123;
+          //add
+          char A[2005];
+          char B[2005];
+          sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+          int tempa;
+          int tempb;
+          int *a = getVar(A, &amp;tempa);
+          int *b = getVar(B, &amp;tempb);
+          if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+            calculate-&gt;add(a, b);
+          &#125; else &#123;
+            sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+            int tempc;
+            int *c = getVar(A, &amp;tempc);
+            calculate-&gt;add(a, b, c);
+          &#125;
+          ++row;
+          column = 0;
+          break;
+        &#125;
+        case &#39;b&#39;: &#123;
+          switch(oper[1]) &#123;
+            case &#39;a&#39;: &#123;
+              //band
+              char A[2005];
+              char B[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+              int tempa;
+              int tempb;
+              int *a = getVar(A, &amp;tempa);
+              int *b = getVar(B, &amp;tempb);
+              if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                calculate-&gt;band(a, b);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                int tempc;
+                int *c = getVar(A, &amp;tempc);
+                calculate-&gt;band(a, b, c);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+            case &#39;o&#39;: &#123;
+              //bor
+              char A[2005];
+              char B[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+              int tempa;
+              int tempb;
+              int *a = getVar(A, &amp;tempa);
+              int *b = getVar(B, &amp;tempb);
+              if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                calculate-&gt;bor(a, b);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                int tempc;
+                int *c = getVar(A, &amp;tempc);
+                calculate-&gt;bor(a, b, c);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+            case &#39;x&#39;: &#123;
+              //bxor
+              char A[2005];
+              char B[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+              int tempa;
+              int tempb;
+              int *a = getVar(A, &amp;tempa);
+              int *b = getVar(B, &amp;tempb);
+              if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                calculate-&gt;bxor(a, b);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                int tempc;
+                int *c = getVar(A, &amp;tempc);
+                calculate-&gt;bxor(a, b, c);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+          &#125;
+          break;
+        &#125;
+        case &#39;c&#39;: &#123;
+          //call
+          char A[2005];
+          sscanf(&amp;program[row][column], &quot;%*s%s&quot;, A);
+          int tempa;
+          int *a = getVar(A, &amp;tempa);
+          control-&gt;call(a);
+          break;
+        &#125;
+        case &#39;h&#39;: &#123;
+          //hlt
+          control-&gt;hlt();
+          break;
+        &#125;
+        case &#39;i&#39;: &#123;
+          switch(oper[1]) &#123;
+            case &#39;d&#39;: &#123;
+              //idiv
+              char A[2005];
+              char B[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+              int tempa;
+              int tempb;
+              int *a = getVar(A, &amp;tempa);
+              int *b = getVar(B, &amp;tempb);
+              if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                calculate-&gt;idiv(a, b);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                int tempc;
+                int *c = getVar(A, &amp;tempc);
+                calculate-&gt;idiv(a, b, c);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+            case &#39;n&#39;: &#123;
+              //inv
+              char A[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s&quot;, A);
+              int tempa;
+              int *a = getVar(A, &amp;tempa);
+              if(A[strlen(A) - 1] == &#39;;&#39;) &#123;
+                calculate-&gt;inv(a);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%s&quot;, A);
+                int tempb;
+                int *b = getVar(A, &amp;tempb);
+                calculate-&gt;inv(a, b);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+          &#125;
+          break;
+        &#125;
+        case &#39;j&#39;: &#123;
+          switch(oper[1]) &#123;
+            case &#39;i&#39;: &#123;
+              //jif
+              char A[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s&quot;, A);
+              int tempa;
+              int *a = getVar(A, &amp;tempa);
+              if(A[strlen(A) - 1] == &#39;;&#39;) &#123;
+                control-&gt;jif(a);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%s&quot;, A);
+                int tempb;
+                int *b = getVar(A, &amp;tempb);
+                control-&gt;jif(a, b);
+              &#125;
+              break;
+            &#125;
+            case &#39;m&#39;: &#123;
+              //jmp
+              char A[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s&quot;, A);
+              int tempa;
+              int *a = getVar(A, &amp;tempa);
+              control-&gt;jmp(a);
+              break;
+            &#125;
+          &#125;
+          break;
+        &#125;
+        case &#39;l&#39;: &#123;
+          switch(oper[1]) &#123;
+            case &#39;a&#39;: &#123;
+              //land
+              char A[2005];
+              char B[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+              int tempa;
+              int tempb;
+              int *a = getVar(A, &amp;tempa);
+              int *b = getVar(B, &amp;tempb);
+              if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                logic-&gt;land(a, b);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                int tempc;
+                int *c = getVar(A, &amp;tempc);
+                logic-&gt;land(a, b, c);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+            case &#39;e&#39;: &#123;
+              //leql
+              char A[2005];
+              char B[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+              int tempa;
+              int tempb;
+              int *a = getVar(A, &amp;tempa);
+              int *b = getVar(B, &amp;tempb);
+              if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                logic-&gt;leql(a, b);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                int tempc;
+                int *c = getVar(A, &amp;tempc);
+                logic-&gt;leql(a, b, c);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+            case &#39;g&#39;: &#123;
+              switch(oper[2]) &#123;
+                case &#39;e&#39;: &#123;
+                  //lge
+                  char A[2005];
+                  char B[2005];
+                  sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+                  int tempa;
+                  int tempb;
+                  int *a = getVar(A, &amp;tempa);
+                  int *b = getVar(B, &amp;tempb);
+                  if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                    logic-&gt;lge(a, b);
+                  &#125; else &#123;
+                    sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                    int tempc;
+                    int *c = getVar(A, &amp;tempc);
+                    logic-&gt;lge(a, b, c);
+                  &#125;
+                  ++row;
+                  column = 0;
+                  break;
+                &#125;
+                case &#39;r&#39;: &#123;
+                  //lgr
+                  char A[2005];
+                  char B[2005];
+                  sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+                  int tempa;
+                  int tempb;
+                  int *a = getVar(A, &amp;tempa);
+                  int *b = getVar(B, &amp;tempb);
+                  if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                    logic-&gt;lgr(a, b);
+                  &#125; else &#123;
+                    sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                    int tempc;
+                    int *c = getVar(A, &amp;tempc);
+                    logic-&gt;lgr(a, b, c);
+                  &#125;
+                  ++row;
+                  column = 0;
+                  break;
+                &#125;
+              &#125;
+              break;
+            &#125;
+            case &#39;l&#39;: &#123;
+              switch(oper[2]) &#123;
+                case &#39;e&#39;: &#123;
+                  //lle
+                  char A[2005];
+                  char B[2005];
+                  sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+                  int tempa;
+                  int tempb;
+                  int *a = getVar(A, &amp;tempa);
+                  int *b = getVar(B, &amp;tempb);
+                  if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                    logic-&gt;lle(a, b);
+                  &#125; else &#123;
+                    sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                    int tempc;
+                    int *c = getVar(A, &amp;tempc);
+                    logic-&gt;lle(a, b, c);
+                  &#125;
+                  ++row;
+                  column = 0;
+                  break;
+                &#125;
+                case &#39;s&#39;: &#123;
+                  //lls
+                  char A[2005];
+                  char B[2005];
+                  sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+                  int tempa;
+                  int tempb;
+                  int *a = getVar(A, &amp;tempa);
+                  int *b = getVar(B, &amp;tempb);
+                  if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                    logic-&gt;lls(a, b);
+                  &#125; else &#123;
+                    sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                    int tempc;
+                    int *c = getVar(A, &amp;tempc);
+                    logic-&gt;lls(a, b, c);
+                  &#125;
+                  ++row;
+                  column = 0;
+                  break;
+                &#125;
+              &#125;
+              break;
+            &#125;
+            case &#39;o&#39;: &#123;
+              //lor
+              char A[2005];
+              char B[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+              int tempa;
+              int tempb;
+              int *a = getVar(A, &amp;tempa);
+              int *b = getVar(B, &amp;tempb);
+              if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                logic-&gt;lor(a, b);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                int tempc;
+                int *c = getVar(A, &amp;tempc);
+                logic-&gt;lor(a, b, c);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+            case &#39;s&#39;: &#123;
+              //lsft
+              char A[2005];
+              char B[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+              int tempa;
+              int tempb;
+              int *a = getVar(A, &amp;tempa);
+              int *b = getVar(B, &amp;tempb);
+              if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                calculate-&gt;lsft(a, b);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                int tempc;
+                int *c = getVar(A, &amp;tempc);
+                calculate-&gt;lsft(a, b, c);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+          &#125;
+          break;
+        &#125;
+        case &#39;m&#39;: &#123;
+          switch(oper[1]) &#123;
+            case &#39;o&#39;: &#123;
+              //mod;
+              char A[2005];
+              char B[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+              int tempa;
+              int tempb;
+              int *a = getVar(A, &amp;tempa);
+              int *b = getVar(B, &amp;tempb);
+              if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                calculate-&gt;mod(a, b);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                int tempc;
+                int *c = getVar(A, &amp;tempc);
+                calculate-&gt;mod(a, b, c);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+            case &#39;u&#39;: &#123;
+              //mult
+              char A[2005];
+              char B[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+              int tempa;
+              int tempb;
+              int *a = getVar(A, &amp;tempa);
+              int *b = getVar(B, &amp;tempb);
+              if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                calculate-&gt;mult(a, b);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                int tempc;
+                int *c = getVar(A, &amp;tempc);
+                calculate-&gt;mult(a, b, c);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+          &#125;
+          break;
+        &#125;
+        case &#39;n&#39;: &#123;
+          //nop
+          control-&gt;nop();
+          ++row;
+          column = 0;
+          break;
+        &#125;
+        case &#39;r&#39;: &#123;
+          switch(oper[1]) &#123;
+            case &#39;e&#39;: &#123;
+              //ret 
+              //数据出锅 已修复
+              if(oper[3] == &#39;;&#39;) &#123;
+                control-&gt;ret();
+              &#125; else &#123;
+                char A[2005];
+                sscanf(&amp;program[row][column], &quot;%*s%s&quot;, A);
+                int tempa;
+                int *a = getVar(A, &amp;tempa);
+                control-&gt;ret(a);
+              &#125;
+              break;
+            &#125;
+            case &#39;s&#39;: &#123;
+              //rsft
+              char A[2005];
+              char B[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+              int tempa;
+              int tempb;
+              int *a = getVar(A, &amp;tempa);
+              int *b = getVar(B, &amp;tempb);
+              if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                calculate-&gt;rsft(a, b);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                int tempc;
+                int *c = getVar(A, &amp;tempc);
+                calculate-&gt;rsft(a, b, c);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+            case &#39;i&#39;: &#123;
+              //rint
+              if(oper[4] == &#39;;&#39;) &#123;
+                io-&gt;rint();
+              &#125; else &#123;
+                char A[2005];
+                sscanf(&amp;program[row][column], &quot;%*s%s&quot;, A);
+                int tempa;
+                int *a = getVar(A, &amp;tempa);
+                io-&gt;rint(a);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+            case &#39;c&#39;: &#123;
+              //rch
+              if(oper[3] == &#39;;&#39;) &#123;
+                io-&gt;rch();
+              &#125; else &#123;
+                char A[2005];
+                sscanf(&amp;program[row][column], &quot;%*s%s&quot;, A);
+                int tempa;
+                int *a = getVar(A, &amp;tempa);
+                io-&gt;rch(a);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+          &#125;
+          break;
+        &#125;
+        case &#39;s&#39;: &#123;
+          switch(oper[1]) &#123;
+            case &#39;e&#39;: &#123;
+              //set
+              char A[2005];
+              char B[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+              int tempa;
+              int tempb;
+              int *a = getVar(A, &amp;tempa);
+              int *b = getVar(B, &amp;tempb);
+              control-&gt;set(a, b);
+              ++row;
+              column = 0;
+              break;
+            &#125;
+            case &#39;u&#39;: &#123;
+              //sub
+              char A[2005];
+              char B[2005];
+              sscanf(&amp;program[row][column], &quot;%*s%s%s&quot;, A, B);
+              int tempa;
+              int tempb;
+              int *a = getVar(A, &amp;tempa);
+              int *b = getVar(B, &amp;tempb);
+              if(B[strlen(B) - 1] == &#39;;&#39;) &#123;
+                calculate-&gt;sub(a, b);
+              &#125; else &#123;
+                sscanf(&amp;program[row][column], &quot;%*s%*s%*s%s&quot;, A);
+                int tempc;
+                int *c = getVar(A, &amp;tempc);
+                calculate-&gt;sub(a, b, c);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+          &#125;
+          break;
+        &#125;
+        case &#39;u&#39;: &#123;
+          //udef
+          control-&gt;udef();
+          ++row;
+          column = 0;
+          break;
+        &#125;
+        case &#39;w&#39;: &#123;
+          switch(oper[1]) &#123;
+            case &#39;c&#39;: &#123;
+              //wch
+              if(oper[3] == &#39;;&#39;) &#123;
+                io-&gt;wch();
+              &#125; else &#123;
+                char A[2005];
+                sscanf(&amp;program[row][column], &quot;%*s%s&quot;, A);
+                int tempa;
+                int *a = getVar(A, &amp;tempa);
+                io-&gt;wch(a);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+            case &#39;i&#39;: &#123;
+              //wint 
+              if(oper[4] == &#39;;&#39;) &#123;
+                io-&gt;wint();
+              &#125; else &#123;
+                char A[2005];
+                sscanf(&amp;program[row][column], &quot;%*s%s&quot;, A);
+                int tempa;
+                int *a = getVar(A, &amp;tempa);
+                io-&gt;wint(a);
+              &#125;
+              ++row;
+              column = 0;
+              break;
+            &#125;
+          &#125;
+          break;
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+&#125;;
+
+int main() &#123;
+  int lines;
+  scanf(&quot;%d\n&quot;, &amp;lines);
+  ProgramManager &amp;manager = *new ProgramManager(lines);
+  manager.init();
+  manager.start();
+  return 0;
+&#125;
+</code></pre>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/code/problem/luoguP4911">
+    <time datetime="2022-07-13T14:12:51.616Z" class="entry-date">
+        2022-07-13
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+
+
+
+
+
+
+
+
+  
+    <div class="lv-container"></div>
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

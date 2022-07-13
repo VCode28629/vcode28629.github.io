@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="离散数学" />
+  
+  
+  
+  
+  
+  
+  <title>离散数学笔记——01数理逻辑 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考教材：屈婉玲, 耿素云, 张立昂. 离散数学[M]. 第二版. 北京: 高等教育出版社, 2015:3-87.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="离散数学笔记——01数理逻辑">
+<meta property="og:url" content="https://vcode28629.github.io/discrete_mathematics/01/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="参考教材：屈婉玲, 耿素云, 张立昂. 离散数学[M]. 第二版. 北京: 高等教育出版社, 2015:3-87.">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-07-13T14:12:51.592Z">
+<meta property="article:modified_time" content="2021-10-28T12:47:51.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      离散数学笔记——01数理逻辑
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/discrete_mathematics/01/" data-id="cl5joxkup003amoue5o0n6cie" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>参考教材：屈婉玲, 耿素云, 张立昂. 离散数学[M]. 第二版. 北京: 高等教育出版社, 2015:3-87.</p>
+<span id="more"></span>
+<h1 id="1-命题逻辑的基本概念"><a href="#1-命题逻辑的基本概念" class="headerlink" title="1 命题逻辑的基本概念"></a>1 命题逻辑的基本概念</h1><h2 id="1-1-命题与联结词"><a href="#1-1-命题与联结词" class="headerlink" title="1.1 命题与联结词"></a>1.1 命题与联结词</h2><p>数理逻辑是研究推理的数学分支。推理由一系列的陈述句组成。</p>
+<p>非真即假的陈述句称作<strong>命题</strong>。</p>
+<p>作为命题的陈述句所表达的判断结果称作命题的<strong>真值</strong>，真值只取两个值：<strong>真</strong>或<strong>假</strong>。</p>
+<p>真值为真的命题称作<strong>真命题</strong>，真值为假的命题称作<strong>假命题</strong>。</p>
+<p>任何命题的真值都是唯一的。</p>
+<p>不能被分解成更简单的命题称作<strong>简单命题</strong>或<strong>原子命题</strong>。</p>
+<p>由简单命题通过联结词联结而成的命题称作<strong>复合命题</strong>。</p>
+<p>判断给定句子是否为命题的步骤：</p>
+<ol>
+<li>判断是否为陈述句</li>
+<li>判断是否有唯一的真值</li>
+</ol>
+<p>由真能退费出假、又由假能推出真，从而既不能为真，也不能为假的陈述句称作<strong>悖论</strong>。悖论不是命题。</p>
+<p>用小写字母表示命题称为命题的符号化。</p>
+<blockquote>
+<p>$p$ : $4$ 是素数</p>
+</blockquote>
+<p>完全由符号构成的语言称为形式语言。</p>
+<p>联结词：“非”、“并且”、“或”、“如果……，则……”</p>
+<ol>
+<li>设 $p$ 为命题，复合命题“非 $p$”（或 “$p$ 的否定”）称作 $p$ 的<strong>否定式</strong>，记作 $\neg p$ 。符号 $\neg$ 称作<strong>否定联结词</strong>。规定 $\neg p$ 为真当且仅当 $p$ 为假。</li>
+<li>设 $p$, $q$ 为两个命题，复合命题“ $p$ 并且 $q$ ”（或 “ $p$ 与 $q$ ”）称为 $p$ 与 $q$ 的<strong>合取式</strong>，记作 $p\land q$ 。 $\land$ 称为<strong>合取联结词</strong>。规定 $p\land q$ 为真当且仅当 $p$ 与 $q$ 同时为真。</li>
+<li>设 $p$, $q$ 为两个命题，复合命题“ $p$ 或 $q$ ”称为 $p$ 与 $q$ 的<strong>析取式</strong>，记作 $p\lor q$ 。 $\lor$ 称为<strong>析取联结词</strong>。规定 $p\lor q$ 为假当且仅当 $p$ 与 $q$ 同时为假。</li>
+<li>自然语言的“或”具有二义性，用它有时具有相容性（即它联结的两个词可以同时为真），有时具有排斥性（即只有当一个为真、另一个为假时，才为真），对应的分别称作<strong>相容或</strong>和<strong>排斥或</strong></li>
+<li>设 $p$, $q$ 为两个命题，复合命题“如果 $p$ ，则 $q$ ”称为 $p$ 与 $q$ 的<strong>蕴涵式</strong>，记作 $p\to q$ ，并称 $p$ 是蕴含式的<strong>前件</strong>， $q$ 为蕴含式的<strong>后件</strong>。 $\to$ 称为<strong>蕴涵联结词</strong>。规定 $p\to q$ 为假当且仅当 $p$ 为真 $q$ 为假。 $p\to q$ 的逻辑关系为 $q$ 是 $p$ 的必要条件。</li>
+<li>设 $p$, $q$ 为两个命题，复合命题“ $p$ 当且仅当 $q$ ”称作 $p$ 与 $q$ 的<strong>等价式</strong>，记作 $p\leftrightarrow q$ ， $\leftrightarrow$ 称为<strong>等价联结词</strong>。规定 $p\leftrightarrow q$ 为真当且仅当 $p$ 与 $q$ 同时为真或同时为假。 $p\to q$ 的逻辑关系为 $p$ 与 $q$ 互为充分必要条件。</li>
+</ol>
+<h2 id="命题公式及赋值"><a href="#命题公式及赋值" class="headerlink" title="命题公式及赋值"></a>命题公式及赋值</h2><p>简单命题是命题逻辑中最基本的研究单位，其真值是确定的，又称作<strong>命题常项</strong>或<strong>命题常元</strong>。</p>
+<p>命题常项相当于初等数学中的常数。初等数学中还有变量，对应地，这里有<strong>命题变项</strong>。取值真或假的变元称作<strong>命题变项</strong>或<strong>命题变元</strong>。可以用命题变项表示真值可以变化的陈述句。</p>
+<p>命题变项不是命题，命题变项与命题常项的关系如同初等数学中变量与常量的关系，今后也用小写字母表示命题变项。这样一来，小写字母既可以表示命题常项，也可以表示命题变项，通常可以由上下文确定。</p>
+<p>将命题变项用联结词和圆括号按照一定的逻辑关系联结起来的符号串称作<strong>合式公式</strong>。当使用联结词集 $\{\neg, \land, \lor, \to, \leftrightarrow\}$ 时，合式公式定义如下</p>
+<ol>
+<li>单个命题变项和命题常项是合式公式，并称为原子命题公式</li>
+<li>若 $A$ 是合式公式，则 $\neg A$ 是合式公式</li>
+<li>若 $A, B$ 是合式公式，则 $A\land B, A\lor B, A\to B, A\leftrightarrow B$ 是合式公式</li>
+<li>有限次地应用 1~3 形成的符号串是合式公式</li>
+</ol>
+<p>合式公式也称作<strong>命题公式</strong>或<strong>命题形式</strong>，简称<strong>公式</strong>。</p>
+<p>设 $A$ 为合式公式， $B$ 为 $A$ 中一部分，若 $B$ 也是合式公式，则称 $B$ 为 $A$ 的子公式。</p>
+<p>对于这个定义，要做以下说明：</p>
+<ol>
+<li>定义给出的合式公式的定义方式称作归纳定义或递归定义方式，下文中还将多次出现这种定义方式</li>
+<li>定义中引进了 $A,B$ 等符号，用它们表示任意的合式公式，称作<strong>元语言符号</strong>。而某个具体的公式，如 $p,p\land q,(p\land q)\to r$ 等称作<strong>对象语言符号</strong>。所谓对象语言是指用来描述研究对象的语言，而元语言是指用来描述对象语言的语言，这两种语言是不同层次的语言。</li>
+</ol>
+<p>在命题公式中，由于有命题变项的出现，因而真值是不确定的。用命题常项替换公式中的命题变项称作解释。在将公式中出现的全部命题变项都解释成具体的命题常项后，公式就成了真值确定的命题。</p>
+<p>设 $p_1,p_2,\cdots,p_n$ 是出现在公式 $A$ 中的全部命题变项，给 $p_1, p_2, \cdots, p_n$ 各指定一个真值，称为对 $A$ 的一个<strong>赋值</strong>或<strong>解释</strong>。若指定的一组值使 $A$ 为 $1$ ，则称这组值为 $A$ 的<strong>成真赋值</strong>。若使 $A$ 为 $0$ ，则称这组值为 $A$ 的<strong>成假赋值</strong>。</p>
+<p>对含 $n$ 个命题变项的公式 $A$ 的赋值采用下述记法</p>
+<ol>
+<li>若 $A$ 中出现的命题变项为 $p_1, p_2, \cdots, p_n$ ， $A$ 的赋值 $\alpha_1,\alpha_2,\cdots,\alpha_n$ 是指 $p_1=\alpha_1,p_2=\alpha_2,\cdots,p_n=\alpha_n$</li>
+</ol>
+<p>不难看出，含 $n(n\ge1)$ 个命题变项的公式共有 $2^n$ 个不同的赋值。</p>
+<p>将命题公式 $A$ 在所有赋值下取值情况列成表，称作 $A$ 的真值表。</p>
+<p>构造真值表的具体步骤如下：</p>
+<ol>
+<li>找出公式中所含的全体命题变项 $p_1,p_2,\cdots,p_n$ ，列出 $2^n$ 个赋值。赋值从 $00\cdots0$开始，然后按照二进制加法每次加 $1$ ，依次写出每个赋值，直到 $11\cdots1$ 为止。</li>
+<li>按照从低到高的顺序写出公式的各个层次</li>
+<li>对应各个赋值计算出各层次的真值，直到最后计算出公式的真值</li>
+</ol>
+<p>如果两个公式 $A$ 与 $B$ 的真值表对所有赋值最后一列都相同，即最后结果都相同，则称两个真值表相同，而不考虑构造真值表的中间过程</p>
+<p>设 $A$ 为任一命题公式</p>
+<ol>
+<li>若 $A$ 在它的各种赋值下取值均为真，则称 $A$ 为<strong>重言式</strong>或<strong>永真式</strong></li>
+<li>若 $A$ 在它的各种赋值下取值均为假，则称 $A$ 为<strong>矛盾式</strong>或<strong>永假式</strong></li>
+<li>若 $A$ 不是矛盾式，则称 $A$ 为<strong>可满足式</strong></li>
+</ol>
+<h1 id="2-命题逻辑等值演算"><a href="#2-命题逻辑等值演算" class="headerlink" title="2 命题逻辑等值演算"></a>2 命题逻辑等值演算</h1><h2 id="2-1-等值式"><a href="#2-1-等值式" class="headerlink" title="2.1 等值式"></a>2.1 等值式</h2><p>设 $A,B$ 是两个命题公式，若 $A,B$ 构成的等价式 $A\leftrightarrow B$ 为重言式，则称 $A$ 与 $B$ 是等值的，记作 $A\Leftrightarrow B$ 。</p>
+<p>若 $A$ 与 $B$ 的真值表相同，则 $A\Leftrightarrow B$ ；否则， $A\nLeftrightarrow B$ 。</p>
+<p>16 组常用的<strong>等值式模式</strong>：</p>
+<ol>
+<li>双重否定律 $A\Leftrightarrow \neg\neg A$</li>
+<li>幂等律 $A\Leftrightarrow A\lor A,A\Leftrightarrow A\land A$</li>
+<li>交换律 $A\lor B\Leftrightarrow B\lor A, A\land B\Leftrightarrow B\land A$</li>
+<li>结合律 $(A\lor B)\lor C\Leftrightarrow A\lor (B\lor C), (A\land B)\land C\Leftrightarrow A\land (B\land C)$</li>
+<li>分配律 $A\lor(B\land C)\Leftrightarrow (A\lor B)\land (A\lor C), A\land(B\lor C)\Leftrightarrow (A\land B)\lor (A\land C)$</li>
+<li>德摩根律 $\neg(A\lor B)\Leftrightarrow \neg A\land\neg B, \neg(A\land B)\Leftrightarrow \neg A\lor\neg B$</li>
+<li>吸收律 $A\lor (A\land B)\Leftrightarrow A, A\land(A\lor B)\Leftrightarrow A$</li>
+<li>零律 $A\lor 1\Leftrightarrow1, A\land0\Leftrightarrow0$</li>
+<li>同一律 $A\lor0\Leftrightarrow A,A\land1\Leftrightarrow A$</li>
+<li>排中律 $A\lor\neg A\Leftrightarrow1$</li>
+<li>矛盾律 $A\land\neg A\Leftrightarrow0$</li>
+<li>蕴涵等值式 $A\to B\Leftrightarrow \neg A\lor B$</li>
+<li>等价等值式 $A\leftrightarrow B\Leftrightarrow(A\to B)\land(B\to A)$</li>
+<li>假言易位 $A\to B\Leftrightarrow\neg B\to\neg A$</li>
+<li>等价否定等值式 $A\leftrightarrow B\Leftrightarrow\neg A\leftrightarrow\neg B$</li>
+<li>归谬论 $(A\to B)\land(A\to\neg B)\Leftrightarrow\neg A$</li>
+</ol>
+<p>每个等值式模式都可以给出无穷多个同类型的具体的等值式，这些具体的等值式称为等值式模式的<strong>代入实例</strong>。</p>
+<p>由已知的等值式推演出另外一些等值式的过程称作<strong>等值演算</strong>。等值演算是布尔代数或逻辑代数的重要组成部分。</p>
+<p><strong>置换规则</strong>：设 $\varPhi(A)$ 是含公式 $A$ 的命题公式， $\varPhi(B)$ 是用公式 $B$ 置换 $\varPhi(A)$ 中 $A$ 的所有出现后得到的命题公式。若 $B\Leftrightarrow A$ ，则 $\varPhi(A)\Leftrightarrow\varPhi(B)$</p>
+<h2 id="2-2-析取范式与合取范式"><a href="#2-2-析取范式与合取范式" class="headerlink" title="2.2 析取范式与合取范式"></a>2.2 析取范式与合取范式</h2><p>命题变项及其否定统称作<strong>文字</strong>。仅由有限个文字构成的析取式称作简单析取式。仅有有限个文字的构成的合取式称为简单合取式。</p>
+<p>一个简单析取式是重言式当且仅当它同时含某个命题变项及它的否定式。</p>
+<p>一个简单合取式是矛盾式当且仅当它同时含某个命题变项及它的否定式。</p>
+<p>由有限个简单合取式的析取构成的命题公式称作<strong>析取范式</strong>。</p>
+<p>由有限个简单析取式的合取构成的命题公式称作<strong>合取范式</strong>。</p>
+<p>一个析取范式是矛盾式当且仅当它的每个简单合取式都是矛盾式。</p>
+<p>一个合取范式是重言式当且仅当它的每个简单析取式都是重言式。</p>
+<p>任一命题公式都存在与之等值的析取范式与合取范式。求给定公式范式的步骤为：</p>
+<ol>
+<li>消去联结词 $\to, \leftrightarrow$</li>
+<li>用双重否定律消去双重否定符，用德摩根律内移否定符。</li>
+<li>使用分配律：求析取范式时使用 $\land$ 对 $\lor$ 的分配律，求合取范式时使用 $\lor$ 对 $\land$ 的分配律</li>
+</ol>
+<p>在含有 $n$ 个命题变项的简单合取式（简单析取式） 中，若每个命题变项和它的否定式恰好出现一个且出现一次，而且命题变项或它的否定式按照下标从小到大按照字典顺序排列，则称这样的简单合取式（简单析取式）为极小项（极大项）。</p>
+<p>极小项 $m_i$ 、极大项 $M_i$ ，则 $\neg m_i\Leftrightarrow M_i,m_i\Leftrightarrow\neg M_i$</p>
+<p>所有简单合取式（简单析取式）都是极小项（极大项）的析取范式（合取范式）称为<strong>主析取范式</strong>（<strong>主合取范式</strong>）</p>
+<p>任何命题公式都存在与之等值的主析取范式和主合取范式，并且是唯一的。</p>
+<h2 id="2-3-联结词的完备集"><a href="#2-3-联结词的完备集" class="headerlink" title="2.3 联结词的完备集"></a>2.3 联结词的完备集</h2><p>称 $F:\{0,1\}^n\to\{0,1\}$ 为 $n$ 元真值函数。真值表最后一行为 $i$ 的记作 $F^{n}_i$</p>
+<p>每个真值函数都与唯一的一个主析取范式（主合取范式）等值。</p>
+<p>设 $S$ 是一个联结词集合，如果任何 $n(n\ge1)$ 元真值函数都可以由仅含 $S$ 中的联结词构成的公式表示，则称 $S$ 是<strong>联结词完备集</strong></p>
+<p>设 $p,q$ 是两个命题，复合命题“ $p$ 与 $q$ 的否定式” 称为 $p,q$ 的<strong>与非式</strong>，记作 $p\uparrow q$ 。即 $p\uparrow q\Leftrightarrow\neg(p\land q)$ 。符号 $\uparrow$ 称作<strong>与非联结词</strong>。</p>
+<p>复合命题“ $p$ 或 $q$ 的否定式” 称为 $p,q$ 的<strong>或非式</strong>，记作 $p\downarrow q$ 。即 $p\downarrow q\Leftrightarrow\neg(p\lor q)$ 。符号 $\downarrow$ 称作<strong>或非联结词</strong>。</p>
+<p>下面给出一些联结词完备集</p>
+<ol>
+<li>$\{\neg,\land,\lor\}$</li>
+<li>$\{\neg,\land,\lor,\to\}$</li>
+<li>$\{\neg,\land,\lor,\to,\leftrightarrow\}$</li>
+<li>$\{\neg,\land\}$</li>
+<li>$\{\neg,\lor\}$</li>
+<li>$\{\neg,\to\}$</li>
+<li>$\{\uparrow,\downarrow\}$</li>
+<li>$\{\uparrow\}$</li>
+<li>$\{\downarrow\}$</li>
+</ol>
+<h2 id="可满足性问题与消解法"><a href="#可满足性问题与消解法" class="headerlink" title="可满足性问题与消解法"></a>可满足性问题与消解法</h2><p>任一公式都能化成等值的合取范式，因而一般的可满足性问题可以归结为合取范式的可满足性问题。</p>
+<p>假设一个简单析取式中不同时出现某个命题变项和它的否定，否则它为永真式。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/discrete_mathematics/01/">
+    <time datetime="2022-07-13T14:12:51.592Z" class="entry-date">
+        2022-07-13
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

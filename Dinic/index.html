@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="Dinic,最大流,最小割,多路增广,当前弧优化" />
+  
+  
+  
+  
+  
+  
+  <title>【模板】最大流Dinic+多路增广+当前弧优化 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="给定指定的一个有向图，其中有两个特殊的点源S(Sources)和汇T(Sinks)，每条边有指定的容量(Capacity)，求满足条件的从S到T的最大流(MaxFlow)。  2018-04-08 已更新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【模板】最大流Dinic+多路增广+当前弧优化">
+<meta property="og:url" content="https://vcode28629.github.io/Dinic/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="给定指定的一个有向图，其中有两个特殊的点源S(Sources)和汇T(Sinks)，每条边有指定的容量(Capacity)，求满足条件的从S到T的最大流(MaxFlow)。  2018-04-08 已更新">
+<meta property="og:locale">
+<meta property="og:image" content="https://vcode28629.github.io/images/001.PNG">
+<meta property="og:image" content="https://vcode28629.github.io/images/002.PNG">
+<meta property="og:image" content="https://vcode28629.github.io/images/003.JPG">
+<meta property="og:image" content="https://vcode28629.github.io/images/004.JPG">
+<meta property="og:image" content="https://vcode28629.github.io/images/006.jpg">
+<meta property="article:published_time" content="2018-03-27T05:41:29.000Z">
+<meta property="article:modified_time" content="2021-08-31T06:50:31.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="最大流">
+<meta property="article:tag" content="模版">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vcode28629.github.io/images/001.PNG">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Dinic" class="post-Dinic post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      【模板】最大流Dinic+多路增广+当前弧优化
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/Dinic/" data-id="cl5joxktn0006moue140h5t4d" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>给定指定的一个有向图，其中有两个特殊的点源S(Sources)和汇T(Sinks)，每条边有指定的容量(Capacity)，求满足条件的从S到T的最大流(MaxFlow)。</p>
+<blockquote>
+<p>2018-04-08 已更新</p>
+</blockquote>
+<span id="more"></span>
+<p>在刚学图论的时候，网络流问题真的让我无从下手，后来找时间研究了一下，发现最大流并不难求</p>
+<p>由于给定了一个图，那最大流肯定是定下来的。我们想求最大流，就可以按照二分图匹配的思想，先求可行流，然后增广。</p>
+<p>所以我们先写一个增广函数：</p>
+<pre><code class="lang-cpp">int dfs(int now, int res) &#123;
+  if(now == end) &#123;
+    return res;
+  &#125;
+  for(int edg = first[now]; edg != -1; edg = edge[edg].next) &#123;
+    if(edge[edg].flow &lt;= 0) continue;
+    int add = dfs(edge[edg].to, std::min(res, edge[edg].flow));
+    if(add &gt; 0) &#123;
+      edge[edg].flow -= add;
+      return add;
+    &#125;
+  &#125;
+  return 0;
+&#125;
+
+long long maxFlow() &#123;
+  long long res = 0;
+  while(int add = dfs(start, 0x7fffffff)) &#123;
+    res += add;
+  &#125;
+  return res;
+&#125;
+</code></pre>
+<p>但是很明显，在一个图中DFS并不是一个优秀的做法，我们需要优化。</p>
+<center><b>启发式</b></center>
+
+<p>A*的基础思想告诉我们，尝试启发式搜索也许是个好主意。那我们不仿试一试。</p>
+<center><b>如何启发？</b></center>
+
+<p>从起点开始BFS一遍，试图把图当成分层图（然而并不是），让DFS一层一层走，一直增广到不能再增广了，就可以结束了。</p>
+<pre><code class="lang-cpp">bool setDepth() &#123;
+  std::queue&lt;int&gt; que;
+  while(!que.empty()) que.pop();
+  memset(depth, 0, sizeof(depth));
+  depth[start] = 1;
+  que.push(start);
+  while(!que.empty()) &#123;
+    int now = que.front();
+    que.pop();
+    for(int edg = first[now]; edg != -1; edg = edge[edg].next) &#123;
+      if(edge[edg].flow &gt; 0 &amp;&amp; depth[edge[edg].to] == 0) &#123;
+        depth[edge[edg].to] = depth[now] + 1;
+        que.push(edge[edg].to);
+      &#125;
+    &#125;
+  &#125;
+  return depth[end] != 0;
+&#125;
+
+int dfs(int now, int res) &#123;
+  if(now == end) &#123;
+    return res;
+  &#125;
+  for(int edg = first[now]; edg != -1; edg = edge[edg].next) &#123;
+    if(depth[edge[edg].to] != depth[now] + 1) continue;
+    if(edge[edg].flow &lt;= 0) continue;
+    int add = dfs(edge[edg].to, std::min(res, edge[edg].flow));
+    if(add &gt; 0) &#123;
+      edge[edg].flow -= add;
+      return add;
+    &#125;
+  &#125;
+  return 0;
+&#125;
+
+long long maxFlow() &#123;
+  long long res = 0;
+  while(setDepth()) &#123;
+    while(int add = dfs(start, 0x7fffffff)) &#123;
+      res += add;
+    &#125;
+  &#125;
+  return res;
+&#125;
+</code></pre>
+<p>然后我们兴致勃勃地把这篇代码套上主函数交到了OJ上，发现WA了。  </p>
+<center> ![](/images/000.jpg) </center>
+
+<p>为什么会WA？<br>想一下这样增广真的对吗<br>当我们遇到下面这种情况的话会怎样：  </p>
+<p><img src="/images/001.PNG" alt="">  </p>
+<p>正常情况下，我们先走S-&gt;1-&gt;T，再走S-&gt;2-&gt;T，答案正好是2。但是要是一不小心误入歧途，走了S-&gt;1-&gt;2-&gt;T，接下来就无路可走了。  </p>
+<p>为了避免这种情况，我们要为自己预备一些后悔药，防止自己走错路：<strong>建流量为0的反向边，当正边流量减少时，反边流量增加</strong>。</p>
+<pre><code class="lang-cpp">//链式前向星存图
+void addEdge(int from, int to, int flow) &#123;
+  static int cnt = -1;
+  edge[++cnt].to = to;
+  edge[cnt].flow = flow;
+  edge[cnt].next = first[from];
+  first[from] = cnt;
+  edge[++cnt].to = from;
+  edge[cnt].flow = 0;
+  edge[cnt].next = first[to];
+  first[to] = cnt;
+  return;
+&#125;
+</code></pre>
+<p>我们以 0index 来存边，那么一个边的反向边就是它自己 ^ 1，也方便了我们找反向边。</p>
+<p>所以DFS时的更新流量操作也要改一下</p>
+<pre><code class="lang-cpp">int add = dfs(edge[edg].to, std::min(res, edge[edg].flow));
+if(add &gt; 0) &#123;
+  edge[edg].flow -= add;
+  edge[edg ^ 1].flow += add;
+  return add;
+&#125;
+</code></pre>
+<p>好的，现在我们整理一下，交到洛谷上</p>
+<p><img src="/images/002.PNG" alt=""></p>
+<p>AC!  </p>
+<p>交到LOJ上喜加一！  </p>
+<p><img src="/images/003.JPG" alt=""></p>
+<p>emmmmmmm……</p>
+<p>为什么会这样呢</p>
+<p>然后我翻了下红书，发现maxFlow函数并不是我这么写的，而是这样</p>
+<pre><code class="lang-cpp">long long maxFlow() &#123;
+  long long res = 0;
+  while(setDepth()) &#123;
+    res += dfs(start, 0x7fffffff);
+  &#125;
+  return res;
+&#125;
+</code></pre>
+<p>比我的少了一个while循环。我试图理解了一下，这样写确实比我的写法要更优，所以换上这个再交一发：</p>
+<p><img src="/images/004.JPG" alt=""></p>
+<p>AC!</p>
+<blockquote>
+<p>请注意，红书上DFS也与我不一样，这一点在文章结尾已更新</p>
+</blockquote>
+<p>最后放上整份代码：</p>
+<pre><code class="lang-cpp">//LOJ101，未封装
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;queue&gt;
+
+const int MAX_NODE_NUM = 100;
+const int MAX_EDGE_NUM = 5000;
+
+struct Edge &#123;
+  int to;
+  int flow;
+  int next;
+&#125; edge[(MAX_EDGE_NUM &lt;&lt; 1) + 1];
+
+int first[MAX_NODE_NUM + 1];
+int depth[MAX_NODE_NUM + 1];
+int start;
+int end;
+
+void addEdge(const int, const int, const int);
+long long maxFlow();
+
+int main() &#123;
+  //init
+  memset(first, -1, sizeof(first));
+  int noden;
+  int edgen;
+  scanf(&quot;%d%d%d%d&quot;, &amp;noden, &amp;edgen, &amp;start, &amp;end);
+  while(edgen--) &#123;
+    int from, to, flow;
+    scanf(&quot;%d%d%d&quot;, &amp;from, &amp;to, &amp;flow);
+    addEdge(from, to, flow);
+  &#125;
+  ///init
+
+  //solve&amp;print
+  printf(&quot;%lld\n&quot;, maxFlow());
+  ///solve&amp;print
+&#125;
+
+inline void addEdge(const int from, const int to, const int flow) &#123;
+  static int cnt = -1;
+  edge[++cnt].to = to;
+  edge[cnt].flow = flow;
+  edge[cnt].next = first[from];
+  first[from] = cnt;
+  edge[++cnt].to = from;
+  edge[cnt].flow = 0;
+  edge[cnt].next = first[to];
+  first[to] = cnt;
+  return;
+&#125;
+
+bool setDepth() &#123;
+  std::queue&lt;int&gt; que;
+  while(!que.empty()) que.pop();
+  memset(depth, 0, sizeof(depth));
+  depth[start] = 1;
+  que.push(start);
+  while(!que.empty()) &#123;
+    int now = que.front();
+    que.pop();
+    for(int edg = first[now]; edg != -1; edg = edge[edg].next) &#123;
+      if(edge[edg].flow &gt; 0 &amp;&amp; depth[edge[edg].to] == 0) &#123;
+        depth[edge[edg].to] = depth[now] + 1;
+        que.push(edge[edg].to);
+      &#125;
+    &#125;
+  &#125;
+  return depth[end] != 0;
+&#125;
+
+int dfs(int now, int res) &#123;
+  if(now == end) &#123;
+    return res;
+  &#125;
+  for(int edg = first[now]; edg != -1; edg = edge[edg].next) &#123;
+    if(depth[edge[edg].to] != depth[now] + 1) continue;
+    if(edge[edg].flow &lt;= 0) continue;
+    int add = dfs(edge[edg].to, std::min(res, edge[edg].flow));
+    if(add &gt; 0) &#123;
+      edge[edg].flow -= add;
+      edge[edg ^ 1].flow += add;
+      return add;
+    &#125;
+  &#125;
+  return 0;
+&#125;
+
+long long maxFlow() &#123;
+  long long res = 0;
+  while(setDepth()) &#123;
+    res += dfs(start, 0x7fffffff);
+  &#125;
+  return res;
+&#125;
+</code></pre>
+<pre><code class="lang-cpp">//luogu最大流，半封装
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;queue&gt;
+using std::queue;
+using std::min;
+
+const int MAX_NODE_NUM = 10000;
+const int MAX_EDGE_NUM = 100000;
+
+class NetworkFlow &#123;
+ private:
+  bool MakeDepth();
+  int Dfs(int, int);
+  int cnt;
+  int start;
+  int end;
+  int first[MAX_NODE_NUM + 1];
+  int depth[MAX_NODE_NUM + 1];
+  int to[MAX_EDGE_NUM &lt;&lt; 1 | 1];
+  int flow[MAX_EDGE_NUM &lt;&lt; 1 | 1];
+  int next[MAX_EDGE_NUM &lt;&lt; 1 | 1];
+ public:
+  NetworkFlow(int = 0, int = 0);
+  void AddEdge(int, int, int);
+  int MaxFlow();
+&#125;;
+
+NetworkFlow::NetworkFlow(int from, int to)
+ : start(from), end(to), cnt(-1) &#123;
+  memset(first, -1, sizeof(first));
+  memset(NetworkFlow::to, 0, sizeof(NetworkFlow::to));
+  memset(flow, 0, sizeof(flow));
+  memset(next, -1, sizeof(next));
+  return;
+&#125;
+
+void NetworkFlow::AddEdge(int from, int to, int flow) &#123;
+  ++cnt;
+  NetworkFlow::to[cnt] = to;
+  NetworkFlow::flow[cnt] = flow;
+  next[cnt] = first[from];
+  first[from] = cnt;
+  ++cnt;
+  NetworkFlow::to[cnt] = from;
+  NetworkFlow::flow[cnt] = 0;
+  next[cnt] = first[to];
+  first[to] = cnt;
+  return;
+&#125;
+
+bool NetworkFlow::MakeDepth() &#123;
+  queue&lt;int&gt; que;
+  memset(depth, 0, sizeof(depth));
+  depth[start] = 1;
+  que.push(start);
+  while(!que.empty()) &#123;
+    int now = que.front();
+    que.pop();
+    for(int nxt = first[now]; nxt != -1; nxt = next[nxt]) &#123;
+      if(flow[nxt] &gt; 0 &amp;&amp; depth[to[nxt]] == 0) &#123;
+        depth[to[nxt]] = depth[now] + 1;
+        que.push(to[nxt]);
+      &#125;
+    &#125;
+  &#125;
+  if(depth[end] == 0) &#123;
+    return 0;
+  &#125;
+  return 1;
+&#125;
+
+int NetworkFlow::Dfs(int now, int res) &#123;
+  if(now == end) return res;
+  for(int nxt = first[now]; nxt != -1; nxt = next[nxt]) &#123;
+    if(depth[to[nxt]] != depth[now] + 1) continue;
+    if(flow[nxt] &lt;= 0) continue;
+    int d = Dfs(to[nxt], min(res, flow[nxt]));
+    if(d &gt; 0) &#123;
+      flow[nxt] -= d;
+      flow[nxt ^ 1] += d;
+      return d;
+    &#125;
+  &#125;
+  return 0;
+&#125;
+
+int NetworkFlow::MaxFlow() &#123;
+  int res = 0;
+  while(MakeDepth()) &#123;
+    res += Dfs(start, 0x7fffffff));
+  &#125;
+  return res;
+&#125;
+
+int main() &#123;
+  int edgen;
+  int noden;
+  int start, end;
+  scanf(&quot;%d%d%d%d&quot;, &amp;noden, &amp;edgen, &amp;start, &amp;end);
+  NetworkFlow group(start, end);
+  int from, to, flow;
+  for(int i = 1; i &lt;= edgen; ++i) &#123;
+    scanf(&quot;%d%d%d&quot;, &amp;from, &amp;to, &amp;flow);
+    group.AddEdge(from, to, flow);
+  &#125;
+  printf(&quot;%d\n&quot;, group.MaxFlow());
+  return 0;
+&#125;
+</code></pre>
+<hr>
+<h2 id="2018-04-08更新"><a href="#2018-04-08更新" class="headerlink" title="2018-04-08更新"></a><strong>2018-04-08更新</strong></h2><p>日后发现我虽然过了LOJ的普通模板，但是这并不是一个标准写法。正确的写法应该是多路增广，就是一次DFS增广很多条路。</p>
+<pre><code class="lang-cpp">int dfs(int now, int flow) &#123;
+  if(now == end) &#123;
+    return flow;
+  &#125;
+  int res = 0;//update
+  for(int edg = first[now]; edg != -1; edg = edge[edg].next) &#123;
+    if(depth[edge[edg].to] != depth[now] + 1) continue;
+    if(edge[edg].flow &lt;= 0) continue;
+    int add = dfs(edge[edg].to, std::min(flow, edge[edg].flow));
+    //if(add &gt; 0) &#123;//update
+      edge[edg].flow -= add;
+      edge[edg ^ 1].flow += add;
+      flow -= add;//update
+      res += add;//update
+      if(flow == 0) break;//update
+    //&#125;//update
+  &#125;
+  if(res == 0) depth[now] = 0;//update
+  //在此感谢igronemyk大佬为我指出这个卡了我很久的地方
+  //这个是用来保证多路增广复杂度的
+  return res;//update
+&#125;
+</code></pre>
+<p>有变化的地方已经用注释标上了update，应该很好理解，就不赘述了。</p>
+<p>在向群里的dalao请教后得知还有个当前弧优化。<br>加上这个后成功更强地A掉了这道题</p>
+<p>当前弧，故名思义，就是当前的弧。</p>
+<p><img src="/images/006.jpg" alt=""></p>
+<p>当前弧优化，就是记录一下这个结点目前走到哪条边了，下次走的时候直接从这条边开始走就行。</p>
+<p>能砍掉很多无用的时间</p>
+<p><a href="/code/Dinic">代码</a></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/Dinic/">
+    <time datetime="2018-03-27T05:41:29.000Z" class="entry-date">
+        2018-03-27
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/LOJ516/" rel="prev"><span class="meta-nav">←</span> LOJ516 DP一般看规律 离散化+乱搞</a></span>
+    
+    
+        <span class="nav-next"><a href="/helloVCode/" rel="next">我叫VCode，VCode28629 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

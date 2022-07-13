@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="并查集,带权并查集,按秩合并,路径压缩,权值并查集,联合并查集,关系并查集,回滚并查集,可撤销并查集,可持久化并查集,可持久化" />
+  
+  
+  
+  
+  
+  
+  <title>【模板】并查集及几种变化 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="并查集(Union-Find Set，个人常写作UnionSet)，就是可以合并，可以查询的集合。朴素并查集是最简单的数据结构之一。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【模板】并查集及几种变化">
+<meta property="og:url" content="https://vcode28629.github.io/UnionSet/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="并查集(Union-Find Set，个人常写作UnionSet)，就是可以合并，可以查询的集合。朴素并查集是最简单的数据结构之一。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-12-12T11:49:36.000Z">
+<meta property="article:modified_time" content="2021-08-31T06:46:27.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="模版">
+<meta property="article:tag" content="并查集">
+<meta property="article:tag" content="回滚并查集">
+<meta property="article:tag" content="可持久化并查集">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-UnionSet" class="post-UnionSet post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      【模板】并查集及几种变化
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/UnionSet/" data-id="cl5joxktx000omoue2c12335v" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>并查集(Union-Find Set，个人常写作UnionSet)，就是可以合并，可以查询的集合。朴素并查集是最简单的数据结构之一。</p>
+<span id="more"></span>
+<p>给定n个元素，最初每个元素在一个集合中，要求实现两种操作：</p>
+<ol>
+<li>合并两个元素所在集合</li>
+<li>查询两个元素是否在同一集合</li>
+</ol>
+<p>我们可以把每个集合进行标号，如果两个元素所在集合标号一样，说明在同一个集合里。</p>
+<p>考虑合并操作，如果暴力将其中一个集合中所有元素标号改成另一个，复杂度爆炸。所以我们使用树形结构来维护。如果将两个集合合并，就将两个集合之间连边。查询时找树根即可。</p>
+<pre><code class="lang-cpp">void init() &#123;
+  for(int i = 1; i &lt;= num; ++i) &#123;
+    father[i] = i;//最初所有元素标号都为自己
+  &#125;
+&#125;
+int find(int son) &#123;//找树根
+  while(father[son] != son) son = father[son];
+  return son;
+&#125;
+void join(int a, int b) &#123;//合并
+  father[find(a)] = find(b);//合并树根
+  return;
+&#125;
+</code></pre>
+<blockquote>
+<p>有些人会不进行这样的init，然后判断fa是否为0，也是一种方法。</p>
+</blockquote>
+<p>但是只是这样的话，构造数据是可以将复杂度卡到爆炸的，所以便出现了各种优化：</p>
+<h2 id="按秩合并-单次操作复杂度可看作-rm-O-logn"><a href="#按秩合并-单次操作复杂度可看作-rm-O-logn" class="headerlink" title="按秩合并(单次操作复杂度可看作 $\rm O(logn)$ )"></a>按秩合并(单次操作复杂度可看作 $\rm O(logn)$ )</h2><p>考虑两个集合所在的树的高度depth[a]和depth[b]，我们可以将高度小的树根接在高度大的树根上，能比随便接在查询时快一些。</p>
+<pre><code class="lang-cpp">void join(int a, int b) &#123;
+  a = find(a);
+  b = find(b);
+  if(depth[a] &gt; depth[b]) std::swap(a, b);
+  father[a] = b;
+  if(depth[a] == depth[b]) ++depth[b];//只用根记录depth即可
+  return;
+&#125;
+</code></pre>
+<p>按秩合有时会用到，但并不是重点，不会也可以，所以也不重点讲解。重点在路径压缩。</p>
+<h2 id="路径压缩-单次操作复杂度极低，可看作-rm-O-1"><a href="#路径压缩-单次操作复杂度极低，可看作-rm-O-1" class="headerlink" title="路径压缩(单次操作复杂度极低，可看作 $\rm O(1)$ )"></a>路径压缩(单次操作复杂度极低，可看作 $\rm O(1)$ )</h2><p>考虑到一个集合的树只要连通，长成什么样子都是可以的，所以我们可以在find时把一路的father都直接改到根上，以后再查询的时候就能少走不少路。这样，按秩合并也可以舍弃了。</p>
+<p>路径压缩并查集的复杂度为 $\rm O(\alpha(n))$ ，其中 $\alpha$ 是 $Ackermann$ 函数的反函数。这个复杂度可近似看作 $\rm O(1)$ 。</p>
+<pre><code class="lang-cpp">//传说中的一行一个并查集
+int find(int son) &#123;
+  return father[son] == son ? son : father[son] = find(father[son]);
+&#125;
+void join(int a, int b) &#123;
+  father[find(a)] = find(b);
+  return;
+&#125;
+</code></pre>
+<p>模板：<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P3367">洛谷P3367</a></p>
+<p>代码：</p>
+<pre><code class="lang-cpp">#include&lt;cstdio&gt;
+
+class UnionSet &#123;
+ private:
+  int *father;
+ public:
+  UnionSet() : father(NULL) &#123;  &#125;
+  UnionSet(int len) : father(NULL) &#123;
+    init(len);
+  &#125;
+  void init(int len) &#123;
+    delete[] father;
+    father = new int[len + 1];
+    for(int i = 0; i &lt;= len; ++i) &#123;
+      father[i] = i;
+    &#125;
+  &#125;
+  int find(int son) &#123;
+    return son == father[son] ? son : father[son] = find(father[son]);
+  &#125;
+  void join(int a, int b) &#123;
+    father[find(a)] = find(b);
+  &#125;
+&#125;;
+
+int main() &#123;
+  int num;
+  int open;
+  scanf(&quot;%d%d&quot;, &amp;num, &amp;open);
+  UnionSet set(num);
+  for(int i = 1; i &lt;= open; ++i) &#123;
+    int ope;
+    int a, b;
+    scanf(&quot;%d%d%d&quot;, &amp;ope, &amp;a, &amp;b);
+    if(ope == 1) &#123;
+      set.join(a, b);
+    &#125; else &#123;
+      puts(set.find(a) == set.find(b) ? &quot;Y&quot; : &quot;N&quot;);
+    &#125;
+  &#125;
+  return 0;
+&#125;
+</code></pre>
+<p>接下来讲几个并查集的扩展：</p>
+<h2 id="联合并查集"><a href="#联合并查集" class="headerlink" title="联合并查集"></a>联合并查集</h2><p>又叫关系并查集。正常并查集是维护两个元素在同一集合中，而联合并查集则是将所有元素分为两个（有些题可以更多）部分，所有元素非此即彼。</p>
+<p>举个例子：</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P1525">NOIP2010 关押罪犯</a></p>
+<p>n个罪犯，2个监狱。有些对罪犯如果关在同一个监狱会产生 $c_i$ 的影响。问最优分配下最小的最大影响。</p>
+<p>显然应该贪心从大到小处理，使产生影响的两个罪犯不在同一监狱里。当两个罪犯必须在一个监狱里时，输出影响值即可。</p>
+<p>如何处理“两个罪犯不在同一监狱里”？</p>
+<p>考虑对于每个人，建立两个并查集中的结点，一个表示自己所在监狱，一个代表自己不在的监狱。当两个罪犯 $A,B$ 不能在同一监狱时，合并 $A$ 在的监狱与 $B$ 不在的监狱，再合并 $B$ 在的监狱与 $A$ 不在的监狱即可。</p>
+<p>代码：</p>
+<pre><code class="lang-cpp">#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+
+class UnionSet &#123;
+ private:
+  int *father;
+ public:
+  UnionSet() : father(NULL) &#123;  &#125;
+  UnionSet(int len) : father(NULL) &#123;
+    init(len);
+  &#125;
+  void init(int len) &#123;
+    delete[] father;
+    father = new int[len + 1];
+    for(int i = 0; i &lt;= len; ++i) &#123;
+      father[i] = i;
+    &#125;
+  &#125;
+  int find(int son) &#123;
+    return son == father[son] ? son : father[son] = find(father[son]);
+  &#125;
+  void join(int a, int b) &#123;
+    father[find(a)] = find(b);
+  &#125;
+&#125;;
+
+int a[100005];
+int b[100005];
+int cost[100005];
+int id[100005];
+
+int main() &#123;
+  int num;
+  int pairn;
+  scanf(&quot;%d%d&quot;, &amp;num, &amp;pairn);
+  UnionSet set(num &lt;&lt; 1);
+  for(int i = 1; i &lt;= pairn; ++i) &#123;
+    scanf(&quot;%d%d%d&quot;, a + i, b + i, cost + i);
+    id[i] = i;
+  &#125;
+  std::sort(id + 1, id + 1 + pairn, [](int a, int b) &#123;
+    return cost[a] &gt; cost[b];
+  &#125;);//c++11 
+  for(int i = 1; i &lt;= pairn; ++i) &#123;
+    if(set.find(a[id[i]]) == set.find(b[id[i]])) &#123;
+      printf(&quot;%d\n&quot;, cost[id[i]]);
+      return 0;
+    &#125;
+    set.join(a[id[i]], b[id[i]] + num);
+    set.join(a[id[i]] + num, b[id[i]]);
+  &#125;
+  putchar(&#39;0&#39;);
+  return 0;
+&#125;
+</code></pre>
+<p>类似的题目还有：<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P2024">[NOI2001]食物链</a></p>
+<h2 id="权值并查集"><a href="#权值并查集" class="headerlink" title="权值并查集"></a>权值并查集</h2><p>又叫带权并查集。在并查集过程中维护每个节点与根节点的信息，在路径压缩和合并时更新。</p>
+<p>例题：<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P1196">[NOI2002]银河英雄传说</a></p>
+<p>$30000$ 个人，每次操作使 $i$ 所在列整体接到 $j$ 所在列后面，或者询问 $i$ 与 $j$ 的距离，不在同一列输出 $-1$ 。</p>
+<p><del>splay傻逼题</del></p>
+<p>用权值并查集就可以做了</p>
+<p>详情参见代码。</p>
+<pre><code class="lang-cpp">#include&lt;cstdio&gt;
+#include&lt;cmath&gt;
+
+class UnionSet &#123;
+ private:
+  int *father;//根节点
+  int *size;//所在一列的大小
+ public:
+  int *dis;//到队头的距离
+  UnionSet() : father(NULL), size(NULL), dis(NULL) &#123;  &#125;
+  UnionSet(int len) : father(NULL) &#123;
+    init(len);
+  &#125;
+  void init(int len) &#123;
+    delete[] father;
+    delete[] size;
+    delete[] dis;
+    father = new int[len + 1];
+    size = new int[len + 1];
+    dis = new int[len + 1];
+    for(int i = 0; i &lt;= len; ++i) &#123;
+      father[i] = i;
+      dis[i] = 0;
+      size[i] = 1;
+    &#125;
+  &#125;
+  int find(int son) &#123;
+    if(father[father[son]] != father[son]) &#123;//注意不要修改过度 
+      int fa = father[son];//记录原父亲方便修改 
+      father[son] = find(father[son]);//放在修改之前，优先修改父亲 
+      dis[son] += dis[fa];//dis加上fa的dis 
+      size[son] = size[father[son]];
+    &#125;
+    return father[son];
+  &#125;
+  void join(int a, int b) &#123;
+    //join顺序很重要，一定要把a连在b下面 
+    a = find(a);
+    b = find(b);//顺便更新了b的信息 
+    father[a] = b;
+    dis[a] += size[b];//排在队尾，长度增加 
+    size[b] += size[a];//b的大小增加了 
+    size[a] = size[b];//a的大小与b相同 
+    father[find(a)] = find(b);
+  &#125;
+&#125;;
+
+UnionSet set(30000); 
+
+int main() &#123;
+
+
+  int ope;
+  scanf(&quot;%d&quot;, &amp;ope);
+  int a, b;
+  for(int i = 1; i &lt;= ope; ++i) &#123;
+    char ch = &#39; &#39;;
+    while(ch != &#39;C&#39; &amp;&amp; ch != &#39;M&#39;) &#123;
+      ch = getchar();
+    &#125;
+    if(ch == &#39;M&#39;) &#123;
+      scanf(&quot;%d%d&quot;, &amp;a, &amp;b);
+      set.join(a, b);//注意合并顺序
+    &#125; else &#123;
+      scanf(&quot;%d%d&quot;, &amp;a, &amp;b);
+      if(set.find(a) == set.find(b)) &#123;
+        printf(&quot;%d\n&quot;, std::abs(set.dis[a] - set.dis[b]) - 1);
+      &#125; else &#123;
+        puts(&quot;-1&quot;);
+      &#125;
+    &#125;
+  &#125;
+  return 0;
+&#125;
+</code></pre>
+<p>以上两个是并查集的两个基础变化。我们再来讨论一下稍微高级一点的。</p>
+<h2 id="回滚并查集"><a href="#回滚并查集" class="headerlink" title="回滚并查集"></a>回滚并查集</h2><p>即带撤销并查集，不是可持久化并查集。</p>
+<p>要求实现并查集的基本操作，并且新增撤销操作，撤销上一次join。</p>
+<p>回滚并查集必须要按秩合并来实现。思路大概是用栈来维护每次修改的位置与修改前的内容，撤销时覆盖回去就好了，不难实现。</p>
+<pre><code class="lang-cpp">class UnionSet &#123;
+ private:
+  int *father;
+  int *depth;
+  std::stack&lt;std::pair&lt;int, int&gt; &gt; fatherc;
+  std::stack&lt;std::pair&lt;int, int&gt; &gt; depthc;
+ public:
+  UnionSet() : father(NULL) &#123;  &#125;
+  UnionSet(int len) : father(NULL) &#123;
+    init(len);
+  &#125;
+  void init(int len) &#123;
+    delete[] father;
+    father = new int[len + 1];
+    delete[] depth;
+    depth = new int[len + 1];
+    while(!fatherc.empty()) fatherc.pop();
+    while(!depthc.empty()) depthc.pop();
+    for(int i = 0; i &lt;= len; ++i) &#123;
+      father[i] = i;
+      depth[i] = 0;
+    &#125;
+  &#125;
+  int find(int son) &#123;
+    while(father[son] != son) son = father[son];
+    return son;
+  &#125;
+  void join(int a, int b) &#123;
+    a = find(a);
+    b = find(b);
+    if(depth[a] &gt; depth[b]) std::swap(a, b);
+    fatherc.push(std::make_pair(a, father[a]));
+    father[a] = b;
+    depthc.push(std::make_pair(b, depth[b]));//为了写起来方便，即使depth没被修改也记录一下 
+    if(depth[a] == depth[b]) ++depth[b];
+    return;
+  &#125;
+  void undo() &#123;
+    father[fatherc.top().first] = fatherc.top().second;
+    fatherc.pop();
+    depth[depthc.top().first] = depthc.top().second;
+    depthc.pop();
+  &#125;
+&#125;;
+</code></pre>
+<h2 id="可持久化并查集"><a href="#可持久化并查集" class="headerlink" title="可持久化并查集"></a>可持久化并查集</h2><p>就是用主席树实现按秩合并并查集，复杂度 $mlog^2n$ ，没什么好说的。</p>
+<p>前置技能：主席树。</p>
+<p>代码：暂时犯懒不想写了，TODO吧。</p>
+<p><a href="/code/UnionSet/">整体代码</a></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/UnionSet/">
+    <time datetime="2018-12-12T11:49:36.000Z" class="entry-date">
+        2018-12-12
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/LCT/" rel="prev"><span class="meta-nav">←</span> 【模板】动态树LCT</a></span>
+    
+    
+        <span class="nav-next"><a href="/SA-IS/" rel="next">【模板】后缀数组SA-IS <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

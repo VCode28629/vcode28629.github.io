@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="数值计算方法" />
+  
+  
+  
+  
+  
+  
+  <title>数值计算方法笔记03——线性方程组数值解法 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考教材：孙志忠, 吴宏伟, 等. 计算方法与实习[M]. 第五版. 南京: 东南大学出版社, 2011:50-84.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="数值计算方法笔记03——线性方程组数值解法">
+<meta property="og:url" content="https://vcode28629.github.io/numerical_analysis/03/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="参考教材：孙志忠, 吴宏伟, 等. 计算方法与实习[M]. 第五版. 南京: 东南大学出版社, 2011:50-84.">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-07-13T14:12:51.592Z">
+<meta property="article:modified_time" content="2021-11-11T09:04:50.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      数值计算方法笔记03——线性方程组数值解法
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/numerical_analysis/03/" data-id="cl5joxkuo0030moue1wep2s43" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>参考教材：孙志忠, 吴宏伟, 等. 计算方法与实习[M]. 第五版. 南京: 东南大学出版社, 2011:50-84.</p>
+<span id="more"></span>
+<p>线性方程组可以写成矩阵形式 $\mathbf A\vec x=\vec b$</p>
+<p>有时也写成增广矩阵形式 $\overline{\mathbf A}=[\mathbf A\vec b]=\begin{bmatrix}<br>a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} &amp; b_1\\<br>a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} &amp; b_2\\<br>\vdots &amp; \vdots &amp;  &amp; \vdots &amp; \vdots\\<br>a_{n1} &amp; a_{n2} &amp; \cdots &amp; a_{nn} &amp; b_n\\<br>\end{bmatrix}$</p>
+<p>如果矩阵 $\mathbf A$ 是非奇异（$\det\mathbf A\ne0$）的，则方程组有唯一解。并且可用克莱姆(Cramer)法则表示解： $x_i=\frac{D_i}D$ ，其中 $x_i$ 为 $\vec x$ 的第 $i$ 个分量，  $D_i$ 是用 $\vec b$ 代替 $\mathbf A$ 的第 $i$ 列后所得矩阵的行列式。</p>
+<p>本章始终假设 $\mathbf A$ 为奇异矩阵</p>
+<h2 id="消去法"><a href="#消去法" class="headerlink" title="消去法"></a>消去法</h2><h3 id="三角方程组的解法"><a href="#三角方程组的解法" class="headerlink" title="三角方程组的解法"></a>三角方程组的解法</h3><p>给 $\mathbf U\vec x=\vec y$</p>
+<p>其中 $\mathbf U=\begin{bmatrix}<br>u_{11} &amp; u_{12} &amp; \cdots &amp; u_{1,n-1} &amp; u_{1n}\\<br>       &amp; u_{22} &amp; \cdots &amp; u_{2,n-1} &amp; u_{2n}\\<br>       &amp;        &amp; \ddots &amp; \vdots &amp; \vdots\\<br>       &amp;        &amp;        &amp; u_{n-1,n-1} &amp; u_{n-1,n}\\<br>       &amp;        &amp;        &amp;           &amp; u_{nn}<br>\end{bmatrix}$</p>
+<p>若 $\det\mathbf U\ne0$ ，即 $u_{ii}\ne0$ ，则方程组有唯一解</p>
+<p>显然， $x_i=\frac{y_i-\sum_{j=i+1}^nu_{ij}x_j}{u_{ii}} (i:n\rightarrow1)$</p>
+<p>这样逆向求 $x_i$ 的过程称为<strong>回代过程</strong>。</p>
+<p>所需乘除法运算次数为 $M_1=\sum_{i=1}^n(n-i+1)=\frac{n(n+1)}2$</p>
+<p>所需加减法运算次数为 $S_1=\sum_{i=1}^n(n-1)=\frac{n(n-1)}2$</p>
+<h3 id="高斯消去法"><a href="#高斯消去法" class="headerlink" title="高斯消去法"></a>高斯消去法</h3><p>算法略</p>
+<p>消元过程：</p>
+<p>乘除法次数为 $M_2=\frac{n^3}3+\frac{n^2}2-\frac{5n}6$</p>
+<p>加减法次数为 $S_2=\frac{n^3}3-\frac n3$</p>
+<p>总运算量：</p>
+<p>$M=M_1+M_2=\frac{n^3}3+n^2-\frac n3$</p>
+<p>$S=S_1+S_2=\frac{n^3}3+\frac{n^2}2-\frac{5n}6$</p>
+<h3 id="追赶法"><a href="#追赶法" class="headerlink" title="追赶法"></a>追赶法</h3><p>追赶法用来解决一种特殊的线性方程组：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+b_1 & c_1\\
+a_2 & b_2 & c_2\\
+& a_3 & b_3 & c_3\\
+&& \ddots & \ddots & \ddots\\
+&&& a_{n-1} & b_{n-1} & c_{n-1}\\
+&&&& a_n & b_n
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\x_2\\x_3\\\vdots\\x_{n-1}\\x_n
+\end{bmatrix}
+=
+\begin{bmatrix}
+d_1\\d_2\\d_3\\\vdots\\d_{n-1}\\d_n
+\end{bmatrix}</script><p>且满足 </p>
+<ol>
+<li>$|b_1|\gt|c_1|\gt0$</li>
+<li>$|b_i|\ge|a_i|+|c_i|, a_ic_i\ne0$</li>
+<li>$|b_n|\ge|a_n|\gt0$</li>
+</ol>
+<p>则消元过程为</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+\beta_1&=b_1 &,&y_1=d_1\\
+\beta_i&=b_i-\frac{a_i}{\beta_{i-1}}c_{i-1}&,&y_i=d_i-\frac{a_i}{\beta_{i-1}}c_{i-1}
+\end{aligned}
+\right.</script><p>回代过程为</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+x_n&=\frac{y_n}{\beta_n}\\
+x_i&=\frac{y_i-c_ix_{i+1}}{\beta_i}
+\end{aligned}
+\right.</script><p>共 $5n-4$ 次乘除法运算， $3n-3$ 次加减法运算</p>
+<h3 id="列主元高斯消去法"><a href="#列主元高斯消去法" class="headerlink" title="列主元高斯消去法"></a>列主元高斯消去法</h3><p>在进行第 $k$ 步消元之前，选出第 $k$ 列中位于对角线及以下元素绝对值中的最大者，交换两行。可以减小误差</p>
+<h2 id="矩阵的直接分解及其在解方程组中的应用"><a href="#矩阵的直接分解及其在解方程组中的应用" class="headerlink" title="矩阵的直接分解及其在解方程组中的应用"></a>矩阵的直接分解及其在解方程组中的应用</h2><h3 id="矩阵分解的紧凑格式"><a href="#矩阵分解的紧凑格式" class="headerlink" title="矩阵分解的紧凑格式"></a>矩阵分解的紧凑格式</h3><p>将方阵 $\mathbf A$ 分解成一个下三角矩阵 $\mathbf L$ 和一个上三角矩阵 $\mathbf U$ 的乘积称为矩阵的三角（因子）分解。</p>
+<p>若 $L$ 为单位下三角矩阵（对角元全为 $1$ ），则称为 Doolittle 分解。</p>
+<p>若 $U$ 为单位上三角矩阵，则称为 Crout 分解。</p>
+<p>若在消元法前进行 $\mathbf{LU}$ 分解，则</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\mathbf A\vec x=\vec b\\
+\Leftrightarrow&(\mathbf{LU})\vec x=\vec b\\
+\Leftrightarrow&\mathbf L\vec y=\vec b, \mathbf U\vec x=\vec y
+\end{aligned}</script><script type="math/tex; mode=display">
+\mathbf A=\mathbf{LU}=
+\begin{bmatrix}
+1\\
+l_{21} & 1\\
+l_{31} & l_{32} & 1\\
+\vdots & \vdots & \vdots & \ddots\\
+l_{n1} & l_{n2} & l_{n3} & \cdots & 1\\
+\end{bmatrix}
+\begin{bmatrix}
+u_{11} & u_{12} & u_{13} & \cdots & u_{1n}\\
+  & u_{22} & u_{23} & \cdots & u_{2n}\\
+  &   & u_{33} & \cdots & u_{3n}\\
+ &  &  & \ddots & \vdots\\
+ &  &  &  & u_{nn}\\
+\end{bmatrix}</script><script type="math/tex; mode=display">
+\begin{aligned}
+u_{1j}&=a_{1j}\\
+l_{i1}&=\frac{a_{i1}}{u_{11}}\\
+u_{kj}&=a_{kj}-\sum_{q=1}^{k-1}l_{kq}u_{qj}\\
+l_{ik}&=\frac{a_{ik}-\sum_{q=1}^{k-1}l_{iq}u_{qk}}{u_{kk}}\\
+y_1&=b_1\\
+y_k&=b_k-\sum_{q=1}^{k-1}l_{kq}y_q
+\end{aligned}</script><p>为了便于记忆，可以将 $\mathrm L,\mathrm U$ 元素写在一起，形成紧凑格式：</p>
+<script type="math/tex; mode=display">
+\mathbf A\rightarrow
+\begin{bmatrix}
+u_{11} & u_{12} & u_{13} & \cdots & u_{1n}\\
+l_{21} & u_{22} & u_{23} & \cdots & u_{2n}\\
+l_{31} & l_{32} & u_{33} & \cdots & u_{3n}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+l_{n1} & l_{n2} & l_{n3} & \cdots & u_{nn}\\
+\end{bmatrix}</script><p>本来矩阵里还有一堆线的，但是 mathjax 不支持这么高级的语法（</p>
+<h3 id="平方根法"><a href="#平方根法" class="headerlink" title="平方根法"></a>平方根法</h3><p>设 $\mathbf A\in R^{n\times n}$ ，若 $\mathbf A=\mathbf A^T$ ，对任意的 $0\ne \vec x\in R^n$，都有 $\vec x^T\mathbf A\vec x\gt0$ ，则称 $\mathbf A$为对称正定矩阵</p>
+<p>设 $\mathbf A$ 对称正定，则有非奇异下三角阵 $\mathbf L$ ，使 $\mathbf A=\mathbf{LL}^T$</p>
+<p>此时有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+l_{11}&=\sqrt{a_{11}}\\
+l_{j1}&=\frac{a_{j1}}{l_{11}}\\
+l_{kk}&=\sqrt{a_{kk}-\sum_{q=1}^{k-1}l_{kq}^2}\\
+l_{jk}&=\frac1{l_{kk}}(a_{jk}-\sum_{q=1}^{k-1}l_{kq}l_{jq})
+\end{aligned}</script><p>优点：</p>
+<ol>
+<li>计算量小</li>
+<li>稳定，不比先主元</li>
+</ol>
+<p>缺点：开方运算</p>
+<h3 id="改进平方根法"><a href="#改进平方根法" class="headerlink" title="改进平方根法"></a>改进平方根法</h3><p>设 $\mathbf A$ 对称正定，则有非奇异下三角阵 $\mathbf L$ ，使 $\mathbf A=\mathbf{LL}^T=\mathbf{QDL}^T=\mathbf{QU}$ ，其中 $D$ 是三角矩阵</p>
+<p>由 $\mathbf{LU}$ 分解公式</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+u_{1i}&=a_{1i}\\
+l_{i1}&=\frac{a_{i1}}{a_{11}}=\frac{a_{1i}}{a_{11}}=\frac{u_{1i}}{u_{11}}\\
+u_{ij}&=a_{ij}-\sum_{q=1}^{i-1}l_{iq}{u_{qj}}=a_{ij}-\sum_{q=1}^{i-1}\frac{u_{qi}u_{qj}}{u_{qq}}\\
+l_{ij}&=\frac{u_{ji}}{u_{jj}}
+\end{aligned}</script><p>即</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+u_{11} & u_{12}  & \cdots & u_{1n}\\
+\frac{u_{12}}{u_{11}} & u_{22} &\cdots & u_{2n}\\
+\vdots & \vdots & \ddots & \vdots\\
+\frac{u_{1n}}{u_{11}} & \frac{u_{2n}}{u_{22}} & \cdots & u_{nn}\\
+\end{bmatrix}</script><p>优点：</p>
+<ol>
+<li>无需计算平方根</li>
+<li>计算量与平方根法相比同阶量</li>
+</ol>
+<h3 id="列主元三角分解法"><a href="#列主元三角分解法" class="headerlink" title="列主元三角分解法"></a>列主元三角分解法</h3><p>设方程组 $\mathbf A\vec x=\vec b$ ，对其增广矩阵作 $LU$ 分解，为了避免用小 $u_{kk}$ 作除数，引入量 $s_i=a_{ik}-\sum_{q=1}^{k-1}l_{iq}u_{qk}, (i=k,k+1,\cdots,n)$</p>
+<p>于是 $u_{kk}=s_k$ ， 比较 $|s_i|$ 的大小，取 $\max_{k\le i\le n}|s_i|$ （设为 $s_t$ ）为 $u_{kk}$ 。并交换矩阵的第 $t$ 行和第 $k$ 行，且元素的下标也相应改变。交换时连带 $l$ 也一起交换，交换后 $u_{kk}=s_k$ ， $l_{ik}=\frac{s_i}{s_k}$ 。此时 $|l_{ik}|\le1$ ，可以控制舍入误差的增大。</p>
+<h2 id="向量范数和矩阵范数"><a href="#向量范数和矩阵范数" class="headerlink" title="向量范数和矩阵范数"></a>向量范数和矩阵范数</h2><h3 id="向量范数"><a href="#向量范数" class="headerlink" title="向量范数"></a>向量范数</h3><p>设 $f(\vec x)=|\vec x|$ 是定义在 $R^n$ 上的实函数，如果它满足以下 3 个条件：</p>
+<ol>
+<li>非负性：$\forall \vec x\in R^n, |\vec x|\ge0, |\vec x|=0\Leftrightarrow \vec x=0$</li>
+<li>奇次性 $\forall c\in R, \forall \vec x\in R^n, |c\vec x|=|c|\times|\vec x|$ </li>
+<li>三角不等式性 $\forall \vec x,\vec y\in R^n,|\vec x+\vec y|\le|\vec x|+|\vec y|$</li>
+</ol>
+<p>则称 $|\cdot|$ 为 $R^n$ 上的向量范数</p>
+<p>最常用的是如下三种范数：</p>
+<ol>
+<li>向量的 1−范数： $|\vec x|_1=\sum_{i=1}^n|x_i|$</li>
+<li>向量的 2−范数： $|\vec x|_2=\sqrt{\sum_{i=1}^nx_i^2}$</li>
+<li>向量的 $\infty$−范数： $|\vec x|_\infty=\max_{1\le i\le n}|x_i|$</li>
+</ol>
+<p>$|\vec x-\vec y|$ 为 $\vec x$ 和 $\vec y$ 之间的距离</p>
+<h3 id="矩阵范数"><a href="#矩阵范数" class="headerlink" title="矩阵范数"></a>矩阵范数</h3><p>设 $\mathbf A\in R^{n\times n}$ ， $|\cdot|$ 是 $R^n$ 上的任一向量范数，称 $\max_{|\vec x|=1}|\mathbf A\vec x|$ 为 $\mathbf A$ 的<strong>矩阵范数</strong>，记做 $|\mathbf A|$</p>
+<p>即， $|\mathbf A|=\max_{|\vec x|=1}|\mathbf A\vec x|$</p>
+<p>最常用的三种范数：</p>
+<script type="math/tex; mode=display">
+\|\mathbf A\|_1=\max_{\|\vec x\|_1=1}\|\mathbf A\vec x\|_1\\
+\|\mathbf A\|_2=\max_{\|\vec x\|_2=1}\|\mathbf A\vec x\|_2\\
+\|\mathbf A\|_\infty=\max_{\|\vec x\|_\infty=1}\|\mathbf A\vec x\|_\infty</script><p>可以证明</p>
+<script type="math/tex; mode=display">
+\|\mathbf A\|_1=\max_{1\le j\le n}\sum_{i=1}^n|A_{ij}|\\
+\|\mathbf A\|_2=\sqrt{\rho(\mathbf A^T\mathbf A)}\\
+\|\mathbf A\|_\infty=\max_{1\le i\le n}\sum_{j=1}^n|A_{ij}|</script><p>其中， $\rho$ 为矩阵的谱半径，即 $\rho(B)=\max\{|\lambda|\mid|\lambda\mathrm I-\mathrm B|=0\}$ （最大的特征值绝对值）</p>
+<p>性质：</p>
+<ol>
+<li>对任意 $\mathbf A\in R^{n\times n}$ ，$|\mathbf A|\ge 0$ 。当且仅当 $\mathbf A = 0$ 时 $|\mathbf A| = 0$</li>
+<li>对任意实常数 $c$ 和 $|\mathbf A|\in R^{n\times n}$ ， $|c\mathbf A|=|c|\cdot|\mathbf A|$</li>
+<li>对任意 $\mathbf A, \mathbf B\in R^{n\times n}$ ，有 $|\mathbf A+\mathbf B|\le|\mathbf A|+|\mathbf B|$</li>
+<li>对任意向量 $x\in R^n$ ， $\mathbf A \in R^{n\times n}$ 有 $|\mathbf A\vec x|\le|\mathbf A||\vec x|$</li>
+<li>对任意 $\mathbf A, \mathbf B\in R^{n\times n}$ ，有 $|\mathbf A\mathbf B|\le|\mathbf A||\mathbf B|$  </li>
+</ol>
+<p>若 $A\in R^{n\times n}$ ，则 $\rho(\mathbf A)\le|A|$ 。即矩阵的任一范数均可作为矩阵特征值的上界</p>
+<h2 id="迭代法"><a href="#迭代法" class="headerlink" title="迭代法"></a>迭代法</h2><h3 id="迭代法即其收敛性"><a href="#迭代法即其收敛性" class="headerlink" title="迭代法即其收敛性"></a>迭代法即其收敛性</h3><p>对于线性方程组 $\mathbf A\vec x=\vec b$ ，将其变成同解方程组 $\vec x=\mathbf B\mathbf x+\vec f$</p>
+<p>建立迭代公式 $\vec x^{(k+1)}=\mathbf B\mathbf x^{(k)}+\vec f (k=0,1,2,\cdots)$</p>
+<p>给定初始向量 $\vec x^{(0)}$ 后，按此迭代公式德出解向量序列 $\{x^{(k)}\}$</p>
+<p>若 $\lim_{k\rightarrow\infty}|\vec x^{(k)}-\vec c|=0$ 则称向量序列 $\{\vec x^{(k)}\}_{k=0}^\infty$ 收敛于 $\vec c$ ， 并记为 $\lim_{k\rightarrow\infty}x^{(k)}=\vec c$ </p>
+<p>如果向量序列收敛于 $\vec x^*$ ，则 $\vec x^*=\mathbf B\vec x^*+\vec f$</p>
+<p>矩阵 $\mathbf B$ 称为<strong>迭代矩阵</strong></p>
+<p>如果迭代序列收敛，则称迭代法收敛，否则称迭代法发散。</p>
+<p>如果 $|\mathbf B|\lt 1$ ，则</p>
+<ol>
+<li>方程组有唯一解</li>
+<li>任意初始向量均收敛，且 $|\vec x^{(k+1)}-\vec x^*|\le|\mathbf B||\vec x^{(k)}-\vec x^*|$</li>
+<li>$|\vec x^{(k)}-\vec x^*|\le\frac{|\mathbf B|}{1-|\mathbf B|}|\vec x^{(k)}-\vec x^{(k-1)}|$</li>
+<li>$|\vec x^{(k)}-\vec x^*|\le\frac{|\mathbf B|^k}{1-|\mathbf B|}|\vec x^{(1)}-\vec x^{(0)}|$</li>
+</ol>
+<p>证明略（P72）</p>
+<p>给定方程组，则迭代格式对任意初值都收敛的充要条件为 $\rho(\mathbf B)\lt1$</p>
+<h3 id="雅可比迭代法"><a href="#雅可比迭代法" class="headerlink" title="雅可比迭代法"></a>雅可比迭代法</h3><script type="math/tex; mode=display">
+x_i^{(k+1)}=\frac1{a_{ii}}\left(b_i-\sum_{1\le j\le n \wedge i\ne j}a_{ij}x_j^{(k)}\right)</script><p>记 </p>
+<script type="math/tex; mode=display">
+\tilde{\mathbf U}=
+\begin{bmatrix}
+ & a_{12} & \cdots & a_{1n}\\
+ &  & \cdots & a_{2n}\\
+ &  &  & \vdots\\
+ & &  &\\
+\end{bmatrix}\\
+\mathbf D=
+\begin{bmatrix}
+a_{11} &  &  & \\
+ & a_{22} &  & \\
+ &  & \ddots & \\
+ &  &  & a_{nn}\\
+\end{bmatrix}\\
+\tilde{\mathbf L}=
+\begin{bmatrix}
+ &  &  & \\
+a_{21}  & &\\
+\vdots & \vdots && \\
+a_{n1} & a_{n2} & \cdots & \\
+\end{bmatrix}\\</script><p>$\mathbf A = \tilde{\mathbf U}+\mathbf D+\tilde{\mathbf L}$</p>
+<p>则 $\mathbf B =-\mathbf D^{-1}(\tilde{L}+\tilde{U})$ ， $\vec f=\mathbf D^{-1}\vec b$</p>
+<p>即 </p>
+<script type="math/tex; mode=display">
+\mathbf B=\begin{bmatrix}
+0 & -\frac{a_{12}}{a_{11}} & -\frac{a_{13}}{a_{11}} & \cdots & -\frac{a_{1n}}{a_{11}}\\
+-\frac{a_{21}}{a_{22}} & 0 & -\frac{a_{23}}{a_{22}} & \cdots & -\frac{a_{2n}}{a_{22}}\\
+-\frac{a_{31}}{a_{3n}} & -\frac{a_{32}}{a_{33}} & 0 & \cdots & -\frac{a_{3n}}{a_{33}}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+-\frac{a_{n1}}{a_{nn}} & -\frac{a_{n2}}{a_{nn}} & -\frac{a_{n3}}{a_{nn}} & \cdots & 0\\
+\end{bmatrix}\\
+\vec f = \begin{bmatrix}
+\frac{b_1}{a_{11}}\\
+\frac{b_2}{a_{22}}\\
+\vdots\\
+\frac{b_n}{a_{nn}}\\
+\end{bmatrix}</script><h3 id="高斯-赛德尔迭代法"><a href="#高斯-赛德尔迭代法" class="headerlink" title="高斯-赛德尔迭代法"></a>高斯-赛德尔迭代法</h3><script type="math/tex; mode=display">
+x_i^{(k+1)}=\frac1{a_{ii}}(b_i-\sum_{1\le j\lt i}a_{ij}x_j^{(k+1)}-\sum_{i\lt j\le n}a_{ij}x_j^{(k)})</script><p>则 $\mathbf B =-(\mathbf D+\tilde{L})^{-1}\tilde{U}$ ， $\vec f=(\mathbf D+\tilde{L})^{-1}\vec b$</p>
+<p>对于线性方程组，若</p>
+<ol>
+<li>$\mathbf A$ 按行或按列为严格对角占优阵，则雅可比迭代法和高斯-赛德尔迭代法均收敛</li>
+<li>$\mathbf A$ 为对称正定矩阵，则高斯-赛德尔迭代法收敛</li>
+</ol>
+<h3 id="逐次超松弛迭代法（-SOR-法）"><a href="#逐次超松弛迭代法（-SOR-法）" class="headerlink" title="逐次超松弛迭代法（ SOR 法）"></a>逐次超松弛迭代法（ SOR 法）</h3><p>了解即可，无需掌握。</p>
+<script type="math/tex; mode=display">
+\vec x_i^{(k+1)}=(1-\omega)x^{(k)}_i+\omega\frac1{a_{ii}}\left[b_i-\sum_{j=1}^{i-1}a_{ii}x_j^{(k+1)}-\sum_{j=i+1}^na_{ij}x_j^{k}\right]</script><p>其中， $\omega$ 是松弛因子，当 $\omega=1$ 时为高斯-赛德尔迭代法</p>
+<ol>
+<li>SOR 方法对任意 $x^{(0)}$ 都收敛的必要条件是 $0\lt\omega\lt2$</li>
+<li>若系数矩阵 $\mathbf A$ 对称正定，则 $0\lt\omega\lt2$ 时 SOR 方法求解 $\mathbf A\vec x=\vec b$ 对任意 $x^{(0)}$ 收敛</li>
+<li>若系数矩阵 $\mathbf A$ 按行（或按列）严格对角占优，则 $0\lt\omega\le1$ 时 SOR 方法对任意 $x^{(0)}$ 收敛</li>
+</ol>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/numerical_analysis/03/">
+    <time datetime="2022-07-13T14:12:51.592Z" class="entry-date">
+        2022-07-13
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

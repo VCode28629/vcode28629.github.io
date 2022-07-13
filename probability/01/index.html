@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="概率论与数理统计" />
+  
+  
+  
+  
+  
+  
+  <title>概率论与数理统计笔记01——随机事件与概率 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考教材：印凡成, 夏乐天, 等. 概率论与数理统计[M]. 第三版. 南京: 河海大学出版社, 2004,1:34.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="概率论与数理统计笔记01——随机事件与概率">
+<meta property="og:url" content="https://vcode28629.github.io/probability/01/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="参考教材：印凡成, 夏乐天, 等. 概率论与数理统计[M]. 第三版. 南京: 河海大学出版社, 2004,1:34.">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-07-13T14:12:51.616Z">
+<meta property="article:modified_time" content="2021-10-07T06:24:39.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      概率论与数理统计笔记01——随机事件与概率
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/probability/01/" data-id="cl5joxkuq003dmoue3woy7xhq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>参考教材：印凡成, 夏乐天, 等. 概率论与数理统计[M]. 第三版. 南京: 河海大学出版社, 2004,1:34.</p>
+<span id="more"></span>
+<h1 id="随机事件与概率"><a href="#随机事件与概率" class="headerlink" title="随机事件与概率"></a>随机事件与概率</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li>确定性现象：在一定条件下必然发生</li>
+<li>随机现象：在个别试验中其结果呈现出<em>不确定性</em>，在大量重复试验中其结果又具有<em>统计规律性</em>的现象</li>
+<li>随机试验：<ul>
+<li>可在相同条件下重复进行</li>
+<li>试验结果不止一个，但能确定所有的可能结果</li>
+<li>一次试验之前无法确定具体是哪种结果出现</li>
+</ul>
+</li>
+<li>样本空间 $\varOmega$ ：随机试验 $E$ 的所有可能试验结果组成的集合，记为 $\varOmega$ </li>
+<li>样本点：组成样本空间的元素，即随机试验 $E$ 的每个可能结果，记为 $\omega$ ，又叫<strong>基本事件</strong></li>
+<li>随机事件：试验 $E$ 的样本空间 $\varOmega$ 的子集称为 $E$ 的随机事件，简称<strong>事件</strong>，记为 $A$ 、 $B$ 等。在每次试验中，当且仅当这一子集中的一个样本点出现时，称这一事件<strong>发生</strong>。</li>
+<li>基本事件：由一个样本点构成的单点集。同<strong>样本点</strong></li>
+<li>必然事件：在每次试验中总是发生的事件。比如样本空间 $\varOmega$ 。样本空间一定是必然事件，必然事件不一定是样本空间。</li>
+<li>不可能事件：每次试验当中都不发生的事件。比如空集 $\phi$ </li>
+</ul>
+<h2 id="事件之间的关系"><a href="#事件之间的关系" class="headerlink" title="事件之间的关系"></a>事件之间的关系</h2><h3 id="包含关系"><a href="#包含关系" class="headerlink" title="包含关系"></a>包含关系</h3><ul>
+<li>$A\subset B \Leftrightarrow A\text{发生必导致}B\text{发生}$ </li>
+<li>$A=B\Leftrightarrow A\subset B \wedge  B\subset A$ </li>
+</ul>
+<h3 id="和事件"><a href="#和事件" class="headerlink" title="和事件"></a>和事件</h3><ul>
+<li>$A\cup B=\left\{x\mid x\in A \vee x\in B \right\}\Leftrightarrow A\text{与}B\text{至少发生一个}$  </li>
+<li>$\cup_{k=1}^nA_k\Leftrightarrow n\text{个事件}A_1,A_2,…,A_n\text{的和事件}$ </li>
+<li>$\cup_{n=1}^\infty A_n\Leftrightarrow \text{可列个事件}A_1,A_2,…,A_n,…\text{的和事件}$ </li>
+</ul>
+<h3 id="积事件"><a href="#积事件" class="headerlink" title="积事件"></a>积事件</h3><ul>
+<li>$A\cap B=AB=\left\{x\mid x\in A \wedge x\in B \right\}\Leftrightarrow A\text{与}B\text{同时发生}$ </li>
+<li>$\cap_{k=1}^nA_k\Leftrightarrow n\text{个事件}A_1,A_2,…,A_n\text{的积事件}$ </li>
+<li>$\cap_{n=1}^\infty A_n\Leftrightarrow \text{可列个事件}A_1,A_2,…,A_n,…\text{的积事件}$ </li>
+</ul>
+<h3 id="差事件"><a href="#差事件" class="headerlink" title="差事件"></a>差事件</h3><ul>
+<li>$A-B=\left\{x\mid x\in A \wedge x\notin B \right\}\Leftrightarrow A\text{发生但}B\text{不发生}$ </li>
+</ul>
+<h3 id="互不相容或互斥"><a href="#互不相容或互斥" class="headerlink" title="互不相容或互斥"></a>互不相容或互斥</h3><ul>
+<li>$A\cap B=\phi\Leftrightarrow A\text{、}B\text{互不相容或互斥}$ </li>
+</ul>
+<p>基本事件是两两互不相容的事件</p>
+<h3 id="对立事件或逆事件"><a href="#对立事件或逆事件" class="headerlink" title="对立事件或逆事件"></a>对立事件或逆事件</h3><ul>
+<li>$A\cap B=\phi\wedge A\cup B=\varOmega\Leftrightarrow A\text{与}B\text{互为逆事件或对立事件}$</li>
+<li>$A$ 的对立事件记为 $\overline A$</li>
+<li>$\overline A=\varOmega - A$</li>
+</ul>
+<h3 id="事件的运算"><a href="#事件的运算" class="headerlink" title="事件的运算"></a>事件的运算</h3><ol>
+<li>交换率 $A\cup B=B\cup A, AB=BA$</li>
+<li>结合率 $(A\cup B)\cup C=A\cup (B\cup C), (AB)C=A(BC)$</li>
+<li>分配率 <ul>
+<li>$(A\cup B)C=AC\cup BC$</li>
+<li>$(AB)\cup C=(A\cup C)(B\cup C)$</li>
+</ul>
+</li>
+<li>对偶 (De Morgan) 率<ul>
+<li>$\overline{A\cup B}=\overline A\cap\overline B$</li>
+<li>$\overline{AB}=\overline A\cup\overline B$</li>
+<li>推广: <ul>
+<li>$\overline{\cup_kA_k}=\cap_k\overline{A_k}$</li>
+<li>$\overline{\cap_kA_k}=\cup_k\overline{A_k}$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="频率与概率"><a href="#频率与概率" class="headerlink" title="频率与概率"></a>频率与概率</h2><h3 id="频率"><a href="#频率" class="headerlink" title="频率"></a>频率</h3><p>事件 $A$ 在 $n$ 次重复试验中出现 $n$ 次，则比值 $\frac{n_A}n$ 称事件 $A$ 在 $n$ 次重复试验中出现的<strong>频率</strong>，记为 $f_n(A)$ 。即 $f_n(A)=\frac{n_A}n$</p>
+<p>频率的性质：</p>
+<ol>
+<li>非负性 $f_n(A)\ge 0$</li>
+<li>规范性 $f_n(\varOmega)=1$</li>
+<li>有限可加性 若 $A_1, A_2, …, A_m$ 为两两互不相容的事件，则 $f_n(A_1\cup A_2\cup…\cup A_m)=f_n(A_1)+f_n(A_2)+…+f_n(A_m)$</li>
+</ol>
+<p>实践证明，当试验次数 $n$ 增大时， $f_n(A)$ 逐渐趋向一个定值。</p>
+<h3 id="概率"><a href="#概率" class="headerlink" title="概率"></a>概率</h3><p>若对随机试验 $E$ 所对应的样本空间 $\varOmega$ 中的每一事件 $A$ ，均赋予一实数 $P(A)$ ，集合函数 $P(A)$ 满足条件：</p>
+<ol>
+<li>非负性 对任一事件 $A$ ，有 $P(A)\ge 0$</li>
+<li>规范性 $P(\varOmega)=1$</li>
+<li>可列可加性 若 $A_1, A_2, …$ 是一列两两互不相容的事件，即 $A_iA_j=\phi,(i\ne j),i,j=1,2,…$ ，有 $P(A_1\cup A_2\cup…)=P(A_1)+P(A_2)+…$</li>
+</ol>
+<p>则称 $P(A)$ 为事件 $A$ 发生的<strong>概率</strong>。</p>
+<p>事实上， $f_n(A)\stackrel P\rightarrow P, n\rightarrow\infty$</p>
+<h4 id="概率的性质"><a href="#概率的性质" class="headerlink" title="概率的性质"></a>概率的性质</h4><ol>
+<li>$P(\phi)=0$</li>
+<li>有限可加性 若 $A_1, A_2, …, A_n$ 是 $n$ 个两两互不相容的事件，即 $A_iA_j=\phi,(i\ne j),i,j=1,2,…n$ 则有 $P(A_1\cup A_2\cup…\cup A_n)=P(A_1)+P(A_2)+…P(A_n)$</li>
+<li>单调不减性 若事件$B\supset A$ ，则 $P(B)\ge P(A)$ 且 $P(B-A)=P(B)-P(A)$</li>
+<li>互补性 $P(\overline A)=1-P(A)$ 且 $P(A)\le 1$</li>
+<li>加法公式 对任意两事件 $A$ 、 $B$ 有 $P(A\cup B)=P(A)+P(B)-P(AB)$ 。可推广到任意 $n$ 个事件 $A_1, A_2, …, A_n$ 的情形 $P(\cup_{i=1}^nA_i)=\sum_{i=1}^nP(A_i)-\sum_{1\le i\lt j\le n}P(A_iA_j)+\sum_{1\le i\lt j\lt k\le n}P(A_iA_jA_k)+…+(-1)^nP(A_1A_2…A_n)$</li>
+<li>可分性 对任意两事件 $A$ 、 $B$ ，有 $P(A)=P(AB)+P(A\overline B)$</li>
+</ol>
+<h2 id="古典概型-等可能概型"><a href="#古典概型-等可能概型" class="headerlink" title="古典概型/等可能概型"></a>古典概型/等可能概型</h2><p>特征：</p>
+<ol>
+<li>样本空间的元素只有<strong>有限个</strong></li>
+<li>试验中每个基本事件发生的<strong>可能性相同</strong></li>
+</ol>
+<p>满足上述两个特征的试验称为<strong>等可能概型</strong>（或<strong>古典概型</strong>）</p>
+<ul>
+<li>有限性 样本空间 $\varOmega=\{\omega_1, \omega_2, …, \omega_n\}$</li>
+<li>等可能性 $P(\omega_i)=\frac1n, (i=1,2,…,n)$</li>
+</ul>
+<p>$P(A)=\frac{A \text{中所含的样本点数}}{\varOmega \text{中样本点总数}}=\frac kn$</p>
+<h2 id="几何概型"><a href="#几何概型" class="headerlink" title="几何概型"></a>几何概型</h2><p>特征：</p>
+<ol>
+<li>基本事件无限 $\varOmega=\{\omega\}$</li>
+<li>等可能性 随机点落在某区域 $G$ 的概率与区域 $G$ 的长度/面积/体积等成正比，而与其位置及形状无关</li>
+</ol>
+<p>以 $A_G$ 表示“在区域 $\varOmega$ 中随机地取一点落在区域 $G$ 中”这一事件，则 $P(A_G) = \frac{G \text{的测度}}{\varOmega \text{的测度}}=\frac{\mu(G)}{\mu(\varOmega)}$</p>
+<h2 id="条件概率"><a href="#条件概率" class="headerlink" title="条件概率"></a>条件概率</h2><p>假定 $B$ 已发生的情形下 $A$ 发生的概率，记为 $P(A\mid B)$</p>
+<p>设 $A$ 、 $B$ 是 $\varOmega$ 中的两个事件，且 $P(B)&gt;0$ ，称 $P(A\mid B)=\frac{P(AB)}{P(B)}$ 为事件 $B$ 发生的条件下事件 $A$ 发生的<strong>条件概率</strong>。</p>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ol>
+<li>$o\le P(A\mid B)\le1$</li>
+<li>$P(\varOmega\mid B)=1$</li>
+<li>设 $A_1, A_2, …$ 是一列两两互不相容的事件，则 $P(\cup_{i=1}^\infty A_i\mid B)=\sum_{i=1}^\infty P(A_i\mid B)$</li>
+<li>$P(A_1\cup A_2\mid B)=P(A_1\mid B)+P(A_2\mid B)-P(A_1A_2\mid B)$ 、 $P(\overline A\mid B)=1-P(A\mid B)$ 等</li>
+</ol>
+<h2 id="乘法公式"><a href="#乘法公式" class="headerlink" title="乘法公式"></a>乘法公式</h2><p>$P(AB)=P(A\mid B)P(B)$</p>
+<p>推广到三个事件： $P(ABC)=P(C\mid AB)P(B\mid A)P(A)$</p>
+<p>一般地，有 $P(\cap_{i=1}^nA_i)=P(A_1)\Pi_{i=2}^nP(A_i\mid\cap_{j=1}^{i-1}A_j)$</p>
+<h2 id="划分-完备事件组"><a href="#划分-完备事件组" class="headerlink" title="划分/完备事件组"></a>划分/完备事件组</h2><p>事件组 $B_1, B_2, …, B_n(n \text{可为} \infty)$ 若满足</p>
+<ol>
+<li>$\cup_{i=1}^nB_i=\varOmega$</li>
+<li>$B_iB_j=\phi, (i\ne j), i, j=1, 2, …, n$</li>
+</ol>
+<p>则称为样本空间 $\varOmega$ 的一个<strong>划分</strong>（或<strong>完备事件组</strong>）</p>
+<h2 id="全概率公式与-Bayes-公式"><a href="#全概率公式与-Bayes-公式" class="headerlink" title="全概率公式与 Bayes 公式"></a>全概率公式与 Bayes 公式</h2><p>全概率公式：</p>
+<p>设 $B_1, …, B_n$ 是 $\varOmega$ 的一个划分，且 $P(B_i)\gt 0, (i=1,…,n)$ </p>
+<p>则对任何事件 $A$ ，有 $P(A)=\sum_{i=1}^nP(AB_i)=\sum_{i=1}^nP(B_i)P(A\mid B_i)$</p>
+<p>贝叶斯公式或逆概率公式：</p>
+<p>设 $B_1, …, B_n$ 是 $\varOmega$ 的一个划分，且 $P(B_i)\gt 0, (i=1,…,n)$ </p>
+<p>则对任何事件 $A$ ，有 $P(B_j\mid A)=\frac{P(AB_j)}{P(A)}=\frac{P(B_j)P(A\mid B_j)}{P(A)}=\frac{P(B_j)P(A\mid B_j)}{\sum_{i=1}^nP(B_i)P(A\mid B_i)}$</p>
+<h2 id="事件的独立性"><a href="#事件的独立性" class="headerlink" title="事件的独立性"></a>事件的独立性</h2><p>如果 $B$ 的发生并不影响 $A$ 发生的概率，那么 $A$ 和 $B$ 是独立的。</p>
+<p>$P(A)=P(A\mid B)$</p>
+<p>$P(AB)=P(A)P(B)$</p>
+<p>以下命题等价：</p>
+<ul>
+<li>事件 $A$ 、 $B$ 相互独立</li>
+<li>事件 $\overline A$ 、 $B$ 相互独立</li>
+<li>事件 $A$ 、 $\overline B$ 相互独立</li>
+<li>事件 $\overline A$ 、 $\overline B$ 相互独立</li>
+</ul>
+<p>若事件 $A$ 、 $B$ 、 $C$ 满足</p>
+<ul>
+<li>$P(AB)=P(A)P(B)$</li>
+<li>$P(BC)=P(B)P(C)$</li>
+<li>$P(AC)=P(A)P(C)$</li>
+</ul>
+<p>则称事件 $A$ 、 $B$ 、 $C$ 两两相互独立</p>
+<p>若在此基础上<strong>还</strong>满足</p>
+<p>$P(ABC)=P(A)P(B)P(C)$</p>
+<p>则称事件 $A$ 、 $B$ 、 $C$ 相互独立</p>
+<h2 id="贝努里-Bernoulli-概型"><a href="#贝努里-Bernoulli-概型" class="headerlink" title="贝努里(Bernoulli)概型"></a>贝努里(Bernoulli)概型</h2><p>只有两个可能结果的试验称为<strong>贝努里试验</strong>，也叫<strong>成功——失败试验</strong>，常记为 $E$ 。</p>
+<p>若记 $A$ 为成功，则其概率通常用 $p=P(A)$ 表示。</p>
+<p>把 $E$ 重复独立地进行 $n$ 次，所得的试验称为 <strong>n 重贝努里试验</strong>，记为 $E^n$ 。</p>
+<p>把 $E$ 重复独立地进行可列多次，所得的试验称为<strong>可列重贝努里试验</strong>，记为 $E^\propto$。</p>
+<p>以上三种贝努里试验统称为贝努里概型。</p>
+<h3 id="几种概率"><a href="#几种概率" class="headerlink" title="几种概率"></a>几种概率</h3><ol>
+<li>二项分布： $E^n$ 中成功 $k$ 次的概率是 $P_n(k)=C_n^kp^k(1-p)^{n-k}(0\le k\le n)$</li>
+<li>几何分布： $E^\propto$ 中首次成功发生在第 $k$ 次试验的概率是 $(1-p)^{k-1}p$</li>
+<li>负二项分布： $E^\propto$ 中第 $r$ 次成功发生在第 $k$ 次试验的概率是 $C_{k-1}^{r-1}(1-p)^{k-r}p^r$</li>
+</ol>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/probability/01/">
+    <time datetime="2022-07-13T14:12:51.616Z" class="entry-date">
+        2022-07-13
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

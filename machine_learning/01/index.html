@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="机器学习,模型评估与选择" />
+  
+  
+  
+  
+  
+  
+  <title>机器学习模型评估与选择 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考资料：周志华. 机器学习[M]. 北京: 清华大学出版社, 2016.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="机器学习模型评估与选择">
+<meta property="og:url" content="https://vcode28629.github.io/machine_learning/01/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="参考资料：周志华. 机器学习[M]. 北京: 清华大学出版社, 2016.">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-09-08T01:55:14.000Z">
+<meta property="article:modified_time" content="2021-10-04T08:19:09.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      机器学习模型评估与选择
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/machine_learning/01/" data-id="cl5joxkuj002fmouef7n3fzfl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>参考资料：周志华. 机器学习[M]. 北京: 清华大学出版社, 2016.</p>
+<span id="more"></span>
+<h2 id="经验误差与过拟合"><a href="#经验误差与过拟合" class="headerlink" title="经验误差与过拟合"></a>经验误差与过拟合</h2><ul>
+<li>错误率(error rate)：$\frac{\text{分类错误的样本数}}{\text{占样本总数的比例}}$</li>
+<li>精度(accuracy)：$\text{精度}=1-\text{错误率}$</li>
+<li>误差(error)：学习器实际预测输出与样本的真实输出之间的差异</li>
+<li>训练误差(training error)/经验误差(empirical error)：学习器在训练集上的误差</li>
+<li>泛化误差(generalization error)：新样本上的误差</li>
+<li>过拟合(overfitting)：学习器把训练样本学得“太好”了，很可能已经把训练样本自身的一些特点当作了所有潜在样本都会具有的一般性质，导致泛化性能下降</li>
+<li>欠拟和(underfitting)：对训练样本的一般性质尚未学好</li>
+</ul>
+<p>过拟和是无法避免的，只能缓解，或者说减小其风险</p>
+<p>通常我们把分类错误的样本数占样本总数的比例为<strong>错误率</strong>(error rate)。</p>
+<h2 id="评估方法"><a href="#评估方法" class="headerlink" title="评估方法"></a>评估方法</h2><p>通常，我们可以通过实验测试来对学习器的泛化误差进行评估并进而做出选择。为此，需使用一个<strong>测试集</strong>(testing set)来测试学习器对新样本的判别能力，然后以测试集上的<strong>测试误差</strong>(testing error)作为泛化误差的近似</p>
+<p>通常我们假设测试样本也是从样本真实分布中独立同分布采样而得。但需要注意，测试集应该尽可能与训练集互斥，即测试样本尽量不在训练集中出现、未在训练过程中使用过。若测试样本被用来训练了，则得到的将是过于乐观的估计结果。</p>
+<p>如果我们只有一个包含 $m$ 个样例的数据集 $D=\{(\vec x_1, y_1), (\vec x_2, y_2), …, (\vec x_m, y_m)\}$ ，既要训练，又要测试，就需要对 $D$ 进行适当的处理，从中产生出训练集 $S$ 和测试集 $T$ 。</p>
+<p>下面介绍几种常见的做法：</p>
+<h3 id="留出法"><a href="#留出法" class="headerlink" title="留出法"></a>留出法</h3><p>留出法(hold-out)直接将数据集 $D$ 划分为两个互斥的集合，其中一个集合作为训练集 $S$ ，另一个作为测试集 $T$ ，即 $D=S\cup T, S\cap T=\phi$ 。在 $S$ 上训练出模型后，用 $T$ 来评估其测试误差，作为对泛化误差的估计。</p>
+<p>训练/测试集的划分需要尽可能保持数据分布的一致性，避免因数据划分过程引入额外的偏差而对最终结果产生影响。例如在分类任务中至少要保持样本的类别比例相似。即在采样(sampling)时使用分层采样(stratified sampling)。若 $S$ 、 $T$ 中样本类别比例差别很大，则误差估计将由于训练/测试数据分布的差异而产生偏差。</p>
+<p>单次使用留出法得到的估计结果往往不够稳定可靠，在使用留出法时，一般要采用若干次随机划分，重复进行实验评估后取平均值作为留出法的评估结果。</p>
+<p>若训练集 $S$ 包含绝大多数样本，则训练出的模型可能更接近于用 $D$ 训练出的模型，但由于 $T$ 太小，评估结果可能不够稳定准确；若测试集 $T$ 多包含一些样本，则训练集 $S$ 与 $D$ 的差别更大了，被评估模型与用 $D$ 训练出的模型相比可能有较大差别，从而降低了评估结果的保真性(fidelity)。</p>
+<p>这个问题没有完美的解决方案，常见做法是将大约 $\frac23$ ~ $\frac45$ 的样本用于训练，剩余样本用于测试。</p>
+<h3 id="交叉验证法"><a href="#交叉验证法" class="headerlink" title="交叉验证法"></a>交叉验证法</h3><p>交叉验证法(cross validation) 先将数据集 $D$ 划分为 $k$ 个大小相似的互斥子集，即 $D=\cup_{i=1}^kD_i, D_i\cap D_j=\phi(i\ne j)$ 。每个子集 $D_i$ 都尽可能保持数据分布的一致性，即从 $D$ 中分层采样得到。然后每次用 $k-1$ 个子集的并集作为训练集，余下的那个子集作为测试集，这样就可获得 $k$ 组训练/测试集，从而可以进行 $k$ 次训练和测试，最终返回的是这 $k$ 个测试结果的均值，为强调这一点，通常把交叉验证法称为“k折交叉验证”(k-fold cross validation)。 $k$ 最常用的取值是 $10$ ，其他常用的 $k$ 值有 $5$ 、 $20$ 等。</p>
+<p>与留出法方式，为减小因样本划分不同而引入的差别， k 折交叉验证通常要随机使用不同的划分重复 $p$ 次，最终评估结果是这 $p$ 次 k 折交叉验证的均值，例如常见的有 10 次 10 折交叉验证。</p>
+<p>假设数据集 $D$ 包含 $m$ 个样本，若令 $k=m$ ，则得到了交叉验证法的一个特例， <strong>留一法</strong>(Leave-One-Out ，简称 LOO)。</p>
+<p>显然，留一法不收划分方式的影响，并且绝大多数下，留一法中被实际评估的模型与期望评估的模型很相似。因此，留一法的评估结果往往被认为比较准确。</p>
+<p>然而，数据集比较大时，训练 $m$ 个模型的计算开销可能是难以忍受的，这还是在为考虑算法调参的情况下。</p>
+<p>另外，留一法的估计结果也未必永远比其他评估方法准确。</p>
+<h3 id="自助法"><a href="#自助法" class="headerlink" title="自助法"></a>自助法</h3><p>每次随机从大小为 $m$ 的数据集 $D$ 中复制一个样本放入 $D’$ 并放回，重复执行 $m$ 次。</p>
+<p>样本在 $m$ 次采样中始终不被采到的概率是 $(1-\frac1m)^m$ 。 $\lim_{m\rightarrow\infty}(1-\frac1m)^m=\frac1e\approx0.368$ 。约有 $36.8\%$ 的样本未出现在 $D’$ 中。</p>
+<p>我们可以将 $D’$ 用作训练集， $D\setminus D’$ 用做测试集。实际评估的模型与期望评估的模型都使用 $m$ 个训练样本，而我们仍有数据总量 $\frac13$ 的、没在训练集中出现买样本用于测试。</p>
+<p>这样的测试结果称为<strong>包外估计</strong>(out-of-bag estimate)</p>
+<p>自助法在数据集较小、难以有效划分训练/测试集时很有用。此外，自助法能从初始数据中产生多个不同的训练集，这对集成学习等方法有很大的好处。</p>
+<p>然而，自助法产生的数据集改变了初始数据集的分布，这会引入估计偏差。因此，在初始数据量足够时，留出法和交叉验证法更常用一些。</p>
+<h3 id="调参与最终模型"><a href="#调参与最终模型" class="headerlink" title="调参与最终模型"></a>调参与最终模型</h3><p>大多数学习算法都有参数(parameter)要设定。算法的参数被称为<strong>超参数</strong>，区别于模型的参数。参数配置不同，学得模型的性能往往有显著差别。因此，在进行模型评估与选择时，除了要对适用学习算法进行选择，还需对算法参数进行设定，这就是通常所说的<strong>参数调节</strong>或<strong>调参</strong>(parameter tuning)。调参和算法选择没什么本质区别。</p>
+<p>在模型选择完成后，学习算法和参数配置已选定，此时用数据集 $D$ 重新训练模型，使用所有 $m$ 个样本，才是我们最终提交给用户的模型。</p>
+<p>模型评估与选择中用于评估测试的数据集常称为<strong>验证集</strong>(validation set)，而学得模型在实际使用中遇到的数据称为测试数据。在研究对比不同算法的泛化性能时，我们用测试集上的判别效果来估计模型在实际使用时的泛化能力，而把训练数据另外划分为训练集和验证集，基于验证集上的性能来进行模型选择和调参。</p>
+<h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><p>对学习器的泛化性能进行评估，不仅需要有效可行的实验估计方法，还需要有衡量模型泛化能力的评价标准，这就是性能度量(performance measure)。</p>
+<p>回归任务最常用的性能度量是<strong>均方误差</strong>(mean squared error)</p>
+<p>$E(f, D)=\frac1m\sum_{i=1}^m(f(\vec x_i)-y_i)^2$</p>
+<p>更一般地，对于数据分布 $\mathcal D$ 和概率密度函数 $p(\cdot)$ ，均方误差可描述为</p>
+<p>$E(f, \mathcal D)=\int_{x\sim \mathcal D}(f(\vec x)-y)^2p(\vec x)\mathrm d\vec x$</p>
+<h3 id="错误率与精度"><a href="#错误率与精度" class="headerlink" title="错误率与精度"></a>错误率与精度</h3><p>分类错误率的定义为</p>
+<p>$E(f, D)=\frac1m\sum_{i=1}^m[f(\vec x_i)\ne y_i]$</p>
+<p>$E(f, \mathcal D)=\int_{x\sim \mathcal D}[f(\vec x_i)\ne y_i]p(\vec x)\mathrm d\vec x$</p>
+<p>精度则定义为</p>
+<p>$\begin{aligned}acc(f, D)&amp;=\frac1m\sum_{i=1}^m[f(\vec x_i)= y_i]\\<br>&amp;=1-E(f, D)\end{aligned}$</p>
+<p>$\begin{aligned}acc(f, \mathcal D)&amp;=\int_{x\sim \mathcal D}[f(\vec x_i)=y_i]p(\vec x)\mathrm d\vec x\\&amp;=1-E(f, \mathcal D)\end{aligned}$</p>
+<h3 id="查准率、查全率与-F1"><a href="#查准率、查全率与-F1" class="headerlink" title="查准率、查全率与 F1"></a>查准率、查全率与 F1</h3><p>有的任务需求并不能很好地用错误率和精度衡量，所以我们引入了<strong>查准率</strong>(precision)与<strong>查全率</strong>(recall)</p>
+<p>对于二分类问题，可将样例根据其真实类别与学习器预测类别的组合划分为真正例(true positive)、假正例(false positive)、真反例(true negative)、假反例(false negative)四种情形，令 $TP$ 、 $FP$ 、$TN$ 、 $FN$ 分别表示其对应的样例数，显然有 $TP+FP+TN+FN=\text{样例总数}$</p>
+<p>分类结果的<strong>混淆矩阵</strong>(confusion matrix)如下所示：</p>
+<table>
+  <thead>
+    <tr>
+      <td rowspan="2" style="text-align:center;vertical-align:middle;">真实情况</td>
+      <td colspan="2" style="text-align:center;vertical-align:middle;">预测结果</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;vertical-align:middle;">正例</td>
+      <td style="text-align:center;vertical-align:middle;">反例</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;vertical-align:middle;">正例</td>
+      <td style="text-align:center;vertical-align:middle;">TP</td>
+      <td style="text-align:center;vertical-align:middle;">FN</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;vertical-align:middle;">反例</td>
+      <td style="text-align:center;vertical-align:middle;">FP</td>
+      <td style="text-align:center;vertical-align:middle;">TN</td>
+    </tr>
+  </thead>
+</table>
+
+<p>查准率 $P$ 与查全率 $R$ 分别定义为</p>
+<p>$P=\frac{TP}{TP+FP}$</p>
+<p>$R=\frac{TP}{TP+FN}$</p>
+<p>查准率和查全率是一对矛盾的度量，一般来说，查准率高时，查全率往往偏低；而查全率高时，查准率往往偏低。通常只有在一些简单任务中，才可能使查全率和查准率都很高。</p>
+<p>很多情况下，我们可根据学习器的预测结果对样例进行排序，排在前面的是学习器认为最可能是正例的样本，排在后面的则是学习器认为最不可能是正例的样本。按此顺序逐个把样本作为正例进行预测，则每次可以计算出当前的查全率、查准率。</p>
+<p>以查全率为纵轴，查准率为横轴作图，可以得到查准率-查全率曲线，简称 P-R 曲线。显示该曲线的图称为 P-R 图。</p>
+<p>若一个学习器的 P-R 曲线被另一个学习器的 P-R 曲线完全包住，则可断言后者的性能优于前者</p>
+<p>如果两个学习器的 P=R 曲线发生了交叉，则难以一般性地断言两者孰优孰劣，只能在具体的查准率与查全率条件下进行比较</p>
+<p>如果希望把两个学习器比出个高低，一个比较合理的判据是比较 P-R 曲线下面积的大小。但这个值不太容易估算，因此，人们设计了一些综合考虑查准率、查全率的性能度量</p>
+<p>平衡点(Break-Even Point，BEP)就是这样一个度量，它是查准率 = 查全率时的取值。</p>
+<p>但是 BEP 还是过于简化了些，更常用的是 $F1$ 度量：</p>
+<script type="math/tex; mode=display">
+F1=\frac{2\times P\times R}{P+R}=\frac{2\times TP}{样例总数+TP-TN}</script><p>在一些应用中，对查准率和查全率的重视程度有所不同。 $F1$ 度量的一般形式 $F_\beta$ 能让我们表达出对查准率/查全率的不同偏好</p>
+<script type="math/tex; mode=display">
+F_\beta=\frac{(1+\beta^2)\times P\times R}{(\beta^2\times P)+ R}</script><p>其中 $\beta\gt0$ 度量了查全率对查准率的相对重要性， $\beta\gt1$ 时查全率影响更大， $\beta\lt1$ 时查准率影响更大。</p>
+<blockquote>
+<p>$F1$ 是基于查准率和查全率的调和平均定义的：</p>
+<script type="math/tex; mode=display">\frac1{F1}=\frac12(\frac1P+\frac1R)</script><p>$F_\beta$ 则是加权调和平均</p>
+<script type="math/tex; mode=display">\frac1{F_\beta}=\frac1{1+\beta^2}(\frac1P+\frac{\beta^2}R)</script><p>与算数平均和几何平均相比，调和平均更重视较小值</p>
+</blockquote>
+<p>有时候我们希望在 $n$ 个二分类混淆矩阵上综合考察查准率和查全率</p>
+<p>一种直接的做法是先在各混淆矩阵上分别计算出 $P$ 和 $R$ 再计算平均值，这样可以得到<strong>宏查全率</strong>、<strong>宏查准率</strong>和<strong>宏</strong> $\bold{F1}$</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\text{macro-P}&=\frac1n\sum_{i=1}^n\frac{TP_i}{TP_i+FP_i}\\
+\text{macro-R}&=\frac1n\sum_{i=1}^n\frac{TP_i}{TP_i+FN_i}\\
+\text{macro-F1}&=\frac{2\times \text{macro-P}\times \text{macro-R}}{\text{macro-P}+\text{macro-R}}
+\end{aligned}</script><p>另一种做法是先分别计算 $TP$, $FP$, $TN$, $FN$ 的平均值 $\overline{TP}$, $\overline{FP}$, $\overline{TN}$, $\overline{FN}$ ，再基于这些平均值计算出<strong>微查全率</strong>、<strong>微查准率</strong>和<strong>微</strong> $\bold{F1}$</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\text{micro-P}&=\frac{\sum_{i=1}^nTP_i}{\sum_{i=1}^nTP_i+FP_i}\\
+\text{micro-R}&=\frac{\sum_{i=1}^nTP_i}{\sum_{i=1}^nTP_i+FN_i}\\
+\text{micro-F1}&=\frac{2\times \text{micro-P}\times \text{micro-R}}{\text{micro-P}+\text{micro-R}}
+\end{aligned}</script><h3 id="ROC-与-AUC"><a href="#ROC-与-AUC" class="headerlink" title="ROC 与 AUC"></a>ROC 与 AUC</h3><p>很多学习器是为测试样本产生一个实值或概率预测，然后将这个预测值与一个分类阈值(threshold)进行比较，若大于阈值则分为正类，否则为反例。</p>
+<p>我们可根据学习器的预测结果对样例进行排序，排在前面的是学习器认为最可能是正例的样本，排在后面的则是学习器认为最不可能是正例的样本。</p>
+<p>这样，分类过程就相当于在这个排序中以某个<strong>截断点</strong>(cut point)将样本分为两部分，前一部分判作正例，后一部分判作反例。</p>
+<p>在不同的任务中，我们可根据任务需求来采用不同的截断点。因此，排序本身的质量好坏，体现了综合考虑学习器在不同任务下的期望泛化性能的好坏，或者说，“一般情况下”泛化性能的好坏。 ROC 曲线则是从这个角度出发来研究学习器泛化性能的有力工具。</p>
+<p>ROC 全称是<strong>受试者工作特征</strong>(Receiver Operating Characteristic)曲线。与 P-R 曲线类似，先根据学习器预测结果对样例进行排序，按顺序逐个把样本作为正例进行预测，每次计算出两个重要量的值，分别以它们为横、纵坐标作图，就得到了 ROC 曲线</p>
+<p>与 P-R 曲线使用查准率-查全率为纵、横轴不同， ROC 曲线的纵轴是<strong>真正例率</strong>(True Positive Rate, TPR)，横轴是<strong>假正例率</strong>(False Positive Rate, FPR)。</p>
+<script type="math/tex; mode=display">
+TPR=\frac{TP}{TP+FN}\\
+FPR=\frac{TP}{TN+FP}</script><p>进行学习器比较时，与 P-R 图类，若一个学习器的 ROC 曲线被另一个学习器的曲线完全包住，则可断言后者的性能优于前者。若两个学习器的 ROC 曲线交叉，则难以一般性地断言两者孰优孰劣。此时如果一定要进行比较，较为合理的判剧是比较 ROC 曲线下的面积，即 AUC(Area Under ROC Curve)</p>
+<p>假定 ROC 曲线是由坐标为 $\{(x_1,y_1),(x_2,y_2),\cdots,(x_my_m)\}$ 的点按序连接而形成 $(x_1=0, x_m=1)$ ，则 AUC 可估算</p>
+<script type="math/tex; mode=display">
+AUC=\frac 12\sum_{i=1}^{m-1}(x_{i+1}-x_i)(y_i+y_{i+1})</script><p>形式化地看， AUC 考虑的是样本预测的排序质量，因此它与排序误差有紧密联系。给定 $m^+$ 个正例和 $m^-$ 个反例，令 $D^+$ 和 $D^-$ 分别表示正、反例集合，则排序<strong>损失</strong>(loss)定义为</p>
+<script type="math/tex; mode=display">
+\ell_{rank}=\frac1{m^+m^-}\sum_{\vec x^+\in D^+}\sum_{\vec x^-\in D^-}[f(\vec x^+)\lt f(\vec x^-)]+\frac12[f(\vec x^+)=f(\vec x^-)]</script><p>即考虑每一对正、反例，若正例的预测值小于反例，则记一个罚分；若相等，则记半个罚分。</p>
+<p>容易看出， $\ell_{rank}$ 对应 ROC 曲线之上的面积。 $AUC=1-\ell_{rank}$</p>
+<h3 id="代价敏感错误率与代价曲线"><a href="#代价敏感错误率与代价曲线" class="headerlink" title="代价敏感错误率与代价曲线"></a>代价敏感错误率与代价曲线</h3><p>有时不同的错误所付出的代价是不一样的，为了权衡不同类型错误所造成的不同损失，可为错误赋予<strong>非均等代价</strong>(unequal cost)</p>
+<p>以二分类任务为例。我们可以根据任务的领域知识设定一个代价矩阵(cost matrix)，其中 $cost_{ij}$ 表示将第 $i$ 类样本预测为第 $j$ 类样本的代价。一般来说， $cost_{ii}=0$ ；若将第 $0$ 类物品判别为第 $1$ 类物品所造成的损失更大，则 $cost_{01}\gt cost_{10}$ ；损失程度越大， $cost_{01}$ 与 $cost_{10}$ 值的差别越大</p>
+<p>在非均等代价下，我们所希望的不再是简单地最小化错误次数，而是希望最小化总体代价(total cost)。</p>
+<p>代价敏感(cost-sensitive)错误率为</p>
+<script type="math/tex; mode=display">
+E(f,D,cost)=\frac1m(\sum_{\vec x\in D}[f(\vec x_i)\ne y_i]\times cost_{y_i, f(\vec x_i)})</script><p>在非均等代价下， ROC 曲线不能直接反映出学习器的期望总体代价，而代价曲线(cost curve)则可达到目的。代价曲线图的横轴是取值为 $[0,1]$ 的正例概率代价</p>
+<script type="math/tex; mode=display">
+P(+)cost=\frac{P\times cost_{01}}{p\times cost_{01}+(1-p)\times cost_{10}}</script><p>其中 $p$ 是样例为正例的概率</p>
+<p>纵轴是取值为 $[0,1]$的归一化代价</p>
+<blockquote>
+<p>规范化(normalization)是将不同变化范围的值映=映射到相同的固定范围中，常见的是 $[0,1]$ ，此时亦称归一化。</p>
+</blockquote>
+<script type="math/tex; mode=display">
+cost_{norm}=\frac{FNR\times p\times cost_{01}+FPR\times(1-p)\times cost_{10}}{p\times cost_{01}+(1-p)\times cost_{10}}</script><p>其中 $FPR$ 是假正例率， $FNR$ 是假反例率。</p>
+<p>代价曲线的绘制很简单： ROC 曲线上每一点对应了代价平面上的一条线段，设 ROC 曲线上点的坐标为 $(FPR, TPR)$ ，则可相应计算出 $FNR$ ，然后在代价平面上绘制一条从 $(0,FPR)$ 到 $(1, FNR)$ 的线段，线段下的面积即表示了该条件下的期望总体代价。</p>
+<h2 id="比较检验"><a href="#比较检验" class="headerlink" title="比较检验"></a>比较检验</h2><p>有了实验评估方法和性能度量，看起来就能对学习器的性能进行评估比较了：先使用某种实验评估方法测得学习器的某个性能度量结果，然后对这些结果进行比较。</p>
+<p>但是实际上机器学习中性能比较这件事很复杂。</p>
+<p>首先，我们希望比较泛化性能，然而通过实验评估方法我们获得的是测试集上的性能，两者对比结果可能未必相同。</p>
+<p>第二，测试集上的性能与测试集本身选择有很大关系，且不论使用不同大小的测试集会得到不同的结果，即便用相同大小的测试集，若包含的测试样例不同，测试结果也会有不同。</p>
+<p>第三，很多机器学习算法本身具有一定的随机性，即使用相同参数设置在同一个测试集上多次运行，其结果也会有不同。</p>
+<p><strong>统计假设检验(hypothesis test)</strong> 为学习器性能比较提供了重要依据。基于假设检验结果我们可推断出，若在测试集上观察到学习器 A 比 B 好，则 A 的泛化性能是否在统计意义上优于 B ，以及这个结果的把握有多大。下面介绍两种最基本的假设检验，然后介绍几种常用的机器学习性能比较方法。</p>
+<p>为便于讨论，下文使用错误率 $\epsilon$ 为性能度量。</p>
+<h3 id="假设检验"><a href="#假设检验" class="headerlink" title="假设检验"></a>假设检验</h3><p>假设检验</p>
+<p>假设检验中的“假设”是对学习器泛化错误率分布的某种判断或猜想，例如 $\epsilon=\epsilon_0$ 。显示任务中我们并不知道学习器的泛化错误率，只能获知其测试错误率 $\hat\epsilon$ 。泛化错误率与测试错误率未必相同，但直观上，二者接近的可能性较大，相差较远的可能性较小。因此，可根据测试错误率估推出泛化错误率的分布。</p>
+<p>泛化错误率为 $\epsilon$ 的学习器在一个样本上犯错的概率是 $\epsilon$ ；测试错误率 $\hat\epsilon$ 意味着在 $m$ 个测试样本中恰有 $\hat\epsilon\times m$ 个被误分类。假定测试样本是从样本总体分布中独立采样而得，那么泛化错误率为 $\epsilon$ 的学习器将其中 $m’$ 个样本误分类、其余样本全都分类正确的概率是 $\begin{pmatrix}<br>  m\\<br>  m’<br>\end{pmatrix}\epsilon^{m’}(1-\epsilon)^{m-\hat\epsilon\times m}$ ；由此可以估算出其恰将 $\hat\epsilon\times m$ 个样本误分类的概率如下式所示</p>
+<script type="math/tex; mode=display">
+P(\hat\epsilon;\epsilon)=\begin{pmatrix}
+m\\
+\hat\epsilon\times m
+\end{pmatrix}\epsilon^{\hat\epsilon\times m}(1-\epsilon)^{m-\hat\epsilon\times m}</script><p>这也表达了在包含 $m$ 个样本的测试集上，泛化错误率为 $\epsilon$ 的学习器被测得测试错误率为 $\hat\epsilon$ 的概率。</p>
+<p>给定测试错误率，则解 $\frac{\partial P(\hat\epsilon;\epsilon)}{\partial\epsilon}=0$ 可知， $P(\hat\epsilon;\epsilon)$ 在 $\epsilon=\hat\epsilon$ 时最大， $|\epsilon-\hat\epsilon|$ 增大时 $P(\hat\epsilon;\epsilon)$ 减小。这符合二项分布。</p>
+<p>我们可使用<strong>二项检验(binomial test)</strong> 来对 $\epsilon\le\epsilon_0$ （即泛化错误率是否不大于 $\epsilon_0$ ）这样的假设进行检验。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/machine_learning/01/">
+    <time datetime="2021-09-08T01:55:14.000Z" class="entry-date">
+        2021-09-08
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/" rel="tag">undefined</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

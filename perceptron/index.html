@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286" />
+  
+  
+  
+  
+  
+  
+  <title>感知机 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="感知机(perceptron) 是二分类的线性分类模型，输入实例的特征向量，输出实例的类别。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="感知机">
+<meta property="og:url" content="https://vcode28629.github.io/perceptron/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="感知机(perceptron) 是二分类的线性分类模型，输入实例的特征向量，输出实例的类别。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-10-05T01:32:45.000Z">
+<meta property="article:modified_time" content="2021-10-06T05:01:25.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-感知机" class="post-感知机 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      感知机
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/perceptron/" data-id="cl5joxkuh0025mouebhf66kyr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><strong>感知机(perceptron)</strong> 是二分类的线性分类模型，输入实例的特征向量，输出实例的类别。</p>
+<span id="more"></span>
+<p>感激机 1957 年由 Rosenblatt 提出，是神经网络与支持向量机的基础。</p>
+<h2 id="感知机模型"><a href="#感知机模型" class="headerlink" title="感知机模型"></a>感知机模型</h2><p><strong>定义（感知机）</strong> 假设输入空间（特征空间）是 $\mathcal X\subseteq \mathbf R^n$ ，输出空间是 $\mathcal=\{+1,-1\}$ 。输入 $x\in\mathcal X$ 表示实例的特征向量，对于输入空间（特征空间）的点；输出 $y\in\mathcal Y$ 表示实例的类别。由输入空间到输出空间的函数 $f(x)=\text{sign}(w\cdot x+b)$ 称为感知机。其中， $w$ 和 $b$ 为感知机模型参数， $w\in\mathbf R^n$ 叫作权值(weight)或权值向量(weight vector)， $b\in\mathbf R$ 叫作偏置(bias)， $w\cdot x$ 表示 $w$ 和 $x$ 的内积。 $\text{sign}$ 是符号函数，即 </p>
+<script type="math/tex; mode=display">\text{sign}=\left\{\begin{aligned}+1&&x\ge0\\-1&&x\lt0\end{aligned}\right.</script><p>感知机是一种线性分类模型，属于判别模型。感知机模型的假设空间是定义在特征空间中的所有线性分类模型(linear classification model) 或线性分类器(linear classifier)，即函数集合 $\{f\mid f(x)=w\cdot x+b\}$ 。</p>
+<p>线性方程 $w\cdot x+b=0$ 可以对应于特征空间 $\mathbf R^n$ 中的一个超平面 $S$ ，其中 $w$ 是超平面的法向量， $b$ 是超平面的截距。这个超平面将特征空间划分为两个部分。位于两部分的点（特征向量）分别被分为正、负两类。因此，超平面 $S$ 称为分离超平面(separating hyperplane) 。</p>
+<p>感知机学习，由训练数据集（实例的特征向量及类别）</p>
+<script type="math/tex; mode=display">
+T=\{(x_1,y_1),(x_2,y_2),\cdots,(x_n,y_n)\}</script><p>其中， $x_i\in\mathcal X=\mathbf R^n, y_i\in\mathcal Y=\{+1, -1\}, i=1,2,\cdots, N$，求得感知机模型 $f(x)=\text{sign}(w\cdot x+b)$ ，即求得模型参数 $w,b$ 。</p>
+<p>感知机预测，通过学习得到的感知机模型，对于新的输入实例给出其对应的输出类别。</p>
+<h2 id="感知机学习策略"><a href="#感知机学习策略" class="headerlink" title="感知机学习策略"></a>感知机学习策略</h2><h3 id="数据集的线性可分性"><a href="#数据集的线性可分性" class="headerlink" title="数据集的线性可分性"></a>数据集的线性可分性</h3><p><strong>定义（数据集的线性可分性）</strong> 给定一个数据集</p>
+<script type="math/tex; mode=display">
+T=\{(x_1,y_1),(x_2,y_2),\cdots,(x_n,y_n)\}</script><p>其中， $x_i\in\mathcal X=\mathbf R^n, y_i\in\mathcal Y=\{+1, -1\}, i=1,2,\cdots, N$ ，如果存在某个超平面 $S: w\cdot x+b=0$ 能够将数据集的正实例点和负实例点完全正确地划分到超平面的两测，即对所有 $y_i=+1$ 的实例 $i$ ，有 $w\cdot x_i+b\gt0$ ，对于所有 $y_i=-1$ 的实例 $i$ ，有 $w\cdot x_i+b\lt0$ ，则称数据集 $T$ 为线性可分数据集(linearly separable data set)；否则，称数据集 $T$ 线性不可分。</p>
+<h3 id="感知机学习策略-1"><a href="#感知机学习策略-1" class="headerlink" title="感知机学习策略"></a>感知机学习策略</h3><p>假设训练数据集是线性可分的，感知机学习的目标是求得一个能够将训练集正实例点和负实例点完全正确分开的分离超平面。</p>
+<p>为了找出这样的超平面，即确定感知机模型参数 $w, b$ ，需要确定一个学习策略，即定义（经验）损失函数并将损失函数极小化。</p>
+<p>可以将损失函数定为误分类点的总数，但是这样损失函数的参数不是 $w, b$ 的连续可导函数，不易优化。</p>
+<p>损失函数的另一个选择是误分类点到超平面 $S$ 的总距离。感知机就是选择这种损失函数。</p>
+<p>输入空间 $\mathbf R^n$ 中任一点 $x_0$ 到超平面 $S$ 的距离为</p>
+<script type="math/tex; mode=display">
+\frac1{\|w\|}|w\cdot x_0+b|</script><p>$|w|=\sqrt{\sum w_i^2}$ 是 $w$ 的 $L_2$ 范数。</p>
+<p>对于误分类的数据 $(x_i, y_i)$ 来说，</p>
+<script type="math/tex; mode=display">
+-y_i(w\cdot x_i+b)\gt0</script><p>因此，误分类点到超平面的距离是</p>
+<script type="math/tex; mode=display">
+-\frac1{\|w\|}y_i(w\cdot x_i+b)</script><p>这样，假设超平面 $S$ 的误分类点集合为 $M$ ，那么所有误分类点到超平面 $S$ 的总距离为</p>
+<script type="math/tex; mode=display">
+-\frac1{\|w\|}\sum_{x_i\in M}y_i(w\cdot x_i+b)</script><p>不考虑 $\frac1{|w|}$ ，就得到感知机学习的损失函数。</p>
+<p>给定训练数据集</p>
+<script type="math/tex; mode=display">
+T=\{(x_1,y_1),(x_2,y_2),\cdots,(x_N, y_N)\}</script><p>感知机 $\text{sign}(w\cdot x+b)$ 学习的损失函数定义为</p>
+<script type="math/tex; mode=display">L(w,b)=-\sum_{x_i\in M}y_i(w\cdot x_i+b)</script><p>其中 $M$ 为误分类点的集合。这个损失函数就是感知机学习的经验风险函数。</p>
+<p>显然，损失函数 $L(w, b)$ 是非负的。如果没有误分类点，损失函数值是 0. 而且，误分类点越少，误分类点离平面越近，损失函数值就越小。一个特定的样本点的损失函数在误分类时是参数 $w,b$ 的线性函数，在正确分类时是0. 因此，给定训练数据集 $T$ ，损失函数 $L(w,b)$ 是 $w,b$ 的连续可导函数。</p>
+<p>感知机学习的策略是在假设空间中选取使损失函数式最小的模型参数 $w,b$ ，即感知机模型。</p>
+<h2 id="感知机学习算法"><a href="#感知机学习算法" class="headerlink" title="感知机学习算法"></a>感知机学习算法</h2><p>感知机学习问题转化为求解损失函数 $L(w,b)=-\sum\limits_{x_i\in M}y_i(w\cdot x_i+b)$ 的最优化问题。最优化的方法是随机梯度下降法。</p>
+<p>本届协议书感知机学习的集体算法，包括原始形式和对偶形式，并证明在训练数据线性可分条件下感知机学习算法的收敛性。</p>
+<h3 id="感知机学习算法的原始形式"><a href="#感知机学习算法的原始形式" class="headerlink" title="感知机学习算法的原始形式"></a>感知机学习算法的原始形式</h3><p>感知机学习算法是误分类驱动的，具体采用随机梯度下降法(stochastic gradient descent)。</p>
+<p>首先，任意选取一个超平面 $w_0, b_0$，然后用梯度下降法不断地极小化目标函数 $-\sum\limits_{x_i\in M}y_i(w\cdot x_i+b)$ 。</p>
+<p>极小化过程中不是一次使 $M$ 中所有误分类点的梯度下降，而是一次随机选取一个误分类点使其梯度下降。</p>
+<p>假设误分类点集合 $M$ 是固定的，那么损失函数 $L(w, b)$ 的梯度由</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\nabla_wL(w,b)&=L'_w=-\sum_{x_i\in M}y_ix_i\\
+\nabla_bL(w,b)&=L'_b=-\sum_{x_i\in M}y_i
+\end{aligned}</script><p>给出。</p>
+<p>随机选取一个误分类点 $(x_i, y_i)$ ，对 $w,b$ 进行更新：</p>
+<script type="math/tex; mode=display">
+w\leftarrow w+\eta y_ix_i\\
+b\leftarrow b+\eta y_i</script><p>式中 $0\le\eta\le1$ 是步长，在统计学习中又称为学习率(learning rate) 。这样，通过迭代可以期待损失函数 $L(w,b)$ 不断减小，直到为 0. 纵上所述，得到如下算法：</p>
+<ol>
+<li>选取初值 $w_0, b_0$</li>
+<li>在训练集中选取数据 $(x_i, y_i)$</li>
+<li>如果 $y_i(w\cdot x_i+b)\le 0$，$w\leftarrow w+\eta y_ix_i, b\leftarrow b+\eta y_i$</li>
+<li>转至 2 ，直至训练集中没有误分类点。</li>
+</ol>
+<h3 id="算法的收敛性"><a href="#算法的收敛性" class="headerlink" title="算法的收敛性"></a>算法的收敛性</h3><p>为了便于叙述与推导，记 $\hat w=(w^T, b)^T, \hat x=(x^T, 1)^T$ </p>
+<p>这样， $\hat w\cdot\hat x=w\cdot x+b$</p>
+<p><strong>定理（Novikoff）</strong> 设训练数据集 $T=\{(x_1,y_1),(x_2,y_2),\cdots,(x_N,y_N)\}$ 是线性可分的，其中 $x_i\in\mathcal X=\mathbf R^n, y_i\in\mathcal Y=\{-1, +1\}, i=1,2,\cdots,N$ ，则</p>
+<ol>
+<li>存在满足条件 $|\hat w_{opt}|=1$ 的超平面 $\hat w_{opt}\cdot \hat x=0$ 将训练数据集完全正确分开；且 $\exist\gamma\gt0\space s.t. \space\forall i\in\{1,2,\cdots,N\}, y_i(\hat w_{opt}\cdot\hat x)\ge\gamma$</li>
+<li>令 $R=\max\limits_{1\le i\le N}|\hat x_i|$ ，则感知机算法在训练数据集上的误分类次数 $k$ 满足不等式 $k\le\left(\frac Rr\right)^2$</li>
+</ol>
+<p>证明：</p>
+<p>由于训练级是线性可分的，由数据集的线性可分性的定义知，存在超平面可将训练数据集完全正确分开。取此超平面为 $\hat w_{opt}\cdot\hat x=0$ ，使 $|\hat w_{opt}|=1$ 。由于对有限的 $i=1,2,\cdots,N$ 均有</p>
+<script type="math/tex; mode=display">
+y_i(\hat w_{opt}\cdot\hat x_i)\gt 0</script><p>所以存在</p>
+<script type="math/tex; mode=display">
+\gamma = \min_i{y_i(\hat w_{opt}\cdot\hat x_i)}</script><p>使</p>
+<script type="math/tex; mode=display">
+y_i(\hat w_{opt}\cdot\hat x_i)\ge\gamma</script><p>感知机算法从 $\hat w_0=0$ 开始，如果实例被误分类，则更新权重。令 $\hat w_{k-1}$ 是第 $k$ 个误分类之前的扩充权重向量，则第 $k$ 个误分类实例的条件是 $y_i(\hat w_{k-1}\cdot\hat x_i)\le0$</p>
+<p>若 $(x_i, y_i)$ 是被 $\hat w_{k-1}$ 误分类的数据，则 $\hat w$ 的更新是 $\hat w_k=\hat w_{k-1}+\eta y_i\hat x_i$</p>
+<p>由于 $y_i(\hat w_{opt}\cdot\hat x_i)\ge\gamma$ </p>
+<p>可以得到 </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\hat w_k\cdot\hat w_{opt}&=\hat w_{k-1}\cdot\hat w_{opt}+\eta y_i\hat w_{opt}\cdot\hat x_i\\&\ge\hat w_{k-1}\cdot\hat w_{opt}+\eta y_i\gamma
+\end{aligned}</script><p>可由递推关系知</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\hat w_k\cdot\hat w_{opt}&\ge\hat w_0\cdot\hat w_{opt}+k\eta\gamma\\
+&=k\eta\gamma
+\end{aligned}</script><p>此外，由 $\left\{\begin{aligned}<br>&amp;\hat w_k=\hat w_{k-1}+\eta y_i\hat x\\<br>&amp;y_i(\hat w_{k-1}\cdot\hat x_i)\le0\\<br>&amp;R=\max\limits_{1\le i\le N}|\hat x_i|<br>\end{aligned}\right.$ 知</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\|\hat w_k\|^2&=\|\hat w_{k-1}+\eta y_i\hat x\|^2\\
+&=\|\hat w_{k-1}\|^2+2\eta y_i\hat w_{k-1}\cdot\hat x_i+\eta^2\|\hat x_i\|^2\\
+&\le \|\hat w_{k-1}\|^2+\eta^2\|\hat x_i\|^2\\
+&\le \|\hat w_{k-1}\|^2+\eta^2R^2\\
+&\le \|\hat w_0\|^2+k\eta^2R^2\\
+&\le k\eta^2R^2
+\end{aligned}</script><p>结合 </p>
+<script type="math/tex; mode=display">
+\hat w_k\cdot\hat w_{opt}\ge k\eta\gamma\\
+\|\hat w_k\|^2\le k\eta^2R^2\\
+\|\hat w_{opt}\|=1</script><p>知</p>
+<script type="math/tex; mode=display">
+k\eta\gamma\le\hat w_k\cdot\hat w_{opt}\le\|\hat w_k\|\|\hat w_{opt}\|\le\sqrt k\eta R\\
+\therefore k\le\left(\frac R\gamma\right)^2</script><p>这说明，误分类的次数 $R$ 是有上界的，经过有限次搜索可以找到将训练数据完全正确分开的分离超平面。也就是说，当训练数据集线性可分时，感知机学习算法原始形式迭代是收敛的。</p>
+<p>当训练集线性不可分时，感知机学习算法不收敛，迭代结果会发生震荡。</p>
+<p>但是感知机学习算法存在许多解，这些解既一代于初值的选择，也依赖于迭代过程中误分类点的选择顺序。为了得到唯一的超平面，需要对分离超平面增加约束条件。这就是线性支持向量机的想法。</p>
+<h3 id="感知机学习算法的对偶形式"><a href="#感知机学习算法的对偶形式" class="headerlink" title="感知机学习算法的对偶形式"></a>感知机学习算法的对偶形式</h3><p>感知机学习算法的原始形式与对偶形式与支持向量机学习算法的原始形式和对偶形式相对应。</p>
+<p>对偶形式的基本想法是将 $w$ 和 $b$ 表示为实例 $x_i$ 和标记 $y_i$ 的线性组合的形式，通过求解其系数而求得 $w$ 和 $b$ 。</p>
+<p>在原始形式中，我们可以假设 $w_0=0, b_0=0$ ，对误分类点 $(x_i, y_i)$ 通过 $w\leftarrow w+\eta y_ix_i, b\leftarrow b+\eta y_i$ 来逐步修改 $w, b$ 。</p>
+<p>设修改 $n$ 次，则 $w,b$ 关于 $(x_i, y_i)$ 的增量分别是 $\alpha_iy_ix_i$ 和 $\alpha_iy_i$ 。这里 $\alpha=n_i\eta$ ， $n_i$ 是点 $(x_i, y_i)$ 被误分类的次数。 </p>
+<p>这样最后学习到的 $w, b$ 可以表示为</p>
+<script type="math/tex; mode=display">
+w=\sum_{i=1}^N\alpha_iy_ix_i\\
+b=\sum_{i=1}^N\alpha_iy_i</script><p>使用对偶形式 $f(x)=\text{sign}\left(\sum_{j=1}^N\alpha_jy_jx_j\cdot x+b\right)$ 可以得到算法：</p>
+<ol>
+<li>$\alpha\leftarrow0, b\leftarrow0$</li>
+<li>在训练集中选取数据 $(x_i, y_i)$</li>
+<li>如果 $y_i\left(\sum_{j=1}^N\alpha_jy_jx_j\cdot x_i+b\right)\le0$ ， $\alpha+i\leftarrow\alpha_i+\eta, b\leftarrow b+\eta y_i$</li>
+<li>转至 2 直到没有误分类数据</li>
+</ol>
+<p>对偶形式中训练实例仅以内积形式出现。为了方便，可以预先将训练集中实例间的内积计算出来并以矩阵的形式存储，这个矩阵就是所谓的 Gram 矩阵（Gram matrix）</p>
+<script type="math/tex; mode=display">
+\mathbf G=[x_i\cdot x_j]_{N\times N}</script><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>李航. 统计学习方法[M]. 第二版. 北京: 清华大学出版社, 2019:3-47.</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/perceptron/">
+    <time datetime="2021-10-05T01:32:45.000Z" class="entry-date">
+        2021-10-05
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/k-nearest_neighbor/" rel="prev"><span class="meta-nav">←</span> k 近邻法</a></span>
+    
+    
+        <span class="nav-next"><a href="/fourier_series/" rel="next">傅丽叶级数与傅丽叶级数展开 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

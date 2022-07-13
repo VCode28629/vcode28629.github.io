@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="数值计算方法" />
+  
+  
+  
+  
+  
+  
+  <title>数值计算方法笔记01——绪论 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考教材：孙志忠, 吴宏伟, 等. 计算方法与实习[M]. 第五版. 南京: 东南大学出版社, 2011:1-16.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="数值计算方法笔记01——绪论">
+<meta property="og:url" content="https://vcode28629.github.io/numerical_analysis/01/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="参考教材：孙志忠, 吴宏伟, 等. 计算方法与实习[M]. 第五版. 南京: 东南大学出版社, 2011:1-16.">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-07-13T14:12:51.593Z">
+<meta property="article:modified_time" content="2021-09-28T06:54:26.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      数值计算方法笔记01——绪论
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/numerical_analysis/01/" data-id="cl5joxkum002wmoueh4f77qdv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>参考教材：孙志忠, 吴宏伟, 等. 计算方法与实习[M]. 第五版. 南京: 东南大学出版社, 2011:1-16.</p>
+<span id="more"></span>
+<h2 id="误差的来源"><a href="#误差的来源" class="headerlink" title="误差的来源"></a>误差的来源</h2><ol>
+<li>模型误差：数学建模与实际问题之间出现的误差</li>
+<li>观测误差：观测时得到的误差</li>
+<li>截断误差：有限过程代替无限过程的误差，是本课中需要特别重视的</li>
+<li>舍入误差</li>
+</ol>
+<p>误差是不可避免的，要求绝对准确、绝对严格实际上是办不到的。前两种误差是客观存在的，后两种误差是由计算方法及计算过程所引起的。本课程研究数学问题的数值解法，因此只涉及后两种误差。</p>
+<h2 id="绝对误差与绝对误差限"><a href="#绝对误差与绝对误差限" class="headerlink" title="绝对误差与绝对误差限"></a>绝对误差与绝对误差限</h2><p>设 $x^*$ 为准确值， $x$ 是 $x^*$ 的一个近似值，称 $e=x^*-x$ 为近似值 $x$ 的<strong>绝对误差</strong>，简称<strong>误差</strong>。</p>
+<p>误差 $e$ 可正可负，绝对误差不是误差绝对值。因为通常不能算出准确值 $x^*$ 和误差 $e$ ，只能得到误差的某个范围，即：</p>
+<p> $|e|=|x^*-x|\leq\varepsilon$ </p>
+<p>称 $\varepsilon$ 为近似值 $x$ 的<strong>绝对误差限</strong>，简称<strong>误差限</strong>。也可以表示为 $x^*=x\pm\varepsilon$ </p>
+<p>对于给定的 $\varepsilon$ ，若 $|x^*-x|\leq\varepsilon$ ,则在允许误差 $\varepsilon$ 范围内认为 $x$ 就是 $x^*$ ，也即近似值 $x$ 和真值 $x^*$ 关于允许误差 $\varepsilon$ 可以看成是“重合”的，或者说值 $x$ 关于允许误差 $\varepsilon$ 是“准确”的。</p>
+<h2 id="相对误差与相对误差限"><a href="#相对误差与相对误差限" class="headerlink" title="相对误差与相对误差限"></a>相对误差与相对误差限</h2><p><strong>相对误差</strong>是误差与真值的比值，记作 $e_r=\frac{x^*-x}{x^*}=\frac{e}{x^*}$ </p>
+<p>实际计算中，真值 $x^*$ 难以求得。所以常以 $\bar{e}_r=\frac{x^*-x}{x}$ 作为相对误差。</p>
+<p>因为 $\bar e_r-e_r=\frac{\bar e^2_r}{1+\bar e_r}=\frac{e^2_r}{1-e_r}$ ，所以当 $\bar e_r$ 与 $e_r$ 有一为小量时， $\bar e_r-e_r$ 为该小量的二阶小量。</p>
+<p>计算相对误差与计算绝对误差有相同的困难，所以通常也只考虑相对误差限。若存在正数 $\epsilon_r$ 使 $|e_r|\leq\epsilon_r$ 或 $|\bar e_r|\leq\epsilon_r$ ，则称 $\epsilon_r$ 为 $x$ 的<strong>相对误差限</strong>。</p>
+<h2 id="有效数字"><a href="#有效数字" class="headerlink" title="有效数字"></a>有效数字</h2><p>如果近似值 $x$ 的误差限是其某一位上的半个单位，且该位直到 $x$ 的第 1 位非零数字一共有 $n$ 位，则称近似值 $x$ 有 $n$ 位<strong>有效数字</strong>。</p>
+<p>如： $x^*=\sqrt{3}=1.732050808\cdots$ 。取 3 位有效数字， $x=1.73,\varepsilon\lt0.005$ 。 </p>
+<p>需要注意， $x=1.731$ 时 $e=0.00150808\cdots\lt0.005$ ，仍是三位有效数字。有效数字与数字位数相等的数叫做<strong>有效数</strong>。</p>
+<p>有效数位 $n$ 越多，则绝对误差 $e$ 越小</p>
+<p>若近似数 $x$ 具有 $n$ 位有效数字，则其相对误差限 $|e_r(x)|\le\frac{1}{2a_1}\times10^{1-n}$</p>
+<h2 id="数据误差的影响"><a href="#数据误差的影响" class="headerlink" title="数据误差的影响"></a>数据误差的影响</h2><h3 id="一元函数情形"><a href="#一元函数情形" class="headerlink" title="一元函数情形"></a>一元函数情形</h3><p>设 $y=f(x)$ ，则 $y^*=f(x^*)$ ，由 Taylor 公式展开</p>
+<p>$e(y)=y^*-y=f(x^*)-f(x)\approx f’(x)(x^*-x)=f’(x)e(x)$</p>
+<p>发现当 $f’(x)\gt1$ 时误差扩大， $f’(x)\lt1$ 时误差减小</p>
+<p>两遍除以 $y=f(x)$ 得</p>
+<p>$e_r(y)=\frac{e(y)}y\approx\frac{f’(x)}{f(x)}xe_r(x)$</p>
+<h3 id="多元函数情形"><a href="#多元函数情形" class="headerlink" title="多元函数情形"></a>多元函数情形</h3><p>由多元函数 Taylor 展开，类似可得</p>
+<p>$e(y)\approx\sum_{i=1}^nf_i’(x_1,x_2,\cdots,x_n)e(x_i)$</p>
+<p>$e_r(y)\approx\sum_{i=1}^n\frac{f_i’(x_1,x_2,\cdots,x_n)}{f(x_1,x_2,\cdots,x_n)}x_ie_r(x_i)$</p>
+<h3 id="运算的误差估计"><a href="#运算的误差估计" class="headerlink" title="运算的误差估计"></a>运算的误差估计</h3><script type="math/tex; mode=display">
+e(x_1+x_2)\approx e(x_1)+e(x_2)\\
+e(x_1-x_2)\approx e(x_1)-e(x_2)\\
+e(x_1x_2)\approx x_2e(x_1)+x_1e(x_2)\\
+e(\frac{x_1}{x_2})\approx \frac1{x_2}e(x_1)-\frac1{x_1}e(x_2)\\
+
+e_r(x_1+x_2)\approx \frac{x_1}{x_1+x_2}e_r(x_1)+\frac{x_2}{x_1+x_2}e_r(x_2)\\
+e_r(x_1-x_2)\approx \frac{x_1}{x_1-x_2}e_r(x_1)-\frac{x_2}{x_1-x_2}e_r(x_2)\\
+e_r(x_1x_2)\approx e_r(x_1)+e_r(x_2)\\
+e_r(\frac{x_1}{x_2})\approx e_r(x_1)-e_r(x_2)</script><h2 id="机器数系"><a href="#机器数系" class="headerlink" title="机器数系"></a>机器数系</h2><p>略（P7）</p>
+<h2 id="误差危害的防止"><a href="#误差危害的防止" class="headerlink" title="误差危害的防止"></a>误差危害的防止</h2><ol>
+<li>选用数值稳定性好的算法，以控制舍入误差高速增长</li>
+<li>防止大数“吃掉”小数</li>
+<li>尽量避免相近数相减</li>
+<li>尽量避免用绝对值很大的数作乘数</li>
+<li>注意简化计算步骤，减少运算次数</li>
+</ol>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/numerical_analysis/01/">
+    <time datetime="2022-07-13T14:12:51.593Z" class="entry-date">
+        2022-07-13
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

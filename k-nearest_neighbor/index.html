@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286" />
+  
+  
+  
+  
+  
+  
+  <title>k 近邻法 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="k 近邻法（k-nearest neighbor, K-NN）是一种基本分类与回归方法。此处只讨论分类问题中的 k 近邻法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k 近邻法">
+<meta property="og:url" content="https://vcode28629.github.io/k-nearest_neighbor/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="k 近邻法（k-nearest neighbor, K-NN）是一种基本分类与回归方法。此处只讨论分类问题中的 k 近邻法。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-10-06T04:54:37.000Z">
+<meta property="article:modified_time" content="2021-10-06T08:19:06.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-k-近邻法" class="post-k-近邻法 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      k 近邻法
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/k-nearest_neighbor/" data-id="cl5joxku40017moue0h7t5s8w" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>k 近邻法（k-nearest neighbor, K-NN）是一种基本分类与回归方法。此处只讨论分类问题中的 k 近邻法。</p>
+<span id="more"></span>
+<p>k 近邻法假设给定一个训练数据集，其中的实例类别已定。分类时，对新的实例，根据其 k 个最近邻的训练实例的类别，通过多数表决等方式进行预测。</p>
+<p>因此， k 近邻法不具有显式的学习过程。 k 近邻法实际上利用训练数据集对特征向量空间进行划分，并作为其分类的“模型”。</p>
+<p>k 值的选择、距离度量及分类决策规则是 k 近邻法的三个基本要素。</p>
+<p>k 近邻法 1968 年由 Cover 和 Hart 提出。</p>
+<h2 id="k-近邻算法"><a href="#k-近邻算法" class="headerlink" title="k 近邻算法"></a>k 近邻算法</h2><p>k 近邻算法简单、直观：给定一个训练数据集，对新的输入实例，在训练数据集中找到与该实例最邻近的 $k$ 个实例，这 $k$ 个实例的多数属于某个类，就把该输入实例分为这个类：</p>
+<ol>
+<li>根据给定的距离度量，在训练集 $T$ 中找出与 $x$ 最邻近的 $k$ 个点，涵盖这 $k$ 个点的 $x$ 的邻域 记作 $N_k(x)$</li>
+<li>在 $N_k(x)$ 中根据分类决策规则（如多数表决）决定 $x$ 的类别 $y$</li>
+</ol>
+<script type="math/tex; mode=display">
+y=\argmax_{c_j}\sum_{x_i\in N_k(x)}[y_i=c_j]</script><p>k 近邻法的特殊 $k=1$ 的情况，称为最近邻算法。对于输入的实例点（特征向量） $x$ ，最近邻法将训练数据集中与 $x$ 最邻近点的类作为 $x$ 的类。</p>
+<p>k 近邻法没有显式的学习过程。</p>
+<h2 id="k-近邻模型"><a href="#k-近邻模型" class="headerlink" title="k 近邻模型"></a>k 近邻模型</h2><p>k 近邻模型使用的模型实际上对应于对特征空间的划分。模型由三个基本要素——距离度量、 k 值的选择和分类决策规则决定。</p>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>k 近邻算法中，当训练集、距离度量（如欧氏距离）、 k 值及分类决策规则（如多数表决）确定后，对于任何一个新的输入实例，它所属的类唯一地确定。这相当于根据上述要素将特征空间划分为一些子空间，确定子空间里的每个点所属的类。这一事实从最近邻算法中可以看得很清楚。</p>
+<p>特征空间中，对每个训练实例点 $x_i$ ，距离该点比其他点更近的所有点组成一个区域，叫作单元（cell）。每个训练实例点拥有一个单元，所有训练实例点的单元构成对特征空间的一个划分。最近邻算法将实例 $x_i$ 的类 $y_i$ 作为其单元中所有点的类标记（class label）。这样，每个单元的实例点的类别是确定的。</p>
+<h3 id="距离度量"><a href="#距离度量" class="headerlink" title="距离度量"></a>距离度量</h3><p>特征空间中两个实例点的距离是两个实例点相似程度的反映。 k 近邻模型的特征空间一般是 $n$ 维实数向量空间 $\mathbf R^n$ 。使用的举例是欧式距离，但也可以是其他距离，如更一般的 $L_p$ 距离（$L_p$ distance）或 Minkowski 距离（Minkowski distance）。</p>
+<p>设特征空间 $\mathcal X$ 是 $n$ 维实数向量空间 $\mathbf R^n$ ， $x_i,x_j\in\mathcal X, x_i=(x_i^{(1)},x_i^{(2)},\cdots,x_i^{(n)})^T,x_j=(x_j^{(1)},x_j^{(2)},\cdots,x_j^{(n)})^T,x_i,x_j$ 的 $L_p$ 距离定义为</p>
+<script type="math/tex; mode=display">
+L_p(x_i, x_j)=\left(\sum_{l=1}^n\left|x_i^{(l)}-x_j^{(l)}\right|^p\right)^\frac1p</script><p>其中， $p\ge1$</p>
+<p>当 $p=2$ 时，称为欧氏距离/欧几里得距离（Euclidean distance）</p>
+<script type="math/tex; mode=display">
+L_2(x_i, x_j)=\sqrt{\sum_{l=1}^n\left(x_i^{(l)}-x_j^{(l)}\right)^2}</script><p>当 $p=1$ 时，称为曼哈顿距离（Manhattan distance）</p>
+<script type="math/tex; mode=display">
+L_1(x_i, x_j)=\sum_{l=1}^n\left|x_i^{(l)}-x_j^{(l)}\right|</script><p>当 $p=\infty$ 时，称为切比雪夫距离（Chebyshev distance）</p>
+<script type="math/tex; mode=display">
+L_\infty(x_i, x_j)=\max_l\left|x_i^{(l)}-x_j^{(l)}\right|</script><p>由不同距离度量所确定的最近邻点是不同的</p>
+<h3 id="k-值的选择"><a href="#k-值的选择" class="headerlink" title="k 值的选择"></a>k 值的选择</h3><p>k 值的选择会对 k 近邻算法的结果产生重大影响。</p>
+<p>选择较小的 k 值，学习的近似误差(approximation error)会减小，只有与输入实例较近的（相似的）训练实例才会对预测结果起作用；但估计误差(estimation error)会增大，预测结果会对近邻的实例点非常敏感。如果邻近的实例点恰巧是噪声，预测就会出错。换句话说， k 值的减小就意味着整体模型变得复杂，容易发生过拟合。</p>
+<p>选择较大的 k 值，就相当于用较大邻域中的训练实例进行预测。估计误差会减小，但近似误差会增大。这时与输入实例较远的（不相似的）训练实例也会对预测起作用，使预测发生错误。 k 值的增大就意味着整体的模型变得简单。</p>
+<p>如果 $k=N$ ，那么无论输入实例是什么，都将简单地预测它属于在训练实例中最多的类。这时，模型过于简单，完全忽略训练实例中的大量有用信息，是不可取的。</p>
+<p>在应用中， k 值一般取一个比较小的数值。通常采用交叉验证法来选取最优的 k 值。</p>
+<h3 id="分类决策规则"><a href="#分类决策规则" class="headerlink" title="分类决策规则"></a>分类决策规则</h3><p>k 近邻法中的分类决策规则往往是多数表决，即由输入实例的 k 个临近的训练实例中的多数类决定输入实例的类。</p>
+<p>多数表决规则(majority voting rule)有如下解释：如果分类的损失函数为0-1损失函数，分类函数为</p>
+<script type="math/tex; mode=display">
+f:\mathbf R^n\to\{c_1,c_2,\cdots,c_K\}</script><p>那么误分类概率是 $P(Y\ne f(X))=1-P(Y=f(X))$</p>
+<p>对给定的实例 $x\in\mathcal X$，其最近邻的 $k$ 个训练实例点构成集合 $N_k(x)$ 。如果涵盖 $N_k(x)$ 的区域的类别是 $c_j$ ，那么误分类率是</p>
+<script type="math/tex; mode=display">
+\frac1k\sum_{x_i\in N_k(x)}[y_i\ne c_j]=1-\frac1k\sum_{x_i\in N_k(x)}[y_i=c_i]</script><p>要使误分类率最小即经验风险最小，就要使 $\sum\limits_{x_i\in N_k(x)}[y_i=c_i]$ 最大，所以多数表决规则等价于经验风险最小化。</p>
+<p>k 近邻法的实现：kd 树</p>
+<p>实现 k 近邻法时，主要考虑的问题是如何对训练数据进行快速 k 近邻搜索。这点在特征空间的维数大及训练数据容量大时尤其必要。</p>
+<p>k 近邻法最简单的实现方法是线性扫描(linear scan)。这时要计算输入实例与每一个训练实例的距离。当训练集很大时，计算非常耗时，这种方法是不可行的。</p>
+<p>为了提高 k 近邻搜索的效率，可以考虑使用特殊的结构存储训练数据，以减少计算距离的次数。具体方法有很多，下面介绍其中的 kd tree方法。</p>
+<h3 id="构造-kd-树"><a href="#构造-kd-树" class="headerlink" title="构造 kd 树"></a>构造 kd 树</h3><p>略，可以参考各种题解</p>
+<p>平衡的 kd 树搜索时的效率未必是最优的。</p>
+<h3 id="搜索-kd-树"><a href="#搜索-kd-树" class="headerlink" title="搜索 kd 树"></a>搜索 kd 树</h3><p>以最近邻为例加以叙述，同样的方法可以应用到 k 近邻。</p>
+<p>给一个目标点，搜索其最近邻。首先找到包含目标点的叶节点，然后从该叶节点出发，依次退回到父结点。不断查找与目标点最临近的节点，当确定不可能存在更近的节点时终止。这样搜索就被限制在空间的局部区域上，效率大为提高。</p>
+<p>包含目标点的叶节点对应包含目标点的最小超矩形区域。以此叶节点的实例点作为当前最近点。目标点的最近邻一定在以目标点为中心并通过当前最近点的超球体内部。然后返回当前结点的父亲，如果父结点的另一子结点的超矩形区域与超球体相交，那么在相交区域内寻找与目标点更近的实例点。如果存在这样的点，将此点作为新的当前最近点。算法转到级的父结点，继续上述过程。</p>
+<ol>
+<li>在 kd 树中找出包含目标点 $x$ 的叶结点</li>
+<li>以此叶结点为当前最近点</li>
+<li>递归地向上回退，在每个结点进行以下操作：<ol>
+<li>如果该结点保存的实例点比当前最近点距离目标点更近，则以该实例点为当前最近点</li>
+<li>当前最近点一定存在于该结点一个子结点对应的区域。检查子结点的父结点的另一子结点对应的区域是否有更近的点。具体地，检查另一子结点对应的区域是否与以目标点为球心、以目标点与“当前最近点”间的距离为半径的超球体相交。如果相交，可能在另一个子结点对应的区域内存在距目标点更近的点，移动到另一个子结点。接着，递归地进行最近邻搜索；如果不相交，向上回退。</li>
+</ol>
+</li>
+<li>当回退到根节点时，搜索结束。最后的“当前最近点”即为 $x$ 的最近邻点。</li>
+</ol>
+<p>如果实例点是随机分布的， kd 树搜索的平均计算复杂度是 $O(\log N)$ ，这里 $N$ 是训练实例数。 kd 树更适合用于训练实例数远大于空间维数时的 $k$ 近邻搜索。当空间维数接近训练实例数时，它的效率会迅速下降，几乎接近线性扫描。</p>
+<p>理解了最近邻搜索的思路，就很容易实现 k 近邻搜索了，k近邻搜索的思路是：同样是先遍历kdtree，将遍历到的节点加入到搜索路径中，然后回溯路径；建立最大堆，在回溯路径中，将小于堆顶最大距离的节点加入堆，直到搜索路径为空。</p>
+<p>实际实现过程中，需要注意的是，先出队列的是叶子节点，距离查找点比较近，最先加入最大堆，从而堆顶距离比较小，在最大堆不满时，进行距离判断，可能会将在k近邻范围内的节点排除掉，因此预先加入一个极大距离节点，可避免最大堆不满时，排除掉正确的节点。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/k-nearest_neighbor/">
+    <time datetime="2021-10-06T04:54:37.000Z" class="entry-date">
+        2021-10-06
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/cargo-source/" rel="prev"><span class="meta-nav">←</span> cargo换中科大源</a></span>
+    
+    
+        <span class="nav-next"><a href="/perceptron/" rel="next">感知机 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

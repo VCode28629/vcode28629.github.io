@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="SA-IS,后缀数组,O(n)后缀数组,SuffixArray,inducedSort,诱导排序" />
+  
+  
+  
+  
+  
+  
+  <title>【模板】后缀数组SA-IS | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="常见的后缀数组求法为 $\rm O(nlogn)$ 的倍增求法，也有DC3或后缀自动机 $\rm O(n)$ 构造的。我们今天要讲的也是一种 $\rm O(n)$ 构造后缀数组的算法，SA-IS(SuffixArray-InducedSort)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【模板】后缀数组SA-IS">
+<meta property="og:url" content="https://vcode28629.github.io/SA-IS/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="常见的后缀数组求法为 $\rm O(nlogn)$ 的倍增求法，也有DC3或后缀自动机 $\rm O(n)$ 构造的。我们今天要讲的也是一种 $\rm O(n)$ 构造后缀数组的算法，SA-IS(SuffixArray-InducedSort)。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-08-23T07:50:32.000Z">
+<meta property="article:modified_time" content="2021-08-31T06:45:47.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="模版">
+<meta property="article:tag" content="SA-IS">
+<meta property="article:tag" content="后缀数组">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-SA-IS" class="post-SA-IS post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      【模板】后缀数组SA-IS
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/SA-IS/" data-id="cl5joxktv000jmoueh9kfbjhp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>常见的后缀数组求法为 $\rm O(nlogn)$ 的倍增求法，也有DC3或后缀自动机 $\rm O(n)$ 构造的。我们今天要讲的也是一种 $\rm O(n)$ 构造后缀数组的算法，<strong>SA-IS(SuffixArray-InducedSort)</strong>。</p>
+<span id="more"></span>
+<p>在讲解SA-IS之前，我们需要知道一些概念、定义、以及性质。</p>
+<h1 id="后缀数组"><a href="#后缀数组" class="headerlink" title="后缀数组"></a>后缀数组</h1><p>对于后缀数组和字符串的定义与概念在此不做过于复杂的讲解，只简要说明以下几点：</p>
+<ol>
+<li>任意可比较大小的元素构成的序列叫做字符串，记为 $str$ 。</li>
+<li>$str$ 从下标 $i$ 开始到结束的子串叫 $str$ 的后缀，记为 $suffix(i)$ 。一个长度为 $len$ 的字符串有 $len$ 个后缀。</li>
+<li>后缀数组 $sa[i]$ 表示将 $str$ 的所有后缀排序后，第 $i$ 小的后缀在原串中的下标。</li>
+<li>名次数组 $rank[]$ 与高度数组 $height[]$ 不是本次讲解重点。</li>
+</ol>
+<p>为了方便起见，我们对字符串结尾增加一个空字符（即将末尾的 $’\backslash0’$ 看作字符串的一部分，下文用 $#$ 表示空字符），所以令 $len = strlen(str) + 1;$ </p>
+<h1 id="后缀类型"><a href="#后缀类型" class="headerlink" title="后缀类型"></a>后缀类型</h1><h2 id="L-type-与-S-type"><a href="#L-type-与-S-type" class="headerlink" title="$L-type$ 与 $S-type$"></a>$L-type$ 与 $S-type$</h2><p>我们将后缀分为两个类型， $L$ 型和 $S$ 型。 $L$ 型表示此后缀 $suffix(i)$ 比 $suffix(i+1)$ 大， $S$ 型表示此后缀 $suffix(i)$ 比 $suffix(i+1)$ 小。特殊的，末尾的空后缀<code>&#39;\0&#39;</code>为 $S$ 型。</p>
+<p>举个例子：</p>
+<p>对于字符串<code>AGATGAGATACGCGGT</code>，后缀类型是这样的：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">下标</th>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+<th style="text-align:center">16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">字符</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">#</td>
+</tr>
+<tr>
+<td style="text-align:center">后缀类型</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">S</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>对于一个字符串，我们可以用如下方法 $\rm O(n)$ 时间内求出它的所有后缀的后缀类型：</p>
+<pre><code class="lang-cpp">type[len - 1] = S;
+for(int i = len - 2; i &gt;= 0; --i) &#123;
+  if(str[i] &gt; str[i + 1]) type[i] = L;
+  if(str[i] &lt; str[i + 1]) type[i] = S;
+  if(str[i] == str[i + 1]) type[i] = type[i + 1];
+&#125;
+</code></pre>
+<p>对于 $str[i]$ 与 $str[i+1]$ 不一致的地方，正确性显然。对于 $str[i]==str[i+1]$ 的时候，证明如下：</p>
+<ul>
+<li>设 $suffix(i)$ 为 $aaX$ ，则 $suffix(i+1)$ 为 $aX$ 。</li>
+<li>$a=a$ ，所以比较 $aX$ 与 $X$ ， $aX$ 与 $X$ 大小关系即为 $type[i+1]$ 。</li>
+</ul>
+<p><strong>引理1：对于两个后缀 $A$ 与 $B$ ，若 $A[0]=B[0]$ 且 $A$ 是 $L$ 型， $B$ 是 $S$ 型，则 $A&lt;B$ </strong></p>
+<p>证明：设 $A=abX$ ， $B=acY$ 。</p>
+<p>若 $a\not=b$ 且 $a\not=c$ ，则 $b&lt;a&lt;c$ ，所以 $A&lt;B$ 。</p>
+<p>若 $a=b$ 且 $a\not=c$ ，则比较 $aX$ 与 $cY$ ， $a&lt;c$ ，所以 $A&lt;B$ 。</p>
+<p>若 $a\not=b$ 且 $a=c$ ，则比较 $bX$ 与 $aY$ ， $b&lt;a$ ，所以 $A&lt;B$ 。</p>
+<p>若 $a=b$ 且 $a=c$ ，则比较 $aX$ 与 $aY$ ，转化为前三种情况。</p>
+<h2 id="LMS-type"><a href="#LMS-type" class="headerlink" title="$LMS-type$"></a>$LMS-type$</h2><p> $LMS$ 类型（LeftMostS-type，下简称 $*$ 型）是一种特殊的 $S$ 型，它的要求是它的左边必须是 $L$ 型（所以 $#$ 一定会是 $LMS$ 类型）。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">下标</th>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+<th style="text-align:center">16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">字符</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">#</td>
+</tr>
+<tr>
+<td style="text-align:center">后缀类型</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">S</td>
+</tr>
+<tr>
+<td style="text-align:center">LMS</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们可以 $\rm O(n)$ 时间内求出所有 $*$ 型：</p>
+<pre><code class="lang-cpp">bool isLMS(int loc) &#123;
+  if(loc &lt;= 0) return false;
+  if(type[loc] != S) return false;
+  if(type[loc - 1] != L) return false;
+  return true;
+&#125;
+
+int LMSSize = 0;
+for(int i = 0; i &lt; len; ++i) &#123;
+  if(!isLMS(type, i)) continue;
+  LMS[LMSSize++] = i;
+&#125;
+</code></pre>
+<p>一个类型为 $*$ 的字符叫 $LMS$ 字符，两个相邻 $LMS$ 字符所夹的子串（包含这两个字符）叫 $LMS$ 子串，一个 $LMS$ 字符开始的后缀叫 $LMS$ 后缀。特殊的， $#$ 也是 $LMS$ 子串。</p>
+<p>对于 $LMS$ 子串的比较有特殊约定，不应该只比较字符大小，也需要比较类型。只有当每一个字符与其后缀类型都相同时，这两个 $LMS$ 子串才被称为是相同的。</p>
+<h1 id="诱导排序-induced-sort"><a href="#诱导排序-induced-sort" class="headerlink" title="诱导排序(induced sort)"></a>诱导排序(induced sort)</h1><p>SA-IS的主要思想是利用排序好的 $LMS$ 后缀进行诱导排序，得出后缀数组。关 $LMS$ 后缀的排序我们一会再讲，现在假设我们已经对其排好序了，存在数组 $LMS$ 里：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">下标</th>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+<th style="text-align:center">16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">字符</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">#</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+</tr>
+<tr>
+<td style="text-align:center">LMS</td>
+<td style="text-align:center">16</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">12</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>诱导排序利用了桶排序的思想，记录每种字符出现的次数，然后放到对应的位置。</p>
+<p>显然，后缀数组中首字母相同的后缀在同一段区域。</p>
+<p>根据引理1，同种首字母开头的后缀，类型相同的在同一段区域，且 $L$ 型在 $S$ 型前面，如下表所示：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">下标</th>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+<th style="text-align:center">16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">桶</td>
+<td style="text-align:center">#</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">T</td>
+</tr>
+<tr>
+<td style="text-align:center">type</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">L</td>
+<td style="text-align:center">L</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>诱导排序大致分为以下几步：</p>
+<ol>
+<li>用桶排序的思想记录每种字符出现的次数，并为每种字符在sa中分配相应的空间（如上表），初始化为 $-1$ 。</li>
+<li>逆序扫描 $LMS$ ，把 $LMS$ 后缀逆序依次放入 $sa$ 中对应的 $S$ 型桶末尾。</li>
+<li>正序扫描 $sa$ ，若 $type[sa[i]-1]=L$ ，则将 $sa[i]-1$ 放入对应的 $L$ 型桶中。</li>
+<li>逆序扫描 $sa$ ，若 $type[sa[i]-1]=S$ ，则将 $sa[i]-1$ 放入对应的 $S$ 型桶中。</li>
+</ol>
+<p>代码：</p>
+<pre><code class="lang-cpp">/*
+str 字符串
+len 字符串长度
+sigma 字符集大小
+type 类型数组
+LMS LMS数组
+LMSSize LMS数组大小
+全局数组sa 后缀数组
+*/
+template&lt;typename T&gt;
+void inducedSort(T str, int len, int sigma, type_t *type, int *LMS, int LMSSize) &#123;
+  int *bucket = new int[sigma];
+  //bucket 用于统计每个字符出现的次数
+  int *buf = new int[sigma];
+  //buf 用于分配sa中的内存
+  memset(sa, -1, sizeof(sa[0]) * len);
+  memset(bucket, 0, sizeof(bucket[0]) * sigma);
+  for(int i = 0; i &lt; len; ++i) &#123;
+    ++bucket[str[i]];
+  &#125;
+  buf[0] = bucket[0];
+  for(int i = 1; i &lt; sigma; ++i) &#123;
+    buf[i] = buf[i - 1] + bucket[i];
+  &#125;
+  //此时buf[c]表示字符c在sa中对应内存区的最后一位的下标+1
+
+  //把LMS后缀逆序依次放入sa中对应的S型桶末尾
+  for(int i = LMSSize - 1; i &gt;= 0; --i) &#123;
+    sa[--buf[str[LMS[i]]]] = LMS[i];
+  &#125;
+
+  //重置内存区域
+  buf[0] = 0;
+  for(int i = 1; i &lt; sigma; ++i) &#123;
+    buf[i] = buf[i - 1] + bucket[i - 1];
+  &#125;
+  //此时buf[c]表示字符c在sa中对应内存区的第一位的下标
+
+  //正序扫描sa
+  for(int i = 0; i &lt; len; ++i) &#123;
+    if(sa[i] &lt;= 0) continue;
+    if(type[sa[i] - 1] != L) continue;
+    //将sa[i]-1放入对应的L型桶中
+    sa[buf[str[sa[i] - 1]]++] = sa[i] - 1;
+  &#125;
+
+  //重置内存区域
+  buf[0] = bucket[0];
+  for(int i = 1; i &lt; sigma; ++i) &#123;
+    buf[i] = buf[i - 1] + bucket[i];
+  &#125; 
+  //此时buf[c]表示字符c在sa中对应内存区的最后一位的下标+1
+
+  //逆序扫描sa
+  for(int i = len - 1; i &gt;= 0; --i) &#123;
+    if(sa[i] &lt;= 0) continue;
+    if(type[sa[i] - 1] != S) continue;
+    //将sa[i]-1放入对应的S型桶中
+    sa[--buf[str[sa[i] - 1]]] = sa[i] - 1;
+  &#125;
+
+  //内存回收
+  delete[] bucket;
+  delete[] buf;
+  return;
+&#125;
+</code></pre>
+<p>让我们分析一下这样做的正确性：</p>
+<p>首先逆序扫描 $LMS$ ，把 $LMS$ 后缀逆序依次放入 $sa$ 中对应的 $S$ 型桶末尾。这样做可以保证 $LMS$ <strong>后缀在后缀数组中也是有序的</strong>。</p>
+<p>正序扫描 $sa$ ，若 $type[sa[i]-1]=L$ ，则将 $sa[i]-1$ 放入对应的 $L$ 型桶中。</p>
+<p>让我们回忆 $LMS$ 的意义： $LeftMostS-type$ ，也就是说 $LMS$ 的左侧一定是连续的 $L$ 型，并且所有连续的 $L$ 型字符右侧都有一个 $LMS$ 。</p>
+<p>然后，由于只查看 $L$ 型，而 $L$ 型的后缀必定比下一位要大，所以放入 $sa$ 中的位置一定在当前位置 $i$ 之后。</p>
+<p>由此可知， $L$ 型后缀不重不漏放入了 $sa$ 数组里。</p>
+<p>那么L型后缀是否正确放入了应在的位置呢？我们简单证明一下：</p>
+<p>假设两个已知大小关系的后缀 $X&lt;Y$ ，讨论 $aX$ 与 $bY$ 的大小关系：</p>
+<ol>
+<li>当 $a\not=b$ 时，由于 $aX$ 与 $bY$ 各自放入相应的桶里，互不干扰，所以正确排序。</li>
+<li>当 $a=b$ 时， $X&lt;Y$ ，所以 $aX&lt;bY$ 。由于从左向右扫描 $sa$ 数组，先扫描到 $X$ ，所以先置入 $aX$ ，正确排序。</li>
+</ol>
+<p>对于 $S$ 型的证明与 $L$ 型类似。额外说一句在于此时 $LMS$ 的意义已经消失，可以看作普通的 $S$ 型进行排序。</p>
+<p>于是，我们得到了该字符串的后缀数组。</p>
+<p>但是我们发现还有一个问题刚才被我们跳过去了：LMS后缀的排序。</p>
+<h1 id="LMS-后缀排序"><a href="#LMS-后缀排序" class="headerlink" title="$LMS$ 后缀排序"></a>$LMS$ 后缀排序</h1><p>在给所有 $LMS$ 后缀排序之前，我们为所有 $LMS$ 子串按大小离散化，并存入 $s1$ 中。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">下标</th>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+<th style="text-align:center">15</th>
+<th style="text-align:center">16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">字符</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">T</td>
+<td style="text-align:center">#</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">*</td>
+</tr>
+<tr>
+<td style="text-align:center">LMS子串</td>
+<td style="text-align:center">ATGA</td>
+<td style="text-align:center">AGA</td>
+<td style="text-align:center">ATA</td>
+<td style="text-align:center">ACGC</td>
+<td style="text-align:center">CGGT#</td>
+<td style="text-align:center">#</td>
+</tr>
+<tr>
+<td style="text-align:center">s1</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>引理2： $s1$ 中两个后缀的大小关系，就是 $str$ 中对应的 $*$ 型后缀的大小关系。</strong></p>
+<p>证明：<del>显然。</del> 我们可以将 $s1$ 视为是将 $*$ 后缀中不重合的部分进行切割，所以 $s1$ 的后缀就意味着 $LMS$ 后缀， $s1$ 中两个后缀的大小关系，就是 $str$ 中对应的 $*$ 型后缀的大小关系。</p>
+<p>如果向本例这样 $s1$ 中无相同的数值，那么 $s1$ 中后缀大小关系是显然的，可以直接表示出来。</p>
+<p>如果 $s1$ 中有相同数值（即存在相同的 $LMS$ 子串），则可递归计算 $s1$ 的后缀大小。</p>
+<p>那么我们现在的问题转化成了如何为 $LMS$ 子串离散化（排序）：</p>
+<h1 id="LMS-子串的排序"><a href="#LMS-子串的排序" class="headerlink" title="$LMS$ 子串的排序"></a>$LMS$ 子串的排序</h1><p>我们依然使用诱导排序，不过往里传的LMS数组并不是排好序的，而是随机的（任意顺序）。</p>
+<p>待算法完成，我们获得的 $sa$ 数组中， $LMS$ 子串之间是排好了序的。</p>
+<p>证明：</p>
+<p>对于任意后缀 $suffix(i)$ ，本次诱导排序只考虑下标 $i$ 开始到下一个 $LMS$ 字符的部分（称为 $LMS$ 前缀）。显然对于任意 $LMS$ 后缀，有效部分只有第一个字符，所以放入桶中后自然有序。由此，之后的 $L$ 与 $S$ 型排序虽然整体后缀无序，但只考虑 $LMS$ 前缀则有序，最终的 $LMS$ 子串也是有序的。</p>
+<h1 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h1><p>至此，SA-IS已经讲完了，让我们分析下它为什么是 $\rm O(n)$ 的时空复杂度：</p>
+<p>由于LMS字符个数不会超过字符串长度的一半，所以对于每层SA-IS，时间复杂度为 $T(n)$ ，则有</p>
+<script type="math/tex; mode=display">
+T(n)=\rm O(n)+T(n/2)
+\\T(n)=\rm O(n)</script><p>空间复杂度同理。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>求出 $type$ 数组</li>
+<li>求出 $LMS$ 数组</li>
+<li>排序 $LMS$ 子串</li>
+<li>为 $LMS$ 子串离散化</li>
+<li>排序 $LMS$ 后缀</li>
+<li>诱导出后缀数组</li>
+</ol>
+<p><a href="/code/SA-IS">代码</a></p>
+<blockquote>
+<p>参考资料：<br><a target="_blank" rel="noopener" href="https://blog.xehoth.cc/SA-IS/">后缀数组及SA-IS算法学习笔记</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/39876310">后缀数组 SA-IS 算法学习心得</a><br><a target="_blank" rel="noopener" href="http://zork.net/~st/jottings/sais.html">A walk through the SA-IS Suffix Array Construction Algorithm</a></p>
+</blockquote>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/SA-IS/">
+    <time datetime="2018-08-23T07:50:32.000Z" class="entry-date">
+        2018-08-23
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/UnionSet/" rel="prev"><span class="meta-nav">←</span> 【模板】并查集及几种变化</a></span>
+    
+    
+        <span class="nav-next"><a href="/HLOI01/" rel="next">省队集训01 网络流 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

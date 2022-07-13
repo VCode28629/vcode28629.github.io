@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286" />
+  
+  
+  
+  
+  
+  
+  <title>神经网络基础 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考资料：深度之眼官方账号 神经网络基础 BV1zX4y1c74i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="神经网络基础">
+<meta property="og:url" content="https://vcode28629.github.io/neural_networks_base/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="参考资料：深度之眼官方账号 神经网络基础 BV1zX4y1c74i">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-10-31T06:31:40.000Z">
+<meta property="article:modified_time" content="2021-10-31T08:32:13.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-神经网络基础" class="post-神经网络基础 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      神经网络基础
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/neural_networks_base/" data-id="cl5joxkuf001zmoueejosdpo8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>参考资料：深度之眼官方账号 神经网络基础 BV1zX4y1c74i</p>
+<span id="more"></span>
+<h2 id="1-人工神经元"><a href="#1-人工神经元" class="headerlink" title="1. 人工神经元"></a>1. 人工神经元</h2><p>1943 年心理学家 W.S.McCulloch 和数理逻辑学家 W.Pitts 研究出人工神经元，称为 M-P 模型</p>
+<script type="math/tex; mode=display">y=\mathrm{Threshold_T}\left(\sum_{i=1}^nI_iW_i\right)</script><p>其中，$\mathrm{Threshold_T}\left(x\right)=\left\{\begin{aligned}0,x\le T\\1,x\gt T\end{aligned}\right.$ </p>
+<p>人工神经网络：大量神经元以某种连接方式构成的机器学习模型</p>
+<p>第一个神经网络：1958年，计算科学家 Rosenblatt 提出 Perceptron （感知机）</p>
+<script type="math/tex; mode=display">o=\sigma\left(\mathbf W\vec x+b\right)\\
+\sigma\left(x\right)=\left\{\begin{aligned}0,x\le0\\1,x\gt0\end{aligned}\right.</script><p>感知机的致命缺点： Minsky 在 1969 年证明 Perceptron 无法解决异或问题</p>
+<h2 id="2-多层感知机"><a href="#2-多层感知机" class="headerlink" title="2. 多层感知机"></a>2. 多层感知机</h2><p>多层感知机(Multi Layer Perceptron, MLP)：单层神经网络基础上引入一个或多个隐藏层，使神经网络有多个网络层，因而得名多层感知机。</p>
+<h3 id="多层感知机的激活函数"><a href="#多层感知机的激活函数" class="headerlink" title="多层感知机的激活函数"></a>多层感知机的激活函数</h3><p>无激活函数，网络退化为单层网络</p>
+<p>隐藏层加入激活函数，可避免网络退化</p>
+<h2 id="3-激活函数"><a href="#3-激活函数" class="headerlink" title="3. 激活函数"></a>3. 激活函数</h2><ol>
+<li>让多层感知机成为真正的多层，否则等价为一层</li>
+<li>引入非线性，使网络可以逼近任意非线性函数（万能逼近定理，universal approximator）</li>
+</ol>
+<p>激活函数需要具备以下几点性质：</p>
+<ol>
+<li>连续并可导（允许少数点上不可导），便于利用数值优化的方法来学习网络参数</li>
+<li>激活函数及其导函数要尽可能的简单，有利于提高网络计算效率</li>
+<li>激活函数的导函数的值域要在合适区间内，不能太大也不能太小，否则会影响训练的效率和稳定性</li>
+</ol>
+<p>常见激活函数：</p>
+<ol>
+<li>$\mathrm{sigmoid}\left(z\right)=\frac1{1+e^{-z}}\\\mathrm{sigmoid}’\left(z\right)=\mathrm{sigmoid}\left(z\right)\left(1-\mathrm{sigmoid}\left(z\right)\right)$</li>
+<li>$\tanh\left(x\right)=\frac{e^x-x^{-x}}{e^x+e^{-x}}\\\tanh’\left(x\right)=1-\tanh^2\left(x\right)$</li>
+<li>$\mathrm{Relu}\left(x\right)=\max\left(0,x\right)\\\mathrm{Relu}’\left(x\right)=\left\{\begin{aligned}1&amp; &amp; x\gt0\\undefined&amp;&amp;x=0\\0&amp;&amp;x&lt;0\end{aligned}\right.$</li>
+</ol>
+<p>$\mathrm{sigmoid}$ 和 $\tanh$ 函数有饱和区，梯度接近于0，当神经元大量落入饱和区时，模型训练困难，所以隐藏层很少使用。</p>
+<h2 id="4-反向传播"><a href="#4-反向传播" class="headerlink" title="4. 反向传播"></a>4. 反向传播</h2><p>前向传播：输入层数据开始从前向后，数据逐步传递至输出层</p>
+<p>反向传播：损失函数开始从后向前，梯度逐步传递至第一层</p>
+<p>反向传播作用：用于权重更新，使网络输出更接近标签</p>
+<p>损失函数：衡量模型输出与真实标签的差异， $\mathrm{Loss}=f\left(\hat y,y\right)$</p>
+<p>反向传播原理：微积分中的链式求导法则</p>
+<h3 id="网络计算图"><a href="#网络计算图" class="headerlink" title="网络计算图"></a>网络计算图</h3><p>方块表示节点（数据），圆圈表示边（操作）</p>
+<p>操作要分解成最小操作</p>
+<p>梯度下降法(Gradient Decent)：权值沿梯度负方向更小，使函数值减小</p>
+<p>导数：函数在指定坐标轴上的变化率</p>
+<p>方向导数：指定方向上的变化率</p>
+<p>梯度：一个向量，方向为方向导数取得最大值的方向</p>
+<p>学习率(Learning rate)：控制更新步长</p>
+<h2 id="5-损失函数"><a href="#5-损失函数" class="headerlink" title="5. 损失函数"></a>5. 损失函数</h2><p>损失函数(Loss Function)：$\mathrm{Loss}=f\left(\hat y,y\right)$</p>
+<p>代价函数(Cost Function)：$\mathrm{Cost}=\frac1N\sum\limits_{i=1}^Nf\left(\hat y_i,y_i\right)$</p>
+<p>目标函数(Objective Function)：$\mathrm{Obj}=\mathrm{Cost}+\mathrm{Regularization Term}$</p>
+<p>两种常见的损失函数：</p>
+<ol>
+<li>MSE（均方误差，Mean Squared Error）</li>
+</ol>
+<script type="math/tex; mode=display">\mathrm{MSE}=\frac1n\sum\limits_{i=1}^n\left(\hat y_i-y_i\right)^2</script><p>输出与标签之差的平方的均值，常在回归任务中使用。</p>
+<ol>
+<li>CE(交叉熵，Cross Entropy)</li>
+</ol>
+<p>交叉熵源自信息论，用于衡量两个分布的差异，常在分类任务中使用。</p>
+<script type="math/tex; mode=display">H\left(p,q\right)=-\sum_{i=1}^np\left(x_i\right)\log q\left(x_i\right)</script><p>其中，q为预测输出，p为标签</p>
+<p>信息熵：描述信息的不确定度</p>
+<p>自信息： $I\left(x\right)=-\log P\left(x\right)$ ， $P\left(x\right)$ 是某事件发生的概率</p>
+<p>信息熵：所有可能取值的信息量的期望</p>
+<script type="math/tex; mode=display">H\left(x\right)=E_{x\sim p}[I\left(x\right)]=-E[\log P\left(x\right)]=-\sum_{i=1}^Np_i\log\left(p_i\right)</script><p>相对熵：又称 K-L 散度，衡量两个分布之间的差异。</p>
+<script type="math/tex; mode=display">D_{KL}\left(P\|Q\right)=E_{x\sim p}\left[\log\frac{P\left(x\right)}{Q\left(x\right)}\right]=E_{x\sim p}\left[\log P\left(x\right)-\log Q\left(x\right)\right]=\sum_{i=1}^NP\left(x_i\right)\left(\log P\left(x_i\right)-\log Q\left(x_i\right)\right)</script><p>交叉熵：</p>
+<script type="math/tex; mode=display">H\left(p,q\right)=-\sum_{i=1}^np\left(x_i\right)\log q\left(x_i\right)</script><p>信息熵：</p>
+<script type="math/tex; mode=display">H\left(x\right)=E_{x\sim p}[I\left(x\right)]=-E[\log P\left(x\right)]=-\sum_{i=1}^Np_i\log\left(p_i\right)</script><p>交叉熵 = 信息熵 + 相对熵</p>
+<p>其中，信息熵为常数</p>
+<p>结论：优化交叉熵等价于优化相对熵</p>
+<p>概率有两个性质：</p>
+<ol>
+<li>概率值是非负的</li>
+<li>概率之和等于 1</li>
+</ol>
+<p>交叉熵的好伙伴： $\mathrm{Softmax}$ 函数，将数据变换到符合概率分布的形式</p>
+<script type="math/tex; mode=display">\mathrm{Softmax}\left(x_i\right)=\frac{e^{x_i}}{\sum_j e^{x_j}}</script><ol>
+<li>取值数，实现非负</li>
+<li>除以指数之和，实现和为 1</li>
+</ol>
+<h2 id="6-权值初始化"><a href="#6-权值初始化" class="headerlink" title="6. 权值初始化"></a>6. 权值初始化</h2><p>简便但错误的方法：初始化为全 0</p>
+<p>会导致一层的所有神经元退化成一个神经元</p>
+<p>随机初始化法：搞死分布随机初始化，如 $X\sim N\left(0,0.01\right)$</p>
+<p>自适应标准差：自适应方法随机分布中的标准差</p>
+<script type="math/tex; mode=display">X\sim U\left(-\sqrt{\frac6{a+b}}, \sqrt{\frac6{a+b}}\right)</script><p>其中，a 是输入神经元的个数，b 是输出神经元的个数</p>
+<blockquote>
+<p>扩展阅读： Kaiming初始化（MSRA初始化）</p>
+</blockquote>
+<h2 id="7-正则化"><a href="#7-正则化" class="headerlink" title="7. 正则化"></a>7. 正则化</h2><p>减小方差的策略，通俗理解为减轻过拟合的策略</p>
+<p>误差可分解为偏差、方差和噪声之和。即误差 = 偏差 + 方差 + 噪声之和</p>
+<p>偏差度量了学习算法的期望预测与真实结果的偏离程度，即刻画了学习算法本身的拟合能力</p>
+<p>方差度量了同样大小的训练集的变动所导致的学习性能的变化，即刻画了数据扰动所造成的影响</p>
+<p>噪声则表达了在当前任务上任何学习算法所能达到的期望泛化误差下界</p>
+<p>过拟合现象：方差过大，在训练集表现良好，但在测试集表现糟糕</p>
+<p>$\mathrm{Obj}=\mathrm{Cost}+\mathrm{Regularization Term}$</p>
+<script type="math/tex; mode=display">\mathrm{L1\space Regularization\space Term}:\sum_i^N|w_i|\\
+\mathrm{L2\space Regularization\space Term}:\sum_i^Nw_i^2</script><p>Dropout：随机失活</p>
+<p>在训练时神经元有 p 的概率失活，输出为 0</p>
+<p>避免过度依赖某个神经元，实现减轻过拟合</p>
+<p>训练时随机失活，测试时使用全连接网络。数据尺度发生了变化。所以测试时神经元输出需要乘以 p</p>
+<blockquote>
+<p>扩展阅读：</p>
+<ul>
+<li>Batch normalization</li>
+<li>Layer Normalization</li>
+<li>Instance Normalization</li>
+<li>Group Normalization</li>
+</ul>
+</blockquote>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/neural_networks_base/">
+    <time datetime="2021-10-31T06:31:40.000Z" class="entry-date">
+        2021-10-31
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/CNN/" rel="prev"><span class="meta-nav">←</span> 卷积神经网络</a></span>
+    
+    
+        <span class="nav-next"><a href="/cargo-source/" rel="next">cargo换中科大源 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

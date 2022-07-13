@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="数值计算方法" />
+  
+  
+  
+  
+  
+  
+  <title>数值计算方法笔记02——方程求根 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考教材：孙志忠, 吴宏伟, 等. 计算方法与实习[M]. 第五版. 南京: 东南大学出版社, 2011:17-49.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="数值计算方法笔记02——方程求根">
+<meta property="og:url" content="https://vcode28629.github.io/numerical_analysis/02/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="参考教材：孙志忠, 吴宏伟, 等. 计算方法与实习[M]. 第五版. 南京: 东南大学出版社, 2011:17-49.">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-07-13T14:12:51.606Z">
+<meta property="article:modified_time" content="2021-11-10T04:41:36.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      数值计算方法笔记02——方程求根
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/numerical_analysis/02/" data-id="cl5joxkun002zmoue7nyx5d3e" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>参考教材：孙志忠, 吴宏伟, 等. 计算方法与实习[M]. 第五版. 南京: 东南大学出版社, 2011:17-49.</p>
+<span id="more"></span>
+<p>零点定理： $f(x)\in C[a,b], \text{单调}, f(a)f(b)&lt;0, \text{则} f(X)=0 \text{在} (a,b) \text{有唯一根}$ </p>
+<p>方程求根的步骤：</p>
+<ol>
+<li>求根的隔离区间</li>
+<li>将根精确化</li>
+</ol>
+<p>根的隔离区间求法：画草图；多项式函数交点横坐标；试算；函数单调性等</p>
+<h2 id="二分法"><a href="#二分法" class="headerlink" title="二分法"></a>二分法</h2><p>基本思想：用对分区间的方法根据分点处函数 $f(x)$ 的符号逐步将有根区间缩小，使在足够小的区间内，方程仅有一个根。</p>
+<ul>
+<li>使用条件： $f(x)$ 连续、单调、区间端点函数值异号</li>
+<li>优点：计算简单，方法可靠</li>
+<li>缺点：收敛慢，不能求复根</li>
+<li>结论：一般不单独使用，而常用于提供初值的求解</li>
+</ul>
+<p>对于给定精度 $\varepsilon$ ，若取 $k$ 使得 $\frac{1}{2^{k+1}}(b-a)\le\varepsilon$ ，则 $|x_k-x^*|\le\varepsilon$</p>
+<p>$k\ge\frac{\ln (b-a)-\ln\varepsilon}{\ln2}-1$</p>
+<pre><code class="lang-matlab">function x = divide(a, b, f, e)
+    fa = feval(f, a);
+    fb = feval(f, b);
+    if fa * fb &gt; 0 
+        error(&#39;函数在两端点必须异号&#39;);
+    elseif fa == 0 
+        x = a;
+        return;
+    elseif fb == 0
+        x = b;
+        return;
+    end
+    x = (b + a) / 2;
+    while b - a &gt; 2 * e 
+        fx = feval(f, x);
+        if fx == 0
+            return
+        elseif fx * fa &lt; 0
+            b = x;
+            fb = fx;
+        elseif fx * fb &lt; 0
+            a = x;
+            fa = fx;
+        else
+            error(&#39;???&#39;);
+        end
+        x = (b + a) / 2;
+    end
+end
+</code></pre>
+<h2 id="迭代法"><a href="#迭代法" class="headerlink" title="迭代法"></a>迭代法</h2><p>$f(x)=0$ 改写为 $x=\varphi(x)$ ，$f, \varphi$ 连续（ $\varphi(x)$ 称为迭代函数）</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{l}
+x_{n+1}=\varphi(x_n)\\
+\text{取定初值} x_0
+\end{array}\right.</script><p>则产生数列 $x_1, x_2, \cdots, x_n, x_{n+1}, \cdots$ （迭代序列）</p>
+<p>若迭代序列收敛，设极限为 $x^*$ ，则 $\lim_{n\rightarrow\infty}x_{n+1}=\lim_{n\rightarrow\infty}\varphi(x_n)$</p>
+<p>所以 $x^*=\varphi(x^*)$</p>
+<p>设 $\varphi(x)$ 在 $[a,b]$ 上具有一阶连续的导数且满足</p>
+<ol>
+<li>当 $a\le x\le b$ 时， $a\le\varphi(x)\le b$</li>
+<li>$\forall x\in[a,b], |\varphi’(x)|\le L\lt1$ ， $L$ 为常数</li>
+</ol>
+<p>则：</p>
+<ol>
+<li>$x=\varphi(x)$ 在 $[a,b]$ 有唯一根 $x^*$</li>
+<li>$\forall x_0\in[a,b], x_{n+1}=\varphi(x_n)$ 收敛到 $x^*$</li>
+<li>$|x_k-x^*|\le\frac{L}{1-L}|x_k-x_{k-1}|,k=1,2,\cdots$ （事后误差估计式）</li>
+<li>$|x_k-x^*|\le\frac{L^k}{1-L}|x_1-x_0|, k=1,2,\cdots$ （事前误差估计式）</li>
+<li>$\lim_{k\rightarrow\infty}\frac{x_{k+1}-x^*}{x_k-x^*}=\varphi’(x^*)$  （渐近误差估计式）</li>
+</ol>
+<p>证明见 P23-P24</p>
+<h3 id="编程停机判断"><a href="#编程停机判断" class="headerlink" title="编程停机判断"></a>编程停机判断</h3><p>设定初值 $x_0$ 由 $x_{k+1}=\varphi(x_k)$ 计算，当 $|x_k-x_{k-1}|\le \varepsilon$ （事后误差估计）时， $|x_k-x^*|\le\frac{L}{1-L}\varepsilon$ 。此时可停机，取 $x_k$ 为近似值。</p>
+<p>为了确保误差满足条件，可在连续两次迭代结果都满足所给精度时才停机</p>
+<hr>
+<p>设方程在区间 $[a,b]$ 内有根 $x^*$ ，且当 $x\in[a,b]$ 时， $|\varphi’(x)|\ge1$ ，则对任意初始值 $x_0\in[a,b] \land x_0\ne x^*$ ，迭代产生的迭代序列发散。</p>
+<h3 id="迭代法的局部收敛性"><a href="#迭代法的局部收敛性" class="headerlink" title="迭代法的局部收敛性"></a>迭代法的局部收敛性</h3><p>对于方程 $x=\varphi(x)$ ，若在 $x^*$ 的某个邻域 $S$ 内，对任意初值 $x_0\in S$ ，迭代格式 $x_{k+1}=\varphi(x_k)(k=0,1,2,\cdots)$ 都收敛，则称该迭代格式在 $x^*$ 附近是<strong>局部收敛</strong>的</p>
+<p>设方程 $x=\varphi(x)$ 有根 $x^*$ ，且在 $x^*$ 的某个邻域内 $\varphi(x)$ 存在一阶连续导数，则</p>
+<ol>
+<li>当 $|\varphi’(x^*)|\lt1$ 时，迭代局部收敛</li>
+<li>当 $|\varphi’(x^*)|\gt1$ 时，迭代发散</li>
+</ol>
+<p>这个定理对初值 $x_0$ 的要求较高。如果已知 $x^*$ 的大概位置， $x_0$ 为 $x^*$ 的一个较好的近似值，则可用 $\varphi(x_0)$ 代替 $\varphi(x^*)$ ，然后应用定理判断迭代的局部敛散性。</p>
+<h3 id="迭代法的收敛速度"><a href="#迭代法的收敛速度" class="headerlink" title="迭代法的收敛速度"></a>迭代法的收敛速度</h3><p>设序列 $\{x_k\}$ 收敛于 $x^*$ ，并记 $e_k=x_k-x^*$ 。如果存在非零常数 $c$ 和正常数 $p$ ，使得 $\lim_{k\rightarrow\infty}\frac{e_{k+1}}{e_k^p}=c$ ，则称序列是 $p$ 阶收敛的。</p>
+<p>$p$ 的大小反映了序列收敛速度的快慢。 $p$ 越大，则收敛的越快。当 $p=1$ 且 $0\lt|c|\lt1$ 时，称为<strong>线性收敛</strong>；当 $p\gt1$ 时，称为<strong>超线性收敛</strong>。特别地，当 $p=2$ 时，称为<strong>平方收敛</strong>。</p>
+<p>如果一个迭代格式产生的迭代序列是 $p$ 阶收敛的，则称该迭代格式是 $p$ 阶收敛的。</p>
+<p>由 $\lim_{k\rightarrow\infty}\frac{x_{k+1}-x^*}{x_k-x^*}=\varphi’(x^*)$ 知，简单迭代法是线性收敛的。</p>
+<p>若 $\varphi(x)$ 在 $x^*$ 的某个邻域内有 $p(p\ge1)$ 阶导数，且 $\left\{\begin{array}{l}<br>\varphi(x^*)=x^*&amp;\\<br>\varphi^{(k)}(x^*)=0&amp;k=1,2,\cdots,p-1\\<br>\varphi^{(p)}(x^*)\ne0&amp;<br>\end{array}\right.$ ，则对一个任意靠近 $x^*$ 的初始值 $x_0$ ，迭代公式 $x_{k+1}=\varphi(x_k)$ 是 $p$ 阶收敛的，且有 $\lim_{k\rightarrow\infty}\frac{x_{k+1}-x^*}{(x_k-x^*)^p}=\frac{\varphi^{(p)}(x^*)}{p!}$ 。如果 $p=1$ ，要求 $|\varphi’(x^*)|\lt1$</p>
+<h3 id="埃特金-Aitken-加速法"><a href="#埃特金-Aitken-加速法" class="headerlink" title="埃特金(Aitken)加速法"></a>埃特金(Aitken)加速法</h3><p>简单迭代法的收敛速度与迭代函数 $\varphi(x)$ 有关。在许多情况下，可以由 $\varphi(x)$ 构造一个新的迭代函数 $\varPhi(x)$ ，使得</p>
+<ol>
+<li>方程 $x=\varPhi(x)$ 和 $x=\varphi(x)$ 具有相同的根 $x^*$</li>
+<li>迭代公式 $x_{k+1}=\varPhi(x_k)$ 产生的迭代序列收敛于 $x^*$ 的阶高于由式 $x_{k+1}=\varphi(x_k)$ 产生的迭代序列收敛于 $x^*$ 的阶。</li>
+</ol>
+<p>由迭代格式 $x_{k+1}=\varphi(x_k)$ 产生收敛较快的迭代格式 $x_{k+1}=\varPhi(x_k)$ 的方法通常称为<strong>加速方法</strong>。</p>
+<p>设迭代格式 $x_{k+1}=\varphi(x_k)$ 是收敛的，由定理有</p>
+<script type="math/tex; mode=display">\lim_{k\rightarrow\infty}\frac{x_{k+1}-x^*}{x_k-x^*}=\varphi'(x^*)</script><p>因而当 $k$ 适当大时，有</p>
+<script type="math/tex; mode=display">\frac{x_{k+2}-x^*}{x_{k+1}-x^*}\approx\frac{x_{k+1}-x^*}{x_k-x^*}</script><p>由此解出</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+x^*&\approx\frac{x_kx_{k+2}-x_{k+1}^2}{x_{k+2}-2x_{k+1}+x_k}\\
+&=\frac{x_k\varphi(\varphi(x_k))-\varphi^2(x_k)}{\varphi(\varphi(x_k))-2\varphi(x_k)+x_k}\\
+\end{aligned}</script><p>把上式右端值作为 $\varPhi(x_k)$ ，得到新的迭代格式 $x_{k+1}=\varPhi(x_k)=\frac{x_k\varphi(\varphi(x_k))-\varphi^2(x_k)}{\varphi(\varphi(x_k))-2\varphi(x_k)+x_k}$</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\lim_{x\rightarrow x^*}\varPhi(x)&=\lim_{x\rightarrow x^*}\frac{x\varphi(\varphi(x))-\varphi^2(x)}{\varphi(\varphi(x))-2\varphi(x)+x}\\
+&=\lim_{x\rightarrow x^*}\frac{\varphi(\varphi(x))+x\varphi'(\varphi(x))\varphi'(x)-2\varphi(x)\varphi'(x)}{\varphi'(\varphi(x))\varphi'(x)-2\varphi'(x)+1}\\
+&=\frac{\varphi(\varphi(x^*))+x^*\varphi'(\varphi(x^*))\varphi'(x^*)-2\varphi(x^*)\varphi'(x^*)}{\varphi'(\varphi(x^*))\varphi'(x^*)-2\varphi'(x^*)+1}\\
+&=\frac{x^*+x^*\varphi'(x^*)\varphi'(x^*)-2x^*\varphi'(x^*)}{\varphi'(x^*)\varphi'(x^*)-2\varphi'(x^*)+1}\\
+&=x^*
+\end{aligned}</script><p>设在 $x^*$ 附近 $\varphi(x)$ 有 $(p+1)$ 阶连续导数，则对一个充分靠近 $x^*$ 的初始值 $x_0$ ：</p>
+<ol>
+<li>如果 $x_{k+1}=\varphi(x_k)$ 是线性收敛的，则 $x_{k+1}=\varPhi(x_k)$ 是二阶收敛的。</li>
+<li>如果 $x_{k+1}=\varphi(x_k)$ 是 $p(p\ge2)$ 阶收敛的，则 $x_{k+1}=\varPhi(x_k)$ 是 $(2p-1)$ 阶收敛的。</li>
+</ol>
+<p>证明略</p>
+<h2 id="牛顿法"><a href="#牛顿法" class="headerlink" title="牛顿法"></a>牛顿法</h2><p>$f(x)\approx f(x_k)+f’(x_k)(x-x_k)$</p>
+<p>则 $f(x)=0$ 可以近似看作 $f(x_k)+f’(x_k)(x-x_k)=0$</p>
+<p>所以有迭代公式 $x_{k+1}=x_k-\frac{f(x_k)}{f’(x_k)}$</p>
+<p>牛顿法也称切线法</p>
+<h3 id="局部收敛性"><a href="#局部收敛性" class="headerlink" title="局部收敛性"></a>局部收敛性</h3><p>可证明，牛顿法对单根至少是二阶局部收敛的；对重根是一阶局部收敛的。</p>
+<p>即：牛顿法不论对单根还是重根均是局部收敛的。只要初值足够靠近精确解，牛顿迭代序列均收敛于精确解。</p>
+<p>证明略（P32）</p>
+<h3 id="大范围收敛性"><a href="#大范围收敛性" class="headerlink" title="大范围收敛性"></a>大范围收敛性</h3><p>设函数 $f(x)$ 在区间 $[a, b]$ 上存在二阶连续导数，且满足条件：</p>
+<ol>
+<li>$f(a)f(b)\lt0$</li>
+<li>$\forall x\in[a, b], f’(x)\ne0$</li>
+<li>$\forall x\in[a,b], f’’(x)\text{保号}$</li>
+<li>$a-\frac{f(a)}{f’(a)}\le b, b-\frac{f(b)}{f’(b)}\ge a$</li>
+</ol>
+<p>则对任意初值 $x_0\in[a, b]$ ，由牛顿迭代产生的序列二阶收敛到方程 $f(x)=0$ 在 $[a,b]$ 上的唯一根。</p>
+<p>前两个条件保证了唯一根的存在，第三个条件保证了 $f(x)$ 在 $[a, b]$ 内上凸或下凸，条件四保证了 $x_k\in[a, b]$ 时 $x_{k+1}\in[a, b]$ ，迭代过程可一直进行下去。</p>
+<h3 id="牛顿法改进"><a href="#牛顿法改进" class="headerlink" title="牛顿法改进"></a>牛顿法改进</h3><p>设 $f(x)=0$ 有 $m(m\ge2)$ 重根，则 $x_{k+1}=x_k-m\frac{f(x_k)}{f’(x_k)}$ 至少是二阶收敛</p>
+<h2 id="割线法"><a href="#割线法" class="headerlink" title="割线法"></a>割线法</h2><p>为了避免导数，可以用差商代替导数。</p>
+<p>$x_{k+1}=x_k-\frac{f(x_k)}{f(x_k)-f(x_{k-1})}(x_k-x_{k-1})$</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/numerical_analysis/02/">
+    <time datetime="2022-07-13T14:12:51.606Z" class="entry-date">
+        2022-07-13
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

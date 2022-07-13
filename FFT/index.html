@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="FFT,DFT,IDFT,快速傅丽叶变换,懵逼傅丽叶变换,Fast-Fourier-Transformation" />
+  
+  
+  
+  
+  
+  
+  <title>【模板】FFT | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="FFT(forever fast TLE)是个很神奇的东西，可以用 $\rm O(nlogn)$ 的时间复杂度来解决多项式乘法的问题（朴素为 $\rm O(n^{2})$ 。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【模板】FFT">
+<meta property="og:url" content="https://vcode28629.github.io/FFT/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="FFT(forever fast TLE)是个很神奇的东西，可以用 $\rm O(nlogn)$ 的时间复杂度来解决多项式乘法的问题（朴素为 $\rm O(n^{2})$ 。">
+<meta property="og:locale">
+<meta property="og:image" content="https://vcode28629.github.io/images/007.jpg">
+<meta property="og:image" content="https://vcode28629.github.io/images/008.png">
+<meta property="article:published_time" content="2018-04-13T03:39:32.000Z">
+<meta property="article:modified_time" content="2021-09-09T04:35:46.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="模版">
+<meta property="article:tag" content="FFT">
+<meta property="article:tag" content="傅丽叶">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vcode28629.github.io/images/007.jpg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-FFT" class="post-FFT post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      【模板】FFT
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/FFT/" data-id="cl5joxktp0008moue7bfifznr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>FFT<del>(forever fast TLE)</del>是个很神奇的东西，可以用 $\rm O(nlogn)$ 的时间复杂度来解决多项式乘法的问题（朴素为 $\rm O(n^{2})$ 。</p>
+<span id="more"></span>
+<blockquote>
+<p>这里感谢我身边的几位dalao，直接或间接的给我讲了好几遍FFT，让我终于理解了FFT的原理<br>放出他们的博客<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/ggn_2015/article/details/68922404">https://blog.csdn.net/ggn_2015/article/details/68922404</a><br><a target="_blank" rel="noopener" href="https://www.luogu.org/blog/ACdreamer/Fast-Fourier-Transformation">https://www.luogu.org/blog/ACdreamer/Fast-Fourier-Transformation</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/WADuan2/article/details/79529900">https://blog.csdn.net/WADuan2/article/details/79529900</a></p>
+</blockquote>
+<h1 id="多项式"><a href="#多项式" class="headerlink" title="多项式"></a>多项式</h1><p>我们主要了解多项式的两种表示方法：</p>
+<ol>
+<li><h3 id="系数表示法"><a href="#系数表示法" class="headerlink" title="系数表示法"></a>系数表示法</h3></li>
+</ol>
+<p>系数表示法就是我们最常用的表示法</p>
+<script type="math/tex; mode=display">f(x)=a_{0}x^{0}+a_{1}x^{1}+a_{2}x^{2}+...+a_{n}x^{n}</script><p>我们只要用数组存下所有的系数就可以了。用两个系数表示法表示的多项试相乘是 $n^{2}$ 的。（即朴素的高精乘）</p>
+<ol>
+<li><h3 id="点值表示法"><a href="#点值表示法" class="headerlink" title="点值表示法"></a>点值表示法</h3></li>
+</ol>
+<script type="math/tex; mode=display">
+(x_{0}, f(x_{0}))\\
+(x_{1}, f(x_{1}))\\
+(x_{2}, f(x_{2}))\\
+...\\
+(x_{n}, f(x_{n}))</script><p>我们把多项式看成一个函数，一个n次函数需要n+1个在函数上的点就能确定下来。所以可以用一堆点来表示这个多项式。</p>
+<p>如果两个多项式对应的 $x_{i}$ 都相同的话，那么只要 $\rm O(n)$ 的时间复杂度就能求出答案的点值表达了。</p>
+<p>好的现在我们的需求就是把系数表示和点值表示相互转化就好了。<del>我会挨个数字代入！</del></p>
+<p>朴素代入肯定不行了，复杂度并没有缩减，常数可能还大一点。</p>
+<p>所以我们考虑优雅的代入</p>
+<h1 id="优雅的代入"><a href="#优雅的代入" class="headerlink" title="优雅的代入"></a>优雅的代入</h1><p>我们在原来的基础上再造两个多项式:</p>
+<script type="math/tex; mode=display">
+f(x)=a_{0}x^{0}+a_{1}x^{1}+a_{2}x^{2}+...+a_{n}x^{n}\\
+g(x)=a_{0}x^{0}+a_{2}x^{1}+a_{4}x^{2}+a_{6}x^{3}+...+a_{n}x^{\frac{n}{2}}\\
+h(x)=a_{1}x^{0}+a_{3}x^{1}+a_{5}x^{2}+a_{7}x^{3}+...+a_{n - 1}x^{\frac{n}{2}}</script><p>那么很明显， $f(x)=g(x^2)+xh(x^2)$ </p>
+<p>这样我们求一个x的f(x)就变成nlogn了！</p>
+<p>原来好像是O(n)来着。</p>
+<p>这样我们就写出了一个假的FFT。</p>
+<p><img src="/images/007.jpg" alt=""></p>
+<p>那这个有什么用？</p>
+<p>答案是配合虚数与单位根一起食用：</p>
+<h1 id="虚数"><a href="#虚数" class="headerlink" title="虚数"></a>虚数</h1><p>虚数有关的知识大家在高中学过了，或者在初中应该看过百度百科。就算一点也不了解也没关系，我会把咱们能用到的虚数的知识再来讲一下的：</p>
+<p>初中数学告诉我们，根号下一个负数是无意义的。于是一帮<del>闲着没事的</del>数学家哲学家<del>为了天下大一统</del>就想赋予 $\sqrt{-1}$ 实际意义，就<del>强行</del>让 $i=\sqrt{-1}$ ，于是形如a+bi这样的数就被称为虚数（其中a，b为实数且b不为0）。</p>
+<blockquote>
+<p>当时的观念认为这是真实不存在的数字。后来人们发现虚数可对应平面上的纵轴，与对应平面上横轴的实数同样真实。</p>
+<p>从小我们一直在学实数，初中老师告诉我们，实数就是数轴上的一个点的坐标。如果要表示平面上点的坐标，那我们就需要一个有序数对(a, b)。后来我们了解到，表示平面上一个点的坐标不仅可以是一个单纯的有序数对，我们可以赋予他更实际的意义，比如向量，还有虚数。</p>
+</blockquote>
+<p>那么我们自己定义一个虚数类（结构体）</p>
+<pre><code class="lang-cpp">struct Complex &#123;
+  Complex(double real = 0, double imag = 0) : real(real), imag(imag) &#123;  &#125;
+  double real;//实部a
+  double imag;//虚部b
+  Complex operator*(const Complex &amp;cmplx) const &#123;
+    //参照两个二项式乘法并将i^2看为-1
+    return (Complex)&#123;real * cmplx.real - imag * cmplx.imag,
+                     real * cmplx.imag + imag * cmplx.real&#125;;
+  &#125;
+  Complex operator+(const Complex &amp;cmplx) const &#123;
+    return (Complex)&#123;real + cmplx.real, imag + cmplx.imag&#125;;
+  &#125;
+  Complex operator-(const Complex &amp;cmplx) const &#123;
+    return (Complex)&#123;real - cmplx.real, imag - cmplx.imag&#125;;
+  &#125;
+&#125;;
+</code></pre>
+<p>当然你也可以用STL自带的complex，但是那个显然没有手写的快。</p>
+<p>我们发现虚数的乘法其实是模长相乘，辐角相加。如果模长为1，那么便只有辐角相加了。于是我们就需要单位根：</p>
+<h1 id="单位根"><a href="#单位根" class="headerlink" title="单位根"></a>单位根</h1><p>复数 $\omega$ 满足 $\omega^{n}=1$ 称作 $\omega$ 是 $n$ 次单位根</p>
+<p>如果我们把所有的8次单位根画出来就是这样的：</p>
+<p><img src="/images/008.png" alt=""></p>
+<p>让我们来了解一下单位根的两个性质：</p>
+<p>$\omega^{m}_{n}$ 称为n次单位根的m次方</p>
+<script type="math/tex; mode=display">
+(\omega^{m}_{n})^2=\omega^{2m}_{n}=\omega^{m}_{\frac{n}{2}}\\
+\omega^{m+\frac{n}{2}}_{n}=-\omega^{m}_{n}</script><h1 id="DFT"><a href="#DFT" class="headerlink" title="DFT"></a>DFT</h1><p>单位根性质结合刚才的多项式公式，我们可以得到这样的结论</p>
+<script type="math/tex; mode=display">
+f(\omega^{m}_{n})=g(\omega^{m}_{\frac{n}{2}})+\omega^{m}_{n}h(\omega^{m}_{\frac{n}{2}})\\
+f(\omega^{m+\frac{n}{2}}_{n})=g(\omega^{m}_{\frac{n}{2}})-\omega^{m}_{n}h(\omega^{m}_{\frac{n}{2}})</script><blockquote>
+<p>如果在这里你有一些没跟上，可以把之前提到的东西放在一起手推一遍，只要一步就可以得到</p>
+</blockquote>
+<p>我们只要求出每个 $f(\omega^{m}_{\frac{n}{2}})(1\leq m\leq\frac{n}{2})$<br>就可以轻松求出所有  $f(\omega^{m}_{n})(1\leq m\leq n)$ 了</p>
+<p>那么我们递归解决就可以了。</p>
+<blockquote>
+<p>注：多项式的点值表达不一定要用实数，也可以用虚数的点值表达来做。这也就是为什么我们可以FFT。</p>
+</blockquote>
+<pre><code class="lang-cpp">void DFT(Complex *f, int len) &#123;
+  if(len == 1) return;
+  //如果len为1,那么f只有f[0]一个项，无论x为多少f(x)都是f[0]，直接返回
+  Complex *g = new Complex[len &gt;&gt; 1];
+  Complex *h = new Complex[len &gt;&gt; 1];
+  for(int i = 0; i &lt; len; i += 2) &#123;
+    //为g和h分配系数
+    g[i &gt;&gt; 1] = f[i];
+    h[i &gt;&gt; 1] = f[i + 1];
+  &#125;
+  FFT(g, len &gt;&gt; 1);
+  FFT(h, len &gt;&gt; 1);
+  Complex wn(std::cos(2 * Pi / len), std::sin(2 * Pi / len));
+  //const double PI = std::acos(-1);也可以用cmath的M_PI（我没试过）
+  //wn为n次单位根
+  Complex w(1,0);
+  //w为当前的x
+  for(int i = 0; i &lt; (len &gt;&gt; 1); ++i) &#123;
+    //见代码下面的注S
+    f[i] = g[i] + w * h[i];
+    f[i + (len &gt;&gt; 1)] = g[i] - w * h[i];
+    w = w * wn;
+  &#125;
+  return;
+&#125;
+</code></pre>
+<blockquote>
+<p>注S：当代码执行到这里时，f[i]表示多项式f的系数 $a_{i}$ ，g[i]表示 $g(\omega^{i}_{\frac{n}{2}})$ ，h[i]参见g[i]。</p>
+</blockquote>
+<p>啊？你问我为啥叫DFT不叫FFT？</p>
+<p>因为FFT分为两个部分，把系数表达变为点值表达叫做DFT，变回来叫IDFT。我们目前讲的都是DFT。</p>
+<p>FFT这样一来其实就可以了，但是没人这么写，因为既然写了FFT就是为了快，然而递归的常数真的很大，所以考虑非递归版。</p>
+<h1 id="非递归版DFT"><a href="#非递归版DFT" class="headerlink" title="非递归版DFT"></a>非递归版DFT</h1><p>观察递归过程</p>
+<p>0 1 2 3 4 5 6 7<br>递归一次：<br>0 2 4 6 1 3 5 7<br>递归两次：<br>0 4 2 6 1 5 3 7<br>递归三次不变。</p>
+<p>把他们化为二进制看一眼：</p>
+<p>000 100 010 110 001 101 011 111</p>
+<p>发现规律！</p>
+<p>二进制是从左到右进位的！</p>
+<p>所以我们试图直接进入到递归最后一层，然后一点一点往上爬：</p>
+<pre><code class="lang-cppDFT">void DFT(Complex arr[], int limit) &#123;
+
+  for(int i = 0, j = 0; i &lt; limit; ++i) &#123;
+    //将arr[i]直接变成二进制从左到右进位版本
+    //后有详解
+    if(i &gt; j) std::swap(arr[i], arr[j]);
+    int bin = limit &gt;&gt; 1;
+    while((j ^= bin) &lt; bin) bin &gt;&gt;= 1;
+  &#125;
+
+  for(int len = 2; len &lt;= limit; len &lt;&lt;= 1) &#123;
+    //len相当于递归版的len
+    Complex lenUnitRoot(std::cos(2 * PI / len), sin(2 * PI / len));
+    //lenUnitRoot: len次单位根
+    int mid = len &gt;&gt; 1;
+    for(int i = 0; i &lt; limit; i += len) &#123;
+      Complex nowX(1, 0);
+      //当前的x
+      for(int j = i; j &lt; i + mid; ++j) &#123;
+        Complex left = arr[j];
+        Complex right = nowX * arr[j + mid];
+        arr[j] = left + right;
+        arr[j + mid] = left - right;
+        nowX = nowX * lenUnitRoot;
+        //更新当前的x到下一个x
+      &#125;
+    &#125;
+  &#125;
+
+  return;
+&#125;
+</code></pre>
+<p>重点讲一下第一个for循环是如何把arr[i]按二进制排序的</p>
+<p>你总会在不同人写的FFT里找到不同的方式完成这个事情，比如GGN大佬的变换方式看上去就比较神。然而好像比我的慢点（洛谷评测结果，原因未知）</p>
+<p>这是我代码中出现的for循环：</p>
+<pre><code class="lang-cpp">for(int i = 0, j = 0; i &lt; limit; ++i) &#123;
+  if(i &gt; j) std::swap(arr[i], arr[j]);
+  int bin = limit &gt;&gt; 1;
+  while((j ^= bin) &lt; bin) bin &gt;&gt;= 1;
+&#125;
+</code></pre>
+<p>我们可以把它展开，变成一个等价操作：</p>
+<pre><code class="lang-cpp">for(int i = 0; i &lt; limit; ++i) &#123;
+  temp[i + 1] = temp[i];
+  int bin = limit &gt;&gt; 1;
+  while(true) &#123;
+    temp[i + 1] ^= bin;
+    if(temp[i + 1] &lt; bin) &#123;
+      bin &gt;&gt;= 1;
+    &#125; else &#123;
+      break;
+    &#125;
+  &#125;
+&#125;
+
+for(int i = 0; i &lt; (limit &gt;&gt; 1); ++i) &#123;
+  std::swap(arr[i], temp[i]);
+&#125;
+</code></pre>
+<p>再展开while循环内：</p>
+<pre><code class="lang-cpp">for(int i = 0; i &lt; limit; ++i) &#123;
+  temp[i + 1] = temp[i];
+  int bin = limit &gt;&gt; 1;
+  while(true) &#123;
+    int is_one = temp[i + 1] &amp; bin;
+    temp[i + 1] ^= bin;
+    if(is_one) &#123;
+      bin &gt;&gt;= 1;
+    &#125; else &#123;
+      break;
+    &#125;
+  &#125;
+&#125;
+
+for(int i = 0; i &lt; (limit &gt;&gt; 1); ++i) &#123;
+  std::swap(arr[i], temp[i]);
+&#125;
+</code></pre>
+<p>这样一来这个操作就显而易见了！其实就是在模拟加一这个过程。</p>
+<p>到这里，DFT终于讲完了。</p>
+<h1 id="IDFT"><a href="#IDFT" class="headerlink" title="IDFT"></a>IDFT</h1><p>IDFT就是DFTd逆变换，也就是要把点值表示法变回系数表示法。</p>
+<p>GGN大佬表示其实就是乘一个逆矩阵，然而我并不明白是啥意思。</p>
+<p>因为只需要在DFT里改两处，所以背下来就好了！</p>
+<p>能理解固然更好，然而我这里真的找不到能让我理解IDFT的资料。</p>
+<p>如果大家想理解IDFT的过程，可以参考我在文章头放的几篇博客，我就不太（会）讲了。</p>
+<pre><code class="lang-cpp">
+const double PI = acos(-1.0);
+const int DFT = 2;
+const int IDFT = -2;
+
+void FFT(Complex arr[], int limit, int mode) &#123;
+  //mode输入DFT或IDFT
+  for(int i = 0, j = 0; i &lt; limit; ++i) &#123;
+    if(i &gt; j) std::swap(arr[i], arr[j]);
+    int bin = limit &gt;&gt; 1;
+    while((j ^= bin) &lt; bin) bin &gt;&gt;= 1;
+  &#125;
+
+  for(int len = 2; len &lt;= limit; len &lt;&lt;= 1) &#123;
+    Complex lenUnitRoot(std::cos(2 * PI / len), sin(mode * PI / len));
+    //mode第一次出现
+    int mid = len &gt;&gt; 1;
+    for(int i = 0; i &lt; limit; i += len) &#123;
+      Complex nowX(1, 0);
+      for(int j = i; j &lt; i + mid; ++j) &#123;
+        Complex left = arr[j];
+        Complex right = nowX * arr[j + mid];
+        arr[j] = left + right;
+        arr[j + mid] = left - right;
+        nowX = nowX * lenUnitRoot;
+      &#125;
+    &#125;
+  &#125;
+
+  if(mode == IDFT) &#123;
+    //逆变换需要除以limit，然后四舍五入避免精度误差
+    for(int i = 0; i &lt; limit; ++i) &#123;
+      arr[i].real = int(arr[i].real / limit + 0.5);
+      arr[i].imag = 0;// 为了美观加上的一句话，没用
+    &#125;
+  &#125;
+  return;
+&#125;
+</code></pre>
+<p><a href="/code/FFT">完整代码</a></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/FFT/">
+    <time datetime="2018-04-13T03:39:32.000Z" class="entry-date">
+        2018-04-13
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FFT/" rel="tag">FFT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/SGT/" rel="prev"><span class="meta-nav">←</span> 【模板】替罪羊树——SGT</a></span>
+    
+    
+        <span class="nav-next"><a href="/skills/" rel="next">博客总结 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

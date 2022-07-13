@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="SGT,替罪羊树,重量平衡树,平衡树" />
+  
+  
+  
+  
+  
+  
+  <title>【模板】替罪羊树——SGT | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="替罪羊树(SGT)，又叫重量平衡树，通过将不平衡的子树拍扁重构来保证整棵树的平衡。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【模板】替罪羊树——SGT">
+<meta property="og:url" content="https://vcode28629.github.io/SGT/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="替罪羊树(SGT)，又叫重量平衡树，通过将不平衡的子树拍扁重构来保证整棵树的平衡。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-04-21T05:51:17.000Z">
+<meta property="article:modified_time" content="2021-08-18T04:23:16.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="模版">
+<meta property="article:tag" content="SGT">
+<meta property="article:tag" content="平衡树">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-SGT" class="post-SGT post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      【模板】替罪羊树——SGT
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/SGT/" data-id="cl5joxktw000lmouehmj7ed3h" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>替罪羊树(SGT)，又叫重量平衡树，通过将不平衡的子树拍扁重构来保证整棵树的平衡。</p>
+<span id="more"></span>
+<blockquote>
+<p>本文已知有一个bug，尚未修改：SGT应有两个size，一个为子树节点个数，用于重构。一个为子树维护的值的个数，用于查询排名。本文将两个size混用，会导致某些数据下复杂度退化。即将更正……</p>
+</blockquote>
+<p>常见的平衡树保证平衡的方式有旋转(Treap，Splay)，分割合并(fhq Treap)，还有暴力重构(SGT)。</p>
+<p>本文采用数组模拟指针的方式来实现SGT。</p>
+<h1 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h1><p>节点有记录父亲和不记录父亲两种方式，我这里为了节省空间使用不记录的，需要用到父亲的位置(rebuild)直接用指针来充当边就好了。</p>
+<pre><code class="lang-cpp">struct Node &#123;
+  Node() : key(0), left(NIL), right(NIL), cnt(0), size(0) &#123;  &#125;
+  int key;//关键字
+  int cnt;//当前节点个数
+  int size;//当前子树大小
+  int left;//左儿子下标
+  int right;//右儿子下标
+&#125;;
+</code></pre>
+<h1 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h1><p>我们先像BST一样在树上走路，找到插入的位置插进去。然后看其他人代码都是往上找不平衡的节点重构，而我推荐从根再走一遍来寻找重构节点，一是常数比较小，二是不用记录父亲。</p>
+<pre><code class="lang-cpp">void insert(int key) &#123;
+  //注意一下我的newNode(int)创建出来的节点cnt和size都是0，不可以直接退出。
+  if(root == NIL) root = newNode(key);
+  int now = root;
+  while(true) &#123;
+    //在树上走路
+    ++node[now].size;
+    if(key &lt; node[now].key) &#123;
+      if(node[now].left == NIL) &#123;
+        node[now].left = newNode(key);
+      &#125;
+      now = node[now].left;
+    &#125; else if(node[now].key &lt; key) &#123;
+      if(node[now].right == NIL) &#123;
+        node[now].right = newNode(key);
+      &#125;
+      now = node[now].right;
+    &#125; else &#123;
+      //找到节点，退出
+      ++node[now].cnt;
+      break;
+    &#125;
+  &#125;
+  int *son = &amp;root;
+  //使用指针来记录边，方便修改
+  while(node[*son].key != key) &#123;
+    if(!balance(*son)) &#123;
+      //如果不平衡就重构
+      rebuild(son);
+      break;
+    &#125;
+    if(key &lt; node[*son].key) &#123;
+      son = &amp;node[*son].left;
+    &#125; else if(node[*son].key &lt; key) &#123;
+      son = &amp;node[*son].right;
+    &#125;
+  &#125;
+  return;
+&#125;
+</code></pre>
+<h1 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h1><p>SGT的删除也许是平衡树中的一股清流，不用做什么操作，只要把cnt设成0就行了。然后如果空节点个数大于了整棵树的一半，就把整棵树重构一下，并扔掉所有空节点。</p>
+<pre><code class="lang-cpp">void remove(int key) &#123;
+  int now = root;
+  while(true) &#123;
+    //在树上走路
+    --node[now].size;
+    if(key &lt; node[now].key) &#123;
+      now = node[now].left;
+    &#125; else if(node[now].key &lt; key) &#123;
+      now = node[now].right;
+    &#125; else &#123;
+      --node[now].cnt;
+      if(node[now].cnt == 0) &#123;
+        ++del_num;//记录树中有多少被删除的节点
+      &#125;
+      break;
+    &#125;
+  &#125;
+  if((del_num &lt;&lt; 1) &gt; node[root].size) &#123;
+    rebuild(&amp;root);
+  &#125;
+  return;
+&#125;
+</code></pre>
+<h1 id="重构"><a href="#重构" class="headerlink" title="重构"></a>重构</h1><p>SGT的精髓就是暴力重构（感觉有点怪），那么我们这就来讲一下怎么暴力重构</p>
+<h2 id="平衡"><a href="#平衡" class="headerlink" title="平衡"></a>平衡</h2><p>当一个节点不平衡的时候，我们就把这棵子树拍扁重构。</p>
+<p>判断一个子树平不平衡的方式，我们选择让根节点的size乘以一个平衡因子alpha，如果比任何一个子树的size小，则认为他是不平衡的。</p>
+<blockquote>
+<p>这个alpha是我们自己定的，在0.6~0.9之间效果较好，在0.5~0.6之间或0.9~1.0之间SGT的复杂度就会明显退化。我推荐你们在0.7~0.8之间选一个，我习惯使用0.75。<br>——igronemyk</p>
+</blockquote>
+<p>判断平衡代码如下:</p>
+<pre><code class="lang-cpp">bool balance(int key) &#123;
+  //平衡返回true，不平衡返回false
+  //BALANCE_SIZE即为alpha
+  return (node[key].left == NIL ||
+          node[key].size * BALANCE_SIZE &gt;= (double)node[node[key].left].size) &amp;&amp;
+          (node[key].right == NIL ||
+          node[key].size * BALANCE_SIZE &gt;= (double)node[node[key].right].size);
+&#125;
+</code></pre>
+<h2 id="重构-1"><a href="#重构-1" class="headerlink" title="重构"></a>重构</h2><p>重构子树分几步：</p>
+<ol>
+<li>把子树拍扁成一个序列</li>
+<li>按序列重建一棵完全平衡的树</li>
+<li>把指向原来子树根节点的边指向新的子树根</li>
+</ol>
+<h3 id="拍扁"><a href="#拍扁" class="headerlink" title="拍扁"></a>拍扁</h3><pre><code class="lang-cpp">void recycle(int now, int &amp;cnt, int *id) &#123;
+  //now 当前节点下标
+  //cnt 拍扁后数组长度
+  //id 拍扁后数组
+  if(node[now].left != NIL) &#123;
+    recycle(node[now].left, cnt, id);
+  &#125;
+  if(node[now].cnt &gt; 0) &#123;
+    //如果当前节点不是被删除的节点就直接放到数组里
+    id[++cnt] = now;
+  &#125; else &#123;
+    //否则就无视这个节点，并且让空节点个数-1
+    --del_num;
+  &#125;
+  if(node[now].right != NIL) &#123;
+    recycle(node[now].right, cnt, id);
+  &#125;
+  return;
+&#125;
+</code></pre>
+<h3 id="重构-2"><a href="#重构-2" class="headerlink" title="重构"></a>重构</h3><pre><code class="lang-cpp">int build(const int *arr, int left, int right) &#123;//[left, right]
+  const int mid = left + right &gt;&gt; 1;
+  //mid就是当前节点的在数组中的位置
+  node[arr[mid]].size = node[arr[mid]].cnt;
+  if(mid - 1 &gt;= left) &#123;
+    node[arr[mid]].left = build(arr, left, mid - 1);
+    node[arr[mid]].size += node[node[arr[mid]].left].size;
+  &#125; else &#123;
+    node[arr[mid]].left = NIL;
+  &#125;
+  if(mid + 1 &lt;= right) &#123;
+    node[arr[mid]].right = build(arr, mid + 1, right);
+    node[arr[mid]].size += node[node[arr[mid]].right].size;
+  &#125; else &#123;
+    node[arr[mid]].right = NIL;
+  &#125;
+  return arr[mid];
+  //返回当前子树的根节点
+&#125;
+</code></pre>
+<h3 id="rebuild"><a href="#rebuild" class="headerlink" title="rebuild"></a>rebuild</h3><pre><code class="lang-cpp">void rebuild(int *son) &#123;
+  int now = *son;
+  int len = 0;
+  static int *id = new int[MAX_SGT_NODE_NUM];
+  recycle(now, len, id);
+  *son = build(id, 1, len);
+  return;
+&#125;
+</code></pre>
+<hr>
+<p>其实SGT还是很简单的，把主要思想告诉大家其实大家都能自己写出来。</p>
+<p>上一份完整的普通平衡树代码，加上主函数只有200行左右，还是很短的：</p>
+<p><a href="/code/SGT">代码</a></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/SGT/">
+    <time datetime="2018-04-21T05:51:17.000Z" class="entry-date">
+        2018-04-21
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SGT/" rel="tag">SGT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/HLOI01/" rel="prev"><span class="meta-nav">←</span> 省队集训01 网络流</a></span>
+    
+    
+        <span class="nav-next"><a href="/FFT/" rel="next">【模板】FFT <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

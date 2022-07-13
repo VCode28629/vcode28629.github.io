@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="数值计算方法" />
+  
+  
+  
+  
+  
+  
+  <title>数值计算方法笔记04——插值法 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考教材：孙志忠, 吴宏伟, 等. 计算方法与实习[M]. 第五版. 南京: 东南大学出版社, 2011:85-115.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="数值计算方法笔记04——插值法">
+<meta property="og:url" content="https://vcode28629.github.io/numerical_analysis/04/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="参考教材：孙志忠, 吴宏伟, 等. 计算方法与实习[M]. 第五版. 南京: 东南大学出版社, 2011:85-115.">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-07-13T14:12:51.591Z">
+<meta property="article:modified_time" content="2021-10-10T02:08:25.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      数值计算方法笔记04——插值法
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/numerical_analysis/04/" data-id="cl5joxkup0037moue4wakhr9m" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>参考教材：孙志忠, 吴宏伟, 等. 计算方法与实习[M]. 第五版. 南京: 东南大学出版社, 2011:85-115.</p>
+<span id="more"></span>
+<h2 id="问题的提出"><a href="#问题的提出" class="headerlink" title="问题的提出"></a>问题的提出</h2><h3 id="插值函数的概念"><a href="#插值函数的概念" class="headerlink" title="插值函数的概念"></a>插值函数的概念</h3><p>实际中，连续 $y=f(x)$ 存在，但未知，只知离散数据 $y_i=f(x_i)(i=0,1,2,\cdots,n)$</p>
+<p>希望用简单函数 $P(x)$ （<strong>插值函数</strong>）近似代替 $f(x)$ （<strong>被插函数</strong>），使 $P(x_i)=f(x_i)=y_i$ （<strong>插值条件</strong>）</p>
+<p>这个方法叫<strong>插值法</strong>， $x_i$ 叫插值节点， $R(x)=f(x)-P(x)$ 叫截断误差。</p>
+<p>通常取 $P(x)$ 为三角函数（<strong>三角插值</strong>）或多项式函数（<strong>代数插值/多项式插值</strong>）。 即若 $P(x)=P_n(x)=a_0+a_!x+a_2x^2+\cdots+a_nx^n$ 是次数不超过 $n$ 的多项式，则称 $P_n(x)$ 为 $n$ 次插值多项式。</p>
+<p>本章主要讨论 $P(x)$ 为多项式时的情况。</p>
+<p>特别当 $n=1$ 时，为通过两点的一次插值多项式，称相应的插值问题为现行插值；当 $n=2$ 时，为通过三点的一次插值多项式，称相应的插值问题为抛物插值。</p>
+<h3 id="插值多项式的存在唯一性"><a href="#插值多项式的存在唯一性" class="headerlink" title="插值多项式的存在唯一性"></a>插值多项式的存在唯一性</h3><p>定理：满足条件 $P_n(x_j)=y_j(j=0,1,\cdots,n)$ 的 $n$ 次多项式 $P_n(x)=a_0+a_1x+a_2x^2+\cdots+a_nx^n$ 是存在而且唯一的。</p>
+<p>证明：P86</p>
+<p>注意：如果不限制多项式的次数，插值多项式并不唯一。事实上，设 $\alpha$ 是任意实数，若 $P(x)$ 是满足上述条件的一个插值多项式，则 $P(x)+\alpha\prod_{i=0}^n(x-x_i)$ 也是满足上述条件的一个插值多项式，而且当 $\alpha$ 不为零时次数严格大于 $n$。</p>
+<h2 id="拉格朗日插值多项式"><a href="#拉格朗日插值多项式" class="headerlink" title="拉格朗日插值多项式"></a>拉格朗日插值多项式</h2><h3 id="基本插值多项式"><a href="#基本插值多项式" class="headerlink" title="基本插值多项式"></a>基本插值多项式</h3><p>由定理可知，满足插值条件的 $n$ 次多项式是唯一存在的，且可以用待定系数法求出来。但是当 $n$ 较大时，不仅计算复杂，而且方程组往往是病态的，因此不宜采用、</p>
+<p>通常我们采用的是构造法，即直接构造一个满足插值条件的 $n$ 次插值多项式。</p>
+<p>当 $n=1$ 时，方程组为 $\left\{\begin{aligned}<br>a_0+a_1x_0=y_0\\<br>a_0+a_1x_1=y_1<br>\end{aligned}\right.$ ，解得 $\left\{\begin{aligned}<br>a_0&amp;=\frac{x_1y_0-x_0y_1}{x_1-x_0}\\<br>a_1&amp;=\frac{y_1-y_0}{x_1-x_0}<br>\end{aligned}\right.$</p>
+<p>因而 $\begin{aligned}<br>P_1(x)&amp;=a_0+a_1x\\&amp;=\frac{x_1y_0-x_0y_1}{x_1-x_0}+\frac{y_1-y_0}{x_1-x_0}x\\<br>&amp;=\frac{x-x_1}{x_0-x_1}y_0+\frac{x-x_0}{x_1-x_0}y_1\\<br>&amp;=y_0+\frac{y_1-y_0}{x_1-x_0}(x-x_0)<br>\end{aligned}$</p>
+<p>若令 $l_0(x)=\frac{x-x_1}{x_0-x_1}, l_1=\frac{x-x_0}{x_1-x_0}$ ，则 $P_1(x)=y_0l_0(x)+y_1l_1(x)$</p>
+<p>而 $l_0(x)$ 和 $l_1(x)$ 可以看作满足 插值条件 $l_0(x_0)=1, l_0(x_1)=0$ 及 $l_1(x_0)=0, l_1(x_1)=1$ 的一次插值多项式。这两个特殊的插值多项式称作一次插值的<strong>基本插值多项式</strong>。</p>
+<p>可以看出一次插值多项式可以通过基本插值多项式的线性组合得到，且其系数恰好为所给数据 $y_0$ 和 $y_1$ 。</p>
+<p>若 $n+1$ 个 $n$ 次多项式 $l_k(x) (k=0,1,2,\cdots,n)$ 在 $n+1$ 个结点 $x_i$ 上满足 $l_k(x_i)=\left\{\begin{aligned}<br>1 &amp; &amp; i=k\\<br>0 &amp; &amp; i\ne k<br>\end{aligned}\right.$</p>
+<p>则它为<strong>基本插值多项式</strong>，也称为<strong>插值基函数</strong></p>
+<p>那么，如何得到 $n$ 次基本插值多项试呢</p>
+<p>由于  $l_k(x)$ 在 $\cup_{i\ne k}x_i$ 处为零，所以 </p>
+<script type="math/tex; mode=display">l_k(x)=A_k\prod\limits_{\begin{subarray}{c}
+    i=0\\ i\ne k
+\end{subarray}}^n(x-x_i)</script><p>其中 $A_k$ 为待定系数。</p>
+<p>由于 $l_k(x_k)=1$ ，所以 </p>
+<script type="math/tex; mode=display">A_k=\frac1{\prod\limits_{\begin{subarray}{c}
+    i=0\\ i\ne k
+\end{subarray}}^n(x_k-x_i)}</script><p>即 </p>
+<script type="math/tex; mode=display">
+l_k(x)=\prod\limits_{\begin{subarray}{c}
+    i=0\\ i\ne k
+\end{subarray}}^n\frac{x-x_i}{x_k-x_i}</script><p>$l_k(x)$ 称为 $n$ 次插值问题的（第 $k$ 个） 基本插值多项试</p>
+<h3 id="拉格朗日插值多项式-1"><a href="#拉格朗日插值多项式-1" class="headerlink" title="拉格朗日插值多项式"></a>拉格朗日插值多项式</h3><script type="math/tex; mode=display">
+L_n(x)=\sum_{k=0}^n
+y_kl_k(x)=\sum_{k=0}^n\left(\prod\limits_{\begin{subarray}{c}
+    i=0\\ i\ne k
+\end{subarray}}^n\frac{x-x_i}{x_k-x_i}\right)y_k</script><p>由于基本插值多项式 $l_k(x)$ 线性无关，$L_n(x)$ 可由它们线性表示，因此又称 $l_k(x)$ 为 $n$ 次拉格朗日插值基函数。</p>
+<h3 id="插值余项"><a href="#插值余项" class="headerlink" title="插值余项"></a>插值余项</h3><p>通过 $n+1$ 个节点的 $n$ 次插值多项式，在节点处有 $L_n(x_j)=f(x_j)(j=0,1,\cdots,n)$</p>
+<p>而在其他节点上，均是 $f(x)$ 的近似值。</p>
+<p>记 $R_n(x)=f(x)-L_n(x)$ ，称 $R_n(x)$ 为插值多项式的余项。</p>
+<p>设 $f^{(n)}(x)$ 在 $[a, b]$ 上连续， $f^{(n+1)}(x)$ 在 $(a,b)$ 内存在，节点 $a\le x_0\lt\cdots\lt x_n\le b$ ， $L_n(x)$ 是满足 $L_n(x_j)=f(x_j)(j=0,1,\cdots,n)$ 的 $n$ 次插值多项式，则对任意 $x\in(a, b)$ ，插值余项 $R_n(x)=f(x)-L_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}W_{n+1}(x)$</p>
+<p>其中， $W_{n+1}(x)=\prod\limits_{i=0}^n(x-x_i)$ ， $\xi\in(a,b)$ 且依赖于 $x$ 的位置。</p>
+<p>证明：P89</p>
+<p>说明：</p>
+<ol>
+<li>当 $f(x)$ 次数不超过 $n$ 时， $R(x)=0$</li>
+<li>余项表达式只有在 $f(x)$ 的 $n+1$ 阶导数存在时才能使用，一般利用 $M_{n+1}=\max\limits_{x_0\le x\le x_n}|f^{(n+1)(x)}|$ 求误差限，即 $|R(x)|\le\frac{M_{n+1}}{(n+1)!}|\omega_{n+1}(x)|$</li>
+</ol>
+<p>内插比外推精度高，二次插值比一次插值精度高。</p>
+<h3 id="一类带导数插值条件的插值"><a href="#一类带导数插值条件的插值" class="headerlink" title="一类带导数插值条件的插值"></a>一类带导数插值条件的插值</h3><p>要求被插函数与 $n+k$ 次插值多项式在某些节点不仅有相同函数值和而且有相同的导数值。 $k$ 是导数值限制个数。</p>
+<p>首先求出 $L(x)$ ，并令 $P(x)=L(x)+Q(x)$ ， 且 $Q(x)$ 在 $x_j$ 处为零，即 $Q(x)=A\prod\limits_{i=0}^n(x-x_i)$ 。再由导数 $P’(x_k)=f’(x_k)$ 解出 $A$ 。</p>
+<p>由于 $x_j$ 是 $R(x)$ 的一重零点，$x_k$ 是 $R(x)$ 的二重零点，所以可以设 $R(x)=K(x)\prod\limits_{j=1}^n(x-x_j)\prod(x-x_k)$ 。其中， $K(x)$ 待定。</p>
+<p>经过分析（P93）知， $K(x)=\frac1{(n+k)!}f^{(n+k)}(\xi)$</p>
+<p>所以 $R(x)=\frac1{(n+k)!}f^{(n+k)}(\xi)\prod\limits_{j=1}^n(x-x_j)\prod(x-x_k)$</p>
+<h2 id="差商、差分和牛顿插值多项式"><a href="#差商、差分和牛顿插值多项式" class="headerlink" title="差商、差分和牛顿插值多项式"></a>差商、差分和牛顿插值多项式</h2><p>拉格朗日插值多项式作为一种计算方案有一些缺点。譬如要确定 $f(x)$ 在某一点 $x^*$ 处的近似值，预先不知道要选择多少个插值节点为宜，通常的办法是依次算出 $L_1(x^*), L_2(x^*), L_3(x^*), \cdots, $ 直至求出足够精确的 $f(x^<em>)$ 的近似值 $L_k(x^\</em>)$ 为止。</p>
+<p>在确定 $L_k(x)$ 的过程中，希望最好能利用已算出的 $L_{k-1}(x)$，但拉格朗日插值多项式却不能满足这一要求。</p>
+<p>我们设想给出一个构造 $L_k(x)$ 的方法，它只需要对已求出的 $L_{k-1}(x)$ 作一个简单的修正。为此考察 $h(x)=L_k(x)-L_{k-1}(x)$ 。</p>
+<p>显然 $h(x)$ 是一个次数不高于 $k$ 的多项式，且对 $j=0,1,\cdots,k-1$ 有 $h(x_j)=L_k(x_j)-L_{k-1}(x_j)=f(x_j)-f(x_j)=0$</p>
+<p>所以有 $h(x)=a_k\prod\limits_{i=0}^{k-1}(x-x_i)$</p>
+<p>或等价于 $L_k(x)=L_{k-1}(x)+a_k\prod\limits_{i=0}^{k-1}(x-x_i)$ 。</p>
+<p>如果常数 $a_k$ 可以确定，那么知道 $L_{k-1}(x)$ ，就可以确定 $L_k(x)$</p>
+<p>由递推得， $L_n(x)=\sum\limits_{k=0}^na_k\prod\limits_{i=0}^{k-1}(x-x_i)$</p>
+<p>由 $L_k(x_k)=L_{k-1}(x_k)+a_k\prod\limits_{i=0}^{k-1}(x_k-x_i)$ 知</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+a_k&=\frac{L_k(x_k)-L_{k-1}{(x_k)})}{\prod\limits_{i=0}^{k-1}(x_k-x_i)}\\
+&=\frac{f(x_k)-\sum\limits_{m=0}^{k-1}\prod\limits_{\begin{subarray}{c}
+i=0\\i\ne m
+\end{subarray}}^{k-1}\frac{x_k-x_i}{x_m-x_i}f(x_m)}{\prod\limits_{i=0}^{k-1}(x_k-x_i)}\\
+&=\frac{f(x_k)}{\prod\limits_{i=0}^{k-1}(x_k-x_i)}-\sum_{m=0}^{k-1}\frac{f(x_m)}{(x_k-x_m)\prod\limits_{\begin{subarray}{c}
+i=0\\i\ne m
+\end{subarray}}^{k-1}(x_m-x_i)}\\
+&=\sum_{m=0}^k\frac{f(x_m)}{\prod\limits_{\begin{subarray}{c}
+i=0\\i\ne m
+\end{subarray}}^k(x_m-x_i)}
+\end{aligned}</script><h3 id="差商及牛顿插值多项式"><a href="#差商及牛顿插值多项式" class="headerlink" title="差商及牛顿插值多项式"></a>差商及牛顿插值多项式</h3><p>$f[x_0, x_1]=\frac{f(x_0)-f(x_1)}{x_0-x_1}$ 叫 $f$ 在 $x_0, x_1$ 的一阶差商（均差）</p>
+<p>$f[x_0, x_1, \cdots, x_k]=\frac{f[x_0, x_1, \cdots, x_{k-1}] - f[x_1, x_2, \cdots, x_k]}{x_0-x_k}$ 叫 $f$ 在 $x_0, x_1, \cdots, x_k$ 的 $k$ 阶差商，是由 $k-1$ 阶差商定义的。</p>
+<p>给定函数表</p>
+<script type="math/tex; mode=display">
+\begin{array}{c|c}
+\hline
+x & x_0 & x_1 & x_2 & x_3\\
+\hline
+f(x) & f(x_0) & f(x_1) & f(x_2) & f(x_3)\\
+\hline
+\end{array}</script><p>可以获得差商表：</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+\hline
+k & x_k & f[x_k] & f[x_k, x_{k+1}] & f[x_k, x_{k+1}, x_{k+2}] & f[x_k, x_{k+1}, x_{k+2}, x_{k+3}]\\
+\hline
+0 & x_0 & f[x_0] & f[x_0, x_1] & f[x_0, x_1, x_2] & f[x_0, x_1, x_2, x_3]\\
+1 & x_1 & f[x_1] & f[x_1, x_2] & f[x_1, x_2, x_3]\\
+2 & x_2 & f[x_2] & f[x_2, x_3]\\
+3 & x_3 & f[x_3]\\
+\end{array}</script><p>差商具有如下重要性质：</p>
+<ol>
+<li>$k$ 阶差商 $f[x_0, x_1, \cdots, x_k]$ 是由函数值 $f(x_0), f(x_1), \cdots, f(x_k)$ 线性组合而成的，即</li>
+</ol>
+<p>$f[x_0, x_1, \cdots, x_k]=\sum\limits_{m=0}^k\frac{f(x_m)}{\prod\limits_{\begin{subarray}{c}<br>i=0\\i\ne m<br>\end{subarray}}^k(x_m-x_i)}$</p>
+<p>将其代入 $L_n(x)=\sum\limits_{k=0}^na_k\prod\limits_{i=0}^{k-1}(x-x_i)$ ，有 $L_n(x)=\sum\limits_{k=0}^nf[x_0, x_1, \cdots, x_k]\prod\limits_{i=0}^{k-1}(x-x_i)$</p>
+<p>即为牛顿插值多项式，通常记为 $N_n(x)=\sum\limits_{k=0}^nf[x_0, x_1, \cdots, x_k]\prod\limits_{i=0}^{k-1}(x-x_i)$</p>
+<ol>
+<li><p>差商具有对称性，即在 $k$ 阶差商中任意调换两个节点的顺序，其值不变。</p>
+</li>
+<li><p>$f[x_0, x_1, \cdots, x_k]=\frac{f^{(k)}(\eta)}{k!}$ ，其中 $\eta\in(\min(x_0, x_1, \cdots, x_k), \max(x_0, x_1, \cdots, x_k))$</p>
+</li>
+</ol>
+<h3 id="差分及等距节点插值公式"><a href="#差分及等距节点插值公式" class="headerlink" title="差分及等距节点插值公式"></a>差分及等距节点插值公式</h3><p>如果遇到等距节点的情况，即节点为 $x_i=x_0+ih$ ，称 $h$ 为步长，此时插值公式可以进一步简化，同时可以避免作除法运算。为此引入另一个重要的概念：差分。</p>
+<p>设 $f(x)$ 在等距节点 $x_i$ 上的函数指为 $f_i$ ，称 $f_{i+1}-f_i$ 为 $f(x)$ 在 $x_i$ 处以 $h$ 为步长的一阶向前差分，简称一阶差分。记作 $\Delta f_i=f_{i+1}-f_i$</p>
+<p>类似地，称 $\Delta^mf_i=\Delta^{m-1}f_{i+1}-\Delta^{m-1}f_i$ 为 $f(x)$ 在 $x_i$ 处以 $h$ 为步长的 $m$ 阶向前差分，简称 $m$ 阶差分。</p>
+<p>可以构造差分表</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+\hline
+x_k & f_k & \Delta f_k & \Delta^2f_k & \Delta^3f_k & \Delta^4f_k\\
+\hline
+x_0 & f_0 & \Delta f_0 & \Delta^2f_0 & \Delta^3f_0 & \Delta^4f_0\\
+x_1 & f_1 & \Delta f_1 & \Delta^2f_1 & \Delta^3f_1\\
+x_2 & f_2 & \Delta f_2 & \Delta^2f_2 \\
+x_3 & f_3 & \Delta f_3\\
+x_4 & f_4\\\hline
+\end{array}</script><p>差分和差商之间有如下关系： $f[x_i, x_{i+1}, \cdots, x_{i+k}]=\frac{\Delta^kf_i}{k!h^k}$</p>
+<p>$\prod\limits_{j=0}^{k-1}(x-x_j)=\prod\limits_{j=0}^{k-1}[(x_0+th-x_0-jh)]=h^k\sum\limits_{j=0}^{k-1}(x-x_j)$</p>
+<p>代入牛顿插值多项式，得到</p>
+<script type="math/tex; mode=display">N_n(x_0+th)=\sum_{k=0}^n\frac{\Delta^kf_0}{k!}\prod_{j=0}^{k-1}(t-j)</script><p>称之为 <strong>(n次)牛顿前插公式</strong></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/numerical_analysis/04/">
+    <time datetime="2022-07-13T14:12:51.591Z" class="entry-date">
+        2022-07-13
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

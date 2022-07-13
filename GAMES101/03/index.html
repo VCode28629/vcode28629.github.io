@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="计算机图形学,线性代数" />
+  
+  
+  
+  
+  
+  
+  <title>GAMES101-03 变换 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="二维变换缩放Scale： $\begin{bmatrix}x’\\y’\end{bmatrix}&#x3D;\begin{bmatrix}s_x&amp;0\\0&amp;s_y\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$，缩放矩阵 $\begin{bmatrix}s_x&amp;0\\0&amp;s_y\end{bmatrix}$ 反射（对称）：$\begi">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GAMES101-03 变换">
+<meta property="og:url" content="https://vcode28629.github.io/GAMES101/03/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="二维变换缩放Scale： $\begin{bmatrix}x’\\y’\end{bmatrix}&#x3D;\begin{bmatrix}s_x&amp;0\\0&amp;s_y\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$，缩放矩阵 $\begin{bmatrix}s_x&amp;0\\0&amp;s_y\end{bmatrix}$ 反射（对称）：$\begi">
+<meta property="og:locale">
+<meta property="og:image" content="https://vcode28629.github.io/GAMES101/03/%E5%8F%98%E6%8D%A2.assets%5Cimage-20220109105736022.png">
+<meta property="og:image" content="d:%5COneDrive%20-%20Ahref_Group,%20LLC%5C%E6%9D%82%E9%A1%B9%5CBlog%5Csource%5C_posts%5CGAMES101%5C%E5%8F%98%E6%8D%A2.assets%5Cimage-20220109131158988.png">
+<meta property="article:published_time" content="2021-01-09T09:15:00.000Z">
+<meta property="article:modified_time" content="2022-03-09T16:14:10.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="计算机图形学">
+<meta property="article:tag" content="线性代数">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vcode28629.github.io/GAMES101/03/%E5%8F%98%E6%8D%A2.assets%5Cimage-20220109105736022.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      GAMES101-03 变换
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/GAMES101/03/" data-id="cl5joxktn0005mouea70s8wof" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h1 id="二维变换"><a href="#二维变换" class="headerlink" title="二维变换"></a>二维变换</h1><p>缩放Scale： $\begin{bmatrix}x’\\y’\end{bmatrix}=\begin{bmatrix}s_x&amp;0\\0&amp;s_y\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$，缩放矩阵 $\begin{bmatrix}s_x&amp;0\\0&amp;s_y\end{bmatrix}$</p>
+<p>反射（对称）：$\begin{bmatrix}x’\\y’\end{bmatrix}=\begin{bmatrix}-1&amp;0\\0&amp;1\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$</p>
+<p>错切Shear：$\begin{bmatrix}x’\\y’\end{bmatrix}=\begin{bmatrix}1&amp;a\\0&amp;1\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$</p>
+<p><img src="./%E5%8F%98%E6%8D%A2.assets%5Cimage-20220109105736022.png" alt="image-20220109105736022"></p>
+<p>旋转Rotation：$\begin{bmatrix}x’\\y’\end{bmatrix}=\begin{bmatrix}\cos\theta&amp;-\sin\theta\\\sin\theta&amp;\cos\theta\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$，默认逆时针以原点为中心旋转。$\mathrm R_{-\theta}=\mathrm R_\theta^T=\mathrm R_\theta^{-1}$，为正交矩阵</p>
+<p>齐次坐标：点$(x, y, 1)^T$，向量$(x,y,0)^T$。向量具有平移不变性</p>
+<p>扩充定义：点$(x,y,w)^T$表示二维的点$(\frac xw,\frac yw,1),w\ne0$</p>
+<ul>
+<li>$向量+向量=向量$</li>
+<li>$点-点=向量$</li>
+<li>$点+向量=点$</li>
+<li>$点+点=中点$</li>
+</ul>
+<p>平移Translation变换：$\begin{pmatrix}x’\\y’\\w’\end{pmatrix}=\begin{pmatrix}1&amp;0&amp;t_x\\0&amp;1&amp;t_y\\0&amp;0&amp;1\end{pmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix}$</p>
+<p>任何一种仿射变换$\begin{pmatrix}x’\\y’\end{pmatrix}=\begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}+\begin{pmatrix}t_x\\t_y\end{pmatrix}$都可以写成齐次坐标的形式：$\begin{pmatrix}x’\\y’\\1\end{pmatrix}=\begin{pmatrix}a&amp;b&amp;t_x\\c&amp;d&amp;t_y\\0&amp;0&amp;1\end{pmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix}$</p>
+<p>逆变换：$\mathrm M\vec A=\vec B$，$\vec A=\mathrm M^{-1}\vec B$</p>
+<p>矩阵乘法没有交换律，但是有结合律</p>
+<h1 id="三维变换"><a href="#三维变换" class="headerlink" title="三维变换"></a>三维变换</h1><p>齐次坐标：点$(x, y, z, 1)^T$，向量$(x,y,z,0)^T$。向量具有平移不变性</p>
+<p>扩充定义：点$(x,y,z,w)^T$表示二维的点$(\frac xw,\frac yw,,\frac zw,1),w\ne0$</p>
+<p>三维空间下的仿射变换：</p>
+<p>$\begin{pmatrix}x’\\y’\\z’\\1\end{pmatrix}=\begin{pmatrix}a&amp;b&amp;c&amp;t_x\\d&amp;e&amp;f&amp;t_y\\g&amp;h&amp;i&amp;t_z\\0&amp;0&amp;0&amp;1\end{pmatrix}\begin{pmatrix}x\\y\\z\\1\end{pmatrix}$</p>
+<p>缩放$\begin{pmatrix}x’\\y’\\z’\\1\end{pmatrix}=\begin{pmatrix}<br>s_x&amp;0&amp;0&amp;0\\<br>0&amp;s_y&amp;0&amp;0\\<br>0&amp;0&amp;s_z&amp;0\\<br>0&amp;0&amp;0&amp;1<br>\end{pmatrix}\begin{pmatrix}x\\y\\z\\1\end{pmatrix}$</p>
+<p>平移$\begin{pmatrix}x’\\y’\\z’\\1\end{pmatrix}=\begin{pmatrix}<br>1&amp;0&amp;0&amp;t_x\\<br>0&amp;1&amp;0&amp;t_y\\<br>0&amp;0&amp;1&amp;t_z\\<br>0&amp;0&amp;0&amp;1<br>\end{pmatrix}\begin{pmatrix}x\\y\\z\\1\end{pmatrix}$</p>
+<p>旋转：</p>
+<ul>
+<li>$\mathrm R_x(\alpha)=\begin{pmatrix}<br>1&amp;0&amp;0&amp;0\\<br>0&amp;\cos\alpha&amp;-\sin\alpha&amp;0\\<br>0&amp;\sin\alpha&amp;\cos\alpha&amp;0\\<br>0&amp;0&amp;0&amp;1<br>\end{pmatrix}$</li>
+<li>$\mathrm R_y(\alpha)=\begin{pmatrix}<br>\cos\alpha&amp;0&amp;\sin\alpha&amp;0\\<br>0&amp;1&amp;0&amp;0\\<br>-\sin\alpha&amp;0&amp;\cos\alpha&amp;0\\<br>0&amp;0&amp;0&amp;1<br>\end{pmatrix}$</li>
+<li>$\mathrm R_z(\alpha)=\begin{pmatrix}<br>\cos\alpha&amp;-\sin\alpha&amp;0&amp;0\\<br>\sin\alpha&amp;\cos\alpha&amp;0&amp;0\\<br>0&amp;0&amp;1&amp;0\\<br>0&amp;0&amp;0&amp;1<br>\end{pmatrix}$</li>
+<li>$\mathrm R_{xyz}(\alpha,\beta,\gamma)=\mathrm R_x(\alpha)\mathrm R_y(\beta)\mathrm R_z(\gamma)$</li>
+</ul>
+<p>罗德里格旋转公式(Rodrigues’ Rotation Formula)：绕任意轴旋转公式：</p>
+<p>$\mathrm R(\vec n,\alpha)=\cos\alpha\mathrm I+(1-\cos\alpha)\vec n\vec n^T+\sin\alpha\mathrm N$，其中$\mathrm N=\begin{pmatrix}0&amp;-n_z&amp;n_y\\n_z&amp;0&amp;-n_x\-n_y&amp;n_x&amp;0\end{pmatrix}$</p>
+<blockquote>
+<p>扩展：四元数quaternion，用来解决旋转的差值</p>
+</blockquote>
+<h1 id="视图变换"><a href="#视图变换" class="headerlink" title="视图变换"></a>视图变换</h1><p>拍照经历的变换：模型model变换（摆姿势）、视图view变换：（找相机角度）、投影projection变换（拍照），简称MVP变换</p>
+<p>相机的属性：Camera：$\vec e$，LookAt：$\hat g$，UpDirection：$\hat t$</p>
+<p>约定：相机永远在原点，永远看向$-z$方向，永远以$y$方向为上方向</p>
+<p>将相机从原本的位置移到原点且调整方向：</p>
+<ul>
+<li>移动$\vec e$到原点</li>
+<li>将$\hat g$旋转向$-z$</li>
+<li>将$\hat t$旋转向$y$</li>
+<li>将$(\hat g\times\hat t)$旋转向$x$</li>
+</ul>
+<p>其中后三步非常难写。但是考虑逆向变换好写，即将$(1,1,1)$变换为$(\hat g\times\hat t,\hat t,-\hat g)$</p>
+<p>$\mathrm R_{view}^{-1}=\begin{bmatrix}x_{\hat g\times\hat t}&amp;x_t&amp;x_{-g}&amp;0\\y_{\hat g\times\hat t}&amp;y_t&amp;y_{-g}&amp;0\\z_{\hat g\times\hat t}&amp;z_t&amp;z_{-g}&amp;0\\0&amp;0&amp;0&amp;1\end{bmatrix}$</p>
+<p>因为旋转矩阵是正交矩阵，所以矩阵的逆等于矩阵的转置</p>
+<p>$\mathrm R_{view}={\mathrm R_{view}^{-1}}^T=\begin{bmatrix}x_{\hat g\times\hat t}&amp;y_{\hat g\times\hat t}&amp;z_{\hat g\times\hat t}&amp;0\\<br>x_t&amp;y_t&amp;z_t&amp;0\\x_{-g}&amp;y_{-g}&amp;z_{-g}&amp;0\\0&amp;0&amp;0&amp;1\end{bmatrix}$</p>
+<h1 id="投影变换"><a href="#投影变换" class="headerlink" title="投影变换"></a>投影变换</h1><p>正交投影Orthographic：</p>
+<ol>
+<li>对物体进行视图变换</li>
+<li>将$z$坐标扔掉</li>
+<li>通过平移和缩放将结果的范围改到$[-1,1]^2$</li>
+</ol>
+<p>$M_{ortho}=\begin{bmatrix}\frac2{r-l}&amp;0&amp;0&amp;0\\0&amp;\frac2{t-b}&amp;0&amp;0\\0&amp;0&amp;\frac2{n-f}&amp;0\\0&amp;0&amp;0&amp;1\end{bmatrix}\begin{bmatrix}1&amp;0&amp;0&amp;-\frac{r+l}2\\0&amp;1&amp;0&amp;-\frac{t+b}2\\0&amp;0&amp;1&amp;-\frac{n+f}2\\0&amp;0&amp;0&amp;1\end{bmatrix}$</p>
+<p>透视投影Perspective：</p>
+<p>将远平面的内容投影到近平面处</p>
+<ol>
+<li>将物体挤到相应的平面内<ul>
+<li>近平面永远不变</li>
+<li>远平面的$z$值不变</li>
+<li>中心点不变</li>
+</ul>
+</li>
+<li>做正交投影</li>
+</ol>
+<p><img src="D:%5COneDrive%20-%20Ahref_Group,%20LLC%5C%E6%9D%82%E9%A1%B9%5CBlog%5Csource%5C_posts%5CGAMES101%5C%E5%8F%98%E6%8D%A2.assets%5Cimage-20220109131158988.png" alt="image-20220109131158988"></p>
+<p>经推导可得：</p>
+<p>$\mathrm M_{persp\rightarrow ortho}=\begin{pmatrix}n&amp;0&amp;0&amp;0\\0&amp;n&amp;0&amp;0\\0&amp;0&amp;n+f&amp;-nf\\0&amp;0&amp;1&amp;0\end{pmatrix}$，其中$n$为近平面的$z$坐标，$f$为远平面$z$坐标</p>
+<p>$\mathrm M_{persp}=\mathrm M_{ortho}\mathrm M_{persp\rightarrow ortho}$</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/GAMES101/03/">
+    <time datetime="2021-01-09T09:15:00.000Z" class="entry-date">
+        2021-01-09
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/" rel="tag">undefined</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/" rel="tag">undefined</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

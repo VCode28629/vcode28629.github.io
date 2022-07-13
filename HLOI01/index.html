@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286" />
+  
+  
+  
+  
+  
+  
+  <title>省队集训01 网络流 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最大流算法：Dinic或SAP系列，掌握一种 费用流算法：SPFA、zkw费用流（有bug但高效） 可行流定义： 容量限制：所有边的流量不高于上界，不低于下界 流量平衡：除源汇外，所有点入流量&#x3D;出流量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="省队集训01 网络流">
+<meta property="og:url" content="https://vcode28629.github.io/HLOI01/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="最大流算法：Dinic或SAP系列，掌握一种 费用流算法：SPFA、zkw费用流（有bug但高效） 可行流定义： 容量限制：所有边的流量不高于上界，不低于下界 流量平衡：除源汇外，所有点入流量&#x3D;出流量">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-05-05T03:42:32.000Z">
+<meta property="article:modified_time" content="2021-08-31T06:44:32.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="集训">
+<meta property="article:tag" content="HLOI">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-HLOI01" class="post-HLOI01 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      省队集训01 网络流
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/HLOI01/" data-id="cl5joxkts000emoue1wbw5weo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <ul>
+<li>最大流算法：Dinic或SAP系列，掌握一种</li>
+<li>费用流算法：SPFA、zkw费用流（有bug但高效）</li>
+<li>可行流定义：<ul>
+<li>容量限制：所有边的流量不高于上界，不低于下界</li>
+<li>流量平衡：除源汇外，所有点入流量=出流量</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+<h2 id="有上下界的可行流求法"><a href="#有上下界的可行流求法" class="headerlink" title="有上下界的可行流求法"></a>有上下界的可行流求法</h2><ul>
+<li>如果有源汇$s$和$t$，建边$t\to s$，容量（上界）无穷大，无下界。如果没有源汇就跳过这个步骤。</li>
+<li>建立附加源$s’$和附加汇$t’$ 。</li>
+<li>对于一条边$i\to j$，上界为$u$，下界为$l$：<ul>
+<li>将其修改为容量为$u-l$，无下界。</li>
+<li>建边$i\to t’$和$s’\to j$，容量为$l$，无下界。</li>
+</ul>
+</li>
+<li>原图有可行流当且仅当附加源汇满流</li>
+<li>原图$i\to j$的流量为新图流量$+l$</li>
+<li>优化建图：对于每个点$i$，合并和抵消$s’\to i$和$i\to t’$的容量</li>
+</ul>
+<h2 id="上下界的进一步理解"><a href="#上下界的进一步理解" class="headerlink" title="上下界的进一步理解"></a>上下界的进一步理解</h2><ul>
+<li>流量、下界、上界的相对关系：<br>流量、上下界之间只有相对关系是有用的，这三个数到底是多少本身没有那么明显的作用。我们只需要关注流量离上界还有多少，离下界还有多少，就能知道这个流还能怎么增。边上存离满流还有多少。</li>
+<li>附加图相当于：<ul>
+<li>将所有边流量强制设置为下界</li>
+<li>此时破坏流量平衡，但满足了容量限制</li>
+<li>再通过附加源汇“消化”掉不平衡的流量</li>
+</ul>
+</li>
+<li>是否可以把初始流量强制设置为下界到上界的任意值？<br>容量：不变<br>流量：x<br>下界：不变<br>建边：x</li>
+<li>能否据此提出一个规避掉负环的费用流算法？<br>如果一条边费用是负的，就把初始流设成上界。</li>
+</ul>
+<h2 id="定义讨论"><a href="#定义讨论" class="headerlink" title="定义讨论"></a>定义讨论</h2><ul>
+<li>上下界</li>
+<li>有源汇 vs. 无源汇</li>
+<li>可行流 vs. 最大流 vs.最小流<ul>
+<li>有源汇可行流：除了源汇都满足流量平衡，所有边都满足容量限制。</li>
+<li>无源汇可行流：所有点都满足流量平衡，所有边都满足容量限制。</li>
+<li>有源汇最大流：除了源汇都满足流量平衡，所有边都满足容量限制且从源点出去的流量最大。</li>
+<li>无源汇最大流：无源汇没有最大流。</li>
+<li>有源汇最小流：除了源汇都满足流量平衡，所有边都满足容量限制且从源点出去的流量最小（反过来求最大流）。</li>
+<li>无源汇最小流：所有点都满足流量平衡，所有边都满足容量限制。</li>
+</ul>
+</li>
+<li>最小费用流 vs. 最大费用流。<ul>
+<li>最小费用流：显然。</li>
+<li>最大费用流：费用取相反数成最小费用流。</li>
+</ul>
+</li>
+<li>最小费用可行流 vs. 最小费用最大流 vs. 最小费用最小流<ul>
+<li>最小费用可行流：费用最小的可行流。</li>
+<li>最小费用最大流：流量最大时费用最小。</li>
+<li>最小费用最小流：流量最小时费用最小。</li>
+</ul>
+</li>
+<li>有负环的最短路 vs. 有负环的费用流</li>
+</ul>
+<h2 id="性质大集合"><a href="#性质大集合" class="headerlink" title="性质大集合"></a>性质大集合</h2><ul>
+<li>无源汇指定边最大/小流↔有源汇最大/小流</li>
+<li>源到汇最小流↔汇到源最大流</li>
+<li>上下界可行流↔附加源汇满流</li>
+<li>上下界最小流↔上下界可行流+汇到源最大流</li>
+<li>上下界最大流↔上下界可行流+源到汇最大流</li>
+<li>最小费用可行流↔ SPFA增流直到源到汇总费用非负</li>
+<li>最小费用最大流↔ SPFA增流直到源到汇达到最大流</li>
+</ul>
+<h2 id="常用建图技巧"><a href="#常用建图技巧" class="headerlink" title="常用建图技巧"></a>常用建图技巧</h2><ul>
+<li>拆点：限点容、改变费用、划分阶段</li>
+<li>限定边满流：流量必须为定值的边等于上下界相等</li>
+<li>重chóng边合并：两个点之间的多条边容量合并</li>
+<li>分拆重chóng边：不同次经过时产生的费用/收益不同</li>
+<li>单入边或出边省点：一个点只有一条入边时可能去掉该点</li>
+<li>满流与下界转化：一条边一定满流时可以对图进行转化</li>
+</ul>
+<!-- ## poj1149 猪圈
+
+有$𝑚\leq1000​$个猪圈，$𝑛\leq100​$个客人依次来买猪
+已知每个猪圈最初猪的头数$𝑃_𝑖​$
+每个客人有一个最大希望购买的猪的数量$𝐵_𝑖​$
+每个客人有一些猪圈的钥匙
+来的时候会打开他们有钥匙的所有猪圈，这时你可以把尽量多的猪卖给客人，然后调整打开的猪圈的猪
+客人走的时候会把猪圈全部锁上
+不同的客人可能会有同一个猪圈的钥匙
+问最多卖出多少头猪
+
+建图：先建$n\times m$个点，$A_{i,j}$表示第$i$个人时的$j$猪圈
+
+先考虑 -->
+<!--
+网络流24题 餐巾问题
+第𝑖天需要𝑟_𝑖块餐巾
+餐巾可以购买，快洗或慢洗
+三项操作每个餐巾分别花钱：𝑝_1,𝑝_2,𝑝_3（递减）
+三项操作花费时间0,𝑡_2,𝑡_3（递增）天
+问满足每天要求的最小费用
+NOI 2008 志愿者招募
+总共𝑛天，第𝑖天需要𝐴_𝑖人
+有𝑚类志愿者：
+第𝑖类可以从第𝑆_𝑖天工作到第𝑇_𝑖天，招募费用是每人𝐶_𝑖元
+问满足每天的要求的最少费用和
+CSP2018年12月 管道清洁
+𝑛个节点𝑚条边的有向图表示，需要从1号点出发回到1号点
+边也就是管道有四种：
+A类：管道需要被清理，而且可以重复经过
+B类：管道需要被清理，但是不能重复经过
+C类：管道不需要被清理，而且可以重复经过
+D类：管道不需要被清理，但是不能重复经过
+需要清理的管道经过一次就视为已经清理
+保证：A类和B类管道构成的子图是弱连通的，即看成无向图以后是一个连通图，且1号点在这个子图中
+问是否有解，如果有解求最短路程
+THUSC2016 星露谷物语
+在平面上给出𝑛条有向线段
+需要在平面上画出一条尽量短的回路，使得每条线段都按其方向被画过
+一条线段可以被拆成多段来“画”
+提交答案题，有的数据保证线段忽略掉方向是“连通”的
+混合图欧拉回路
+每条边只能经过一次
+有的边规定了方向，有的边没有规定方向
+问是否存在欧拉回路
+最小割
+带权有向图中给定点𝑠和𝑡 ，选最少的边权和使得𝑠无法通往𝑡
+解法：最大流=最小割
+最小割模型里面没有容量、流量的概念
+在实际问题中，最小割和最大流的模型完全不同，不要混淆
+最小割的常见特点是“划分为两类或更多类”
+最大权闭合图
+给定一个有向无环图，每个点有收益或支出
+每个点可以选择或不选择，选择了则获得收益或支付支出
+一个点如果要选择，必须所有前驱都被选择
+问最大的收益
+poj 3155 最大密度子图
+给一个无向图，找出一个子图，使得边数/点数的比值最大
+
+最大权闭合图的建图方式？
+更优的建图方式？
+NOI 2009 植物大战僵尸
+在一个方格图中，你必须从右至左进行攻击
+另有一些格子有单向的保护关系
+攻击一个格子有收益或者损失
+问总共最大的收益
+ZJOI 2009 狼和羊的故事
+在方格图中的格子中有的地方是狼，有的地方是羊，有的地方是空地
+可以在两个相邻格子的边上修建篱笆
+要将狼和羊隔离开，问最少的篱笆数
+spoj 839
+在无向图上给出了很多边，和部分点的点权
+你需要指定剩余点的点权
+指定以后，每条边的费用为连接的两个点的点权的异或
+求一种方案使得使得费用和最小
+NOI 2010 海拔
+在一个方格图中，左上角海拔为0，右下角海拔为1
+相邻两个交叉点之间的边会有正向反向两个权值
+在这条边上的每个方向的花费为权值乘max{高度差,0}
+你需要设置其他每个交叉点的海拔，使得总费用最小
+
+
+平面图最小割↔对偶图最短路
+原创 阳阳做任务
+𝑛个节点，𝑚条边构成的无重边无自环的有向图
+点𝑣有点权𝑓(𝑣)，边(𝑢,𝑣)有边权𝑤(𝑢,𝑣)
+任意的两条边(𝑢_1,𝑣_1)和(𝑢_2,𝑣_2)，若𝑢_1<𝑢_2，则有𝑣_1≤𝑣_2
+求经过每个点恰好𝑓(𝑣)次，每条边≤𝑤(𝑢,𝑣)次的最少路径数
+
+𝑛≤10^6
+BJOI 2016 水晶
+在六边形网格每个格子都是水晶
+如图的位置有能量源
+三个相邻水晶构成正三角形会共振
+以能量源为中心的三个水晶构成直线会共振
+有𝑛（≤50000）个水晶有价值
+需要删掉水晶，使得剩下的水晶不共振
+问剩下的最大价值
+坐标≤1000
+CTSC 2009 移民站选址
+在二维坐标中，给定n个点，你需要添加m个点
+这n个点与m个点之间有流量
+m个点互相之间也有流量
+两点之间的费用是两点之间的曼哈顿距离乘它们之间的流量
+问最小总费用
+网络流的优化
+数据结构优化增流
+动态建图
+线段树建图
+CTSC 2010 产品销售
+n（≤10^5）个季度
+每个季度有一个产品数量的需求Pi
+每个季度可以花Ai每个产品的代价生产最多Bi个产品
+可以把生产的产品花Ci每个的代价库存到下一个季度
+可以把订单花Di每个产品的代价推迟到下一个季度
+问满足所有需求的最小代价
+NOI 2012 美食节
+n种菜，m个厨师，告诉每种菜每个厨师的制作时间
+每种菜有一定的人数点菜
+要安排每个厨师做哪些菜和做菜的顺序
+问所有人等待时间之和的最小值
+
+𝑛≤40,𝑚≤100
+总人数≤800
+THUSC 2017 换桌
+𝑛（≤300）个圆桌排成一排，每个桌子𝑚（≤10）个座位
+原本每个座位上都有一个人
+第𝑖桌第𝑗个人希望换到桌号在[𝐿_(𝑖,𝑗),𝑅_(𝑖,𝑗) ]中的任意座位
+移动到邻桌的相同编号座位花费2代价
+在同一个桌子移动到相邻座位花费1代价
+最终每个座位上只能有一个人，过程中人可以重合
+问满足每个人需要的最少代价
+
+建图练习题单
+BJWC 2018 kakuro
+NOI 2015 小园丁与老司机
+SCOI 2007 蜥蜴
+ZJOI2009 假期的宿舍
+洛谷 2045 方格取数加强版
+POJ 3686
+网络流24题
+https://www.cnblogs.com/GXZlegend/category/947216.html
+
+拓展自学内容
+如何出数据卡Dinic
+LCT优化的最大流算法
+无源汇的最小割
+一般的线性规划算法：单纯性法
+网络流与线性规划的关系：推荐曹钦翔的PPT
+普通图最大匹配：带花树算法
+
+-->
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/HLOI01/">
+    <time datetime="2018-05-05T03:42:32.000Z" class="entry-date">
+        2018-05-05
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/SA-IS/" rel="prev"><span class="meta-nav">←</span> 【模板】后缀数组SA-IS</a></span>
+    
+    
+        <span class="nav-next"><a href="/SGT/" rel="next">【模板】替罪羊树——SGT <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="傅丽叶,傅丽叶级数,傅丽叶级数展开" />
+  
+  
+  
+  
+  
+  
+  <title>傅丽叶级数与傅丽叶级数展开 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考资料：欧阳光中, 等. 数学分析:下册[M]. 第四版. 北京: 高等教育出版社, 2018:60-79.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="傅丽叶级数与傅丽叶级数展开">
+<meta property="og:url" content="https://vcode28629.github.io/fourier_series/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="参考资料：欧阳光中, 等. 数学分析:下册[M]. 第四版. 北京: 高等教育出版社, 2018:60-79.">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-09-09T04:34:57.000Z">
+<meta property="article:modified_time" content="2021-09-24T02:28:13.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="傅丽叶">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-傅里叶级数" class="post-傅里叶级数 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      傅丽叶级数与傅丽叶级数展开
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/fourier_series/" data-id="cl5joxkug0022moue28yac2jf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>参考资料：欧阳光中, 等. 数学分析:下册[M]. 第四版. 北京: 高等教育出版社, 2018:60-79.</p>
+<span id="more"></span>
+<p>设 $y_k = A_k\sin\left(k\omega x+\varphi_k\right)$ 代表一个周期为 $T_k=\frac{2\pi}{k\omega}$ 的简谐振动</p>
+<p>设 $y$ 是一个周期为 $T=\frac{2\pi}{\omega}=kT_k$ 的函数，并且可以由 $y_k$ 累加在一个常数上得到，即 $y=A_0+\sum_{k=1}^\infty y_k=A_0+\sum_{k=1}^\infty A_k\sin\left(k\omega x+\varphi_k\right)$</p>
+<p>进一步推导可知</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+y&=A_0+\sum_{k=1}^\infty A_k\sin\left(k\omega x+\varphi_k\right)\\
+ &=A_0+\sum_{k=1}^\infty A_k\left(\sin k\omega x\cos\varphi_k+\cos k\omega x\sin\varphi_k\right)
+\end{aligned}</script><p>记 $\left\{\begin{aligned}a_0&amp;=2A_0,\\a_k&amp;=A_k\sin\varphi_k,\\b_k&amp;=A_k\cos\varphi_k\end{aligned}\right.$ ，则上式可写成 $y=\frac{a_0}2+\sum_{k=1}^\infty\left(a_k\cos k\omega x+b_k\sin k\omega x\right)$</p>
+<p>形如 $y=\frac{a_0}2+\sum_{k=1}^\infty\left(a_k\cos k\omega x+b_k\sin k\omega x\right)$ 的级数便是<strong>傅丽叶级数</strong>。将函数展开为傅丽叶级数的形式即为函数的<strong>傅丽叶级数展开</strong>。</p>
+<h2 id="三角函数的正交性"><a href="#三角函数的正交性" class="headerlink" title="三角函数的正交性"></a>三角函数的正交性</h2><p>一个三角函数系 $1, \cos\omega x,\sin\omega x,\cos2\omega x,\sin2\omega x,…$ 中任何两个不同的函数的乘积在一个周期内 $\left[-\frac\pi\omega, \frac\pi\omega\right]$ 的积分等于零，就说明三角函数系在区间 $\left[-\frac\pi\omega, \frac\pi\omega\right]$ 上正交。</p>
+<p>因为当 $n\ne k$ 时，有</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\int_{-\frac\pi\omega}^\frac\pi\omega\sin n\omega x\mathrm dx&=0\\
+\int_{-\frac\pi\omega}^\frac\pi\omega\cos n\omega x\mathrm dx&=0\\
+\int_{-\frac\pi\omega}^\frac\pi\omega\sin n\omega x\sin k\omega x\mathrm dx&=\int_{-\frac\pi\omega}^\frac\pi\omega-\frac12\{\cos\left[\left(n+k\right)\omega x\right]-\cos\left[\left(n-k\right)\omega x\right]\}\mathrm dx=0\\
+\int_{-\frac\pi\omega}^\frac\pi\omega\sin n\omega x\cos k\omega x\mathrm dx&=\int_{-\frac\pi\omega}^\frac\pi\omega\frac12\{\sin\left[\left(n+k\right)\omega x\right]+\sin\left[\left(n-k\right)\omega x\right]\}\mathrm dx=0\\
+\int_{-\frac\pi\omega}^\frac\pi\omega\cos n\omega x\cos k\omega x\mathrm dx&=\int_{-\frac\pi\omega}^\frac\pi\omega\frac12\{\cos\left[\left(n+k\right)\omega x\right]+\cos\left[\left(n-k\right)\omega x\right]\}\mathrm dx=0\\
+\end{aligned}</script><p>所以三角函数系正交。</p>
+<p>此外，为了方便下文计算，我们在此处顺便计算两个积分：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\int_{-\frac\pi\omega}^\frac\pi\omega\sin^2n\omega x\mathrm dx&=-\frac12\int_{-\frac\pi\omega}^\frac\pi\omega\cos\left(2n\omega x\right)-1\mathrm dx=\frac\pi\omega\\
+\int_{-\frac\pi\omega}^\frac\pi\omega\cos^2n\omega x\mathrm dx&=\frac12\int_{-\frac\pi\omega}^\frac\pi\omega\cos\left(2n\omega x\right)+1\mathrm dx=\frac\pi\omega\\
+\end{aligned}</script><h2 id="傅丽叶级数展开"><a href="#傅丽叶级数展开" class="headerlink" title="傅丽叶级数展开"></a>傅丽叶级数展开</h2><p>并不是所有的以 $T=\frac{2\pi}\omega$ 为周期的函数 $f\left(x\right)$ 都能进行傅丽叶级数展开。但是假设 $f\left(x\right)$ 可以进行傅丽叶级数展开，也就是 $f\left(x\right)$ 可以表示为 $\frac{a_0}2+\sum_{k=1}^\infty\left(a_k\cos k\omega x+b_k\sin k\omega x\right)$ 且级数一致收敛</p>
+<p>对 $f\left(x\right)=\frac{a_0}2+\sum_{k=1}^\infty\left(a_k\cos k\omega x+b_k\sin k\omega x\right)$ 等号两边在 $\left[-\frac\pi\omega, \frac\pi\omega\right]$ 上积分：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\mathrm dx&=\int_{-\frac\pi\omega}^\frac\pi\omega\frac{a_0}2+\sum_{k=1}^\infty\left(a_k\cos k\omega x+b_k\sin k\omega x\right)\mathrm dx\\
+&=\frac{a_0\pi}{\omega}
+\end{aligned}</script><p>即 $a_0=\frac{\omega}{\pi}\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\mathrm dx$</p>
+<p>对 $f\left(x\right)=\frac{a_0}2+\sum_{k=1}^\infty\left(a_k\cos k\omega x+b_k\sin k\omega x\right)$ 等号两边先同乘 $\cos n\omega x$ 再在 $\left[-\frac\pi\omega, \frac\pi\omega\right]$ 上积分：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\cos n\omega x\mathrm dx
+&=\int_{-\frac\pi\omega}^\frac\pi\omega\frac{a_0}2\cos n\omega x+\sum_{k=1}^\infty\left(a_k\cos k\omega x\cos n\omega x+b_k\sin k\omega x\cos n\omega x\right)\mathrm dx\\
+&=\int_{-\frac\pi\omega}^\frac\pi\omega a_n\cos^2n\omega x\mathrm dx\\
+&=a_n\frac\pi\omega
+\end{aligned}</script><p>所以 $a_n=\frac{\omega}{\pi}\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\cos n\omega x\mathrm dx$</p>
+<p>对 $f\left(x\right)=\frac{a_0}2+\sum_{k=1}^\infty\left(a_k\cos k\omega x+b_k\sin k\omega x\right)$ 等号两边先同乘 $\sin n\omega x$ 再在 $\left[-\frac\pi\omega, \frac\pi\omega\right]$ 上积分：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\sin n\omega x\mathrm dx
+&=\int_{-\frac\pi\omega}^\frac\pi\omega\frac{a_0}2\sin n\omega x+\sum_{k=1}^\infty\left(a_k\cos k\omega x\sin n\omega x+b_k\sin k\omega x\sin n\omega x\right)\mathrm dx\\
+&=\int_{-\frac\pi\omega}^\frac\pi\omega b_n\sin^2n\omega x\mathrm dx\\
+&=b_n\frac\pi\omega
+\end{aligned}</script><p>所以 $b_n=\frac{\omega}{\pi}\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\sin n\omega x\mathrm dx$</p>
+<p>综上所述，如果以 $T=\frac{2\pi}\omega$ 为周期的函数 $f\left(x\right)$ 可以进行傅丽叶级数展开，则</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+f\left(x\right)&\sim\frac{a_0}2+\sum_{k=1}^\infty\left(a_k\cos k\omega x+b_k\sin k\omega x\right)\\
+a_n&=\frac{\omega}{\pi}\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\cos n\omega x\mathrm dx\\
+b_n&=\frac{\omega}{\pi}\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\sin n\omega x\mathrm dx
+\end{aligned}
+\right.</script><p>这里记号 $\sim$ 表示右边是左边函数的傅丽叶级数。若式右边的级数在整个数轴上一致收敛于其和函数 $f$ ，则 $\sim$ 可替换为等号。</p>
+<h2 id="收敛定理"><a href="#收敛定理" class="headerlink" title="收敛定理"></a>收敛定理</h2><p>若以 $T=\frac{2\pi}\omega$ 为周期的函数 $f$ 在 $\left[-\frac\pi\omega, \frac\pi\omega\right]$ 上分段光滑，则 $\forall x\in\left[-\frac\pi\omega, \frac\pi\omega\right]$, $f$ 的傅丽叶级数收敛于 $f$ 在 $x$ 左、右极限的算数平均值。即：</p>
+<script type="math/tex; mode=display">
+\frac{f\left(x+0\right)+f\left(x-0\right)}{2}=\frac{a_0}2+\sum_{k=1}^\infty\left(a_k\cos k\omega x+b_k\sin k\omega x\right)</script><h2 id="偶函数与奇函数的傅丽叶级数"><a href="#偶函数与奇函数的傅丽叶级数" class="headerlink" title="偶函数与奇函数的傅丽叶级数"></a>偶函数与奇函数的傅丽叶级数</h2><p>设 $f\left(x\right)$ 是以 $T=\frac{2\pi}\omega$ 为周期的偶函数，则 $f\left(x\right)\cos n\omega x$ 是偶函数， $f\left(x\right)\sin n\omega x$ 是奇函数</p>
+<p>则有：</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+a_n&=\frac{\omega}{\pi}\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\cos n\omega x\mathrm dx\\
+&=\frac{2\omega}{\pi}\int_0^\frac\pi\omega f\left(x\right)\cos n\omega x\mathrm dx\\
+b_n&=\frac{\omega}{\pi}\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\sin n\omega x\mathrm dx\\
+&=0\\
+f\left(x\right)&\sim\frac{a_0}2+\sum_{k=1}^\infty a_k\cos k\omega x
+\end{aligned}
+\right.</script><p>设 $f\left(x\right)$ 是以 $T=\frac{2\pi}\omega$ 为周期的奇函数，则 $f\left(x\right)\cos n\omega x$ 是奇函数， $f\left(x\right)\sin n\omega x$ 是偶函数</p>
+<p>则有：</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+a_n&=\frac{\omega}{\pi}\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\cos n\omega x\mathrm dx\\
+&=0\\
+b_n&=\frac{\omega}{\pi}\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\sin n\omega x\mathrm dx\\
+&=\frac{2\omega}{\pi}\int_0^\frac\pi\omega f\left(x\right)\sin n\omega x\mathrm dx\\
+f\left(x\right)&\sim\sum_{k=1}^\infty b_k\sin k\omega x
+\end{aligned}
+\right.</script><hr>
+<h2 id="狄利克雷条件"><a href="#狄利克雷条件" class="headerlink" title="狄利克雷条件"></a>狄利克雷条件</h2><p>之前说了这么多东西，都是假设 $f\left(x\right)$ 可以进行傅丽叶级数展开或者 $f\left(x\right)$ 展开后收敛。那么怎么判断一个函数能否展开且展开后收敛呢？</p>
+<p>满足狄利克雷条件是函数可以进行傅丽叶级数展开且展开后收敛的<strong>充分不必要条件</strong>。</p>
+<p>狄利克雷条件包含以下三点：</p>
+<ol>
+<li>在一个周期内，函数连续或只有有限个第一类间断点</li>
+<li>在一个周期内，极大值和极小值的数目是有限个</li>
+<li>在一个周期内，函数绝对可积</li>
+</ol>
+<p>为了证明这个条件，我们需要先证明几个引理</p>
+<hr>
+<h3 id="引理：贝塞尔-Bessel-不等式"><a href="#引理：贝塞尔-Bessel-不等式" class="headerlink" title="引理：贝塞尔(Bessel)不等式"></a>引理：贝塞尔(Bessel)不等式</h3><p>若函数 $f$ 在 $\left[-\frac\pi\omega, \frac\pi\omega\right]$ 上可积，则</p>
+<script type="math/tex; mode=display">
+\frac{a_0^2}2+\sum_{n=1}^\infty\left(a_n^2+b_n^2\right)\le\frac{\omega}\pi\int_{-\frac\pi\omega}^\frac\pi\omega f^2\left(x\right)\mathrm dx</script><p>其中 $a_n$, $b_n$ 为 $f$ 的傅里叶系数。</p>
+<p>证明：</p>
+<p>令 $S_m\left(x\right)=\frac{a_0}2+\sum_{n=1}^m\left(a_n\cos n\omega x+b_n\sin n\omega x\right)$</p>
+<p>考察积分 </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\int_{-\frac\pi\omega}^\frac\pi\omega\left[f\left(x\right)-S_m\left(x\right)\right]^2\mathrm dx\\
+=&\int_{-\frac\pi\omega}^\frac\pi\omega f^2\left(x\right)\mathrm dx-2\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)S_m\left(x\right)\mathrm dx+\int_{-\frac\pi\omega}^\frac\pi\omega S^2_m\left(x\right)\mathrm dx
+\end{aligned}</script><p>由于</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)S_m\left(x\right)\mathrm dx\\
+=&\frac{a_0}2\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\mathrm dx+\sum_{n=1}^m\left(a_n\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\cos n\omega x\mathrm dx+b_n\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\sin n\omega x\mathrm dx\right)
+\end{aligned}</script><p>根据付 $\left\{<br>\begin{aligned}<br>a_n&amp;=\frac{\omega}{\pi}\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\cos n\omega x\mathrm dx\\<br>b_n&amp;=\frac{\omega}{\pi}\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)\sin n\omega x\mathrm dx<br>\end{aligned}<br>\right.<br>$ 可得</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)S_m\left(x\right)\mathrm dx\\
+=&\frac{\pi}{2\omega}a_0^2+\frac{\pi}{\omega}\sum_{n=1}^m\left(a_n^2+b_n^2\right)
+\end{aligned}</script><p>对于 $S_m^2$ 的积分，应用三角函数的正交性，有</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\int_{-\frac\pi\omega}^\frac\pi\omega S^2_m\left(x\right)\mathrm dx\\
+=&\int_{-\frac\pi\omega}^\frac\pi\omega \left[\frac{a_0}2+\sum_{n=1}^m\left(a_n\cos n\omega x+b_n\sin n\omega x\right)\right]^2\mathrm dx\\
+=&\left(\frac{a_0}2\right)^2\int_{-\frac\pi\omega}^\frac\pi\omega\mathrm dx+\sum_{n=1}^m\left[a_n^2\int_{-\frac\pi\omega}^\frac\pi\omega\cos^2n\omega x\mathrm dx+b_n^2\int_{-\frac\pi\omega}^\frac\pi\omega\sin^2n\omega x\mathrm dx\right]\\
+
+\because&
+\int_{-\frac\pi\omega}^\frac\pi\omega\cos^2n\omega x\mathrm dx=
+\int_{-\frac\pi\omega}^\frac\pi\omega\sin^2n\omega x\mathrm dx=\frac\pi\omega\\
+
+\therefore&\text{原式}=\frac{\pi a_0^2}{2\omega}+\frac{\pi}{\omega}\sum_{n=1}^m\left(a_n^2+b_n^2\right)
+\end{aligned}</script><p>代入</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+0\le&\int_{-\frac\pi\omega}^\frac\pi\omega\left[f\left(x\right)-S_m\left(x\right)\right]^2\mathrm dx\\
+=&\int_{-\frac\pi\omega}^\frac\pi\omega f^2\left(x\right)\mathrm dx-2\int_{-\frac\pi\omega}^\frac\pi\omega f\left(x\right)S_m\left(x\right)\mathrm dx+\int_{-\frac\pi\omega}^\frac\pi\omega S^2_m\left(x\right)\mathrm dx\\
+=&\int_{-\frac\pi\omega}^\frac\pi\omega f^2\left(x\right)\mathrm dx-2\left[\frac{\pi}{2\omega}a_0^2+\frac{\pi}{\omega}\sum_{n=1}^m\left(a_n^2+b_n^2\right)\right]+\frac{\pi a_0^2}{2\omega}+\frac{\pi}{\omega}\sum_{n=1}^m\left(a_n^2+b_n^2\right)\\
+=&\int_{-\frac\pi\omega}^\frac\pi\omega f^2\left(x\right)\mathrm dx-\frac{\pi}{2\omega}a_0^2-\frac{\pi}{\omega}\sum_{n=1}^m\left(a_n^2+b_n^2\right)\\
+\therefore&\frac{a_0^2}2+\sum_{n=1}^\infty\left(a_n^2+b_n^2\right)\le\frac{\omega}\pi\int_{-\frac\pi\omega}^\frac\pi\omega f^2\left(x\right)\mathrm dx
+\end{aligned}</script><p>贝塞尔不等式证毕。</p>
+<hr>
+<h4 id="推论1"><a href="#推论1" class="headerlink" title="推论1"></a>推论1</h4><p>若 $f$ 为可积函数，则 $\left\{\begin{aligned}\lim_{n\rightarrow\infty}\int_{-\frac\pi\omega}^{\frac\pi\omega}f\left(x\right)\cos n\omega x\mathrm dx=0\\\lim_{n\rightarrow\infty}\int_{-\frac\pi\omega}^{\frac\pi\omega}f\left(x\right)\sin n\omega x\mathrm dx=0\end{aligned}\right.$</p>
+<p>因为 $\frac{a_0^2}2+\sum_{n=1}^\infty\left(a_n^2+b_n^2\right)$ 收敛，所以当 $n\rightarrow\infty$ 时，通项 $a_n^2+b_n^2\rightarrow 0$，也就有 $a_n\rightarrow0$ 与 $b_n\rightarrow0$ 。这个推论也称为<strong>黎曼-勒贝格定理</strong>。</p>
+<hr>
+<h4 id="推论2"><a href="#推论2" class="headerlink" title="推论2"></a>推论2</h4>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/fourier_series/">
+    <time datetime="2021-09-09T04:34:57.000Z" class="entry-date">
+        2021-09-09
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/perceptron/" rel="prev"><span class="meta-nav">←</span> 感知机</a></span>
+    
+    
+        <span class="nav-next"><a href="/Matrix/" rel="next">矩阵与向量与导数 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

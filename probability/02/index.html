@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="概率论与数理统计" />
+  
+  
+  
+  
+  
+  
+  <title>概率论与数理统计笔记02——离散型随机变量 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考教材：印凡成, 夏乐天, 等. 概率论与数理统计[M]. 第三版. 南京: 河海大学出版社, 2004,35:63.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="概率论与数理统计笔记02——离散型随机变量">
+<meta property="og:url" content="https://vcode28629.github.io/probability/02/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="参考教材：印凡成, 夏乐天, 等. 概率论与数理统计[M]. 第三版. 南京: 河海大学出版社, 2004,35:63.">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-07-13T14:12:51.616Z">
+<meta property="article:modified_time" content="2021-10-08T00:40:54.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      概率论与数理统计笔记02——离散型随机变量
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/probability/02/" data-id="cl5joxkuq003fmouefcyy63o3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>参考教材：印凡成, 夏乐天, 等. 概率论与数理统计[M]. 第三版. 南京: 河海大学出版社, 2004,35:63.</p>
+<span id="more"></span>
+<h1 id="离散型随机变量"><a href="#离散型随机变量" class="headerlink" title="离散型随机变量"></a>离散型随机变量</h1><h2 id="随机变量的概念"><a href="#随机变量的概念" class="headerlink" title="随机变量的概念"></a>随机变量的概念</h2><p>设 $E$ 为随机试验，它的样本空间是 $\varOmega=\{\omega\}$ 。如果对于每一个 $\omega\in\varOmega$ ，有一个实数 $X(\omega)$ 与之对应，这样就得到一个定义在 $\varOmega$ 上的单值实函数 $X=X(\omega)$ ，称它为<strong>随机变量</strong>(Random Variable)，简记为 $r.v. X$ 。随机变量一般用英文大写字母 $X$ 、 $Y$ 、 $Z$ 等表示 ，也可用希腊字母 $\xi$ 、$\eta$ 、$\zeta$ 等表示。</p>
+<p>全部可能取值为有限个或可列无限个的随机变量为<strong>离散型随机变量</strong></p>
+<h2 id="一维离散型随机变量的分布律"><a href="#一维离散型随机变量的分布律" class="headerlink" title="一维离散型随机变量的分布律"></a>一维离散型随机变量的分布律</h2><p>称 $p_k=P\{X=x_k\}, k=1,2,\cdots$ 为 $r.v. X$ 的分布律或概率分布</p>
+<p>也可表为</p>
+<script type="math/tex; mode=display">
+X\sim P\{X=x_k\}=p_k</script><p>或</p>
+<script type="math/tex; mode=display">
+X\sim\begin{array}{c|ccccc}
+X & x_1 & x_2 & \cdots & x_n & \cdots\\
+\hline
+P & p_1 & p_2 & \cdots & p_n & \cdots
+\end{array}</script><p>分布率的性质：</p>
+<ol>
+<li>$p_k\ge0$</li>
+<li>$\sum_{k=1}^\infty p_k=1$</li>
+</ol>
+<h2 id="几个常见的离散型分布"><a href="#几个常见的离散型分布" class="headerlink" title="几个常见的离散型分布"></a>几个常见的离散型分布</h2><h3 id="退化分布（单点分布）"><a href="#退化分布（单点分布）" class="headerlink" title="退化分布（单点分布）"></a>退化分布（单点分布）</h3><script type="math/tex; mode=display">X\sim P\{X=a\}=1</script><p>其中 $a$ 为常数</p>
+<p>即</p>
+<script type="math/tex; mode=display">
+X\sim\begin{array}{c|c}
+X & a\\
+\hline
+P & 1
+\end{array}</script><h3 id="（0-1）分布（两点分布）"><a href="#（0-1）分布（两点分布）" class="headerlink" title="（0-1）分布（两点分布）"></a>（0-1）分布（两点分布）</h3><script type="math/tex; mode=display">
+X\sim\begin{array}{c|c}
+X & 0 & 1\\
+\hline
+P & 1-p & p
+\end{array}</script><p>或</p>
+<script type="math/tex; mode=display">X\sim P\{X=k\}=p^k(1-p)^{1-k}, (0\lt p\lt1, k=0,1)</script><h3 id="几何分布"><a href="#几何分布" class="headerlink" title="几何分布"></a>几何分布</h3><p>一次试验中只考虑某事件 $A$ 出现或不出现，设 $P(A)=p$ ， $P(A)=1-p$ 。现重复独立地做试验，一旦 $A$ 发生就立即停止试验。</p>
+<p>以 $X$ 表示 $A$ 首次发生所需的试验次数，则其分布律为：</p>
+<script type="math/tex; mode=display">X\sim P\{X=k\}=(1-p)^{k-1}p</script><p>称 $X$ 服从参数为 $p$ 的几何分布</p>
+<h3 id="二项分布-X-sim-B-n-p"><a href="#二项分布-X-sim-B-n-p" class="headerlink" title="二项分布 $X\sim B(n, p)$"></a>二项分布 $X\sim B(n, p)$</h3><p>以  $X$ 记 n 重贝努里试验中 $A$ 发生的次数，则其分布率为：</p>
+<script type="math/tex; mode=display">
+P\{X=k\}=C_n^kp^k(1-p)^{n-k}</script><p>称 $X$ 服从参数为 $(n，p)$ 的二项分布，记为 $X\sim B(n, p)$</p>
+<h3 id="泊松-Poisson-分布-P-lambda"><a href="#泊松-Poisson-分布-P-lambda" class="headerlink" title="泊松(Poisson)分布 $P(\lambda)$"></a>泊松(Poisson)分布 $P(\lambda)$</h3><p>$P\{X=k\}=\frac{\lambda^k}{k!}e^{-\lambda};k=0,1,2,\cdots$</p>
+<p>其中 $\lambda\gt0$ 为常数，称 $X$ 服从参数为 $\lambda$ 的泊松(Poisson)分布，记为 $X\sim P(\lambda)$ 。</p>
+<h4 id="泊松分布的应用"><a href="#泊松分布的应用" class="headerlink" title="泊松分布的应用"></a>泊松分布的应用</h4><p>若 $X(t)$ 表示在时间区间 $[0, t]$ 中某服务台到达的顾客数。若 $X(t)$ 满足：</p>
+<ol>
+<li>无后效性：在不重叠的时间区间内到达的顾客数相互独立</li>
+<li>平稳性：在时间区间 $[a，a+t]$ 内到达的顾客数只与时间长度 $t$ 有关，而与区间起点 $a$ 无关</li>
+<li>普通性：当 $t$ 充分小时，在区间 $(a,a+t)$ 内到达两个或两个以上的顾客不可能</li>
+<li>非平凡性：在有限区间中只到达有限个顾客且不可能始终没有顾客到达</li>
+</ol>
+<p>在上述条件下，在长度为 $t$ 的时间区间上到达的顾客数 $X(t)$ 服从参数为 $\lambda t$ 的泊松分布，其中 $\lambda\gt0$ 是一个常数。即</p>
+<script type="math/tex; mode=display">
+P\{X(t)=k\}=\frac{(\lambda t)^k}{k!}e^{-\lambda t}</script><h3 id="负二项分布"><a href="#负二项分布" class="headerlink" title="负二项分布"></a>负二项分布</h3><p>以 $X$ 记可列重贝努里试验中 $A$ 恰好发生 $r$ 次所需的试验次数，则其分布率为：</p>
+<script type="math/tex; mode=display">
+P\{X=k\}=C_{k-1}^{r-1}(1-p)^{k-r}p^r, k=r,r+1,r+2,\cdots</script><p>称 $X$ 服从参数为 $(r, p)$ 的负二项分布，记为 $X\sim NB(r, p)$</p>
+<p>负二项分布又叫帕斯卡(Pascal)分布</p>
+<h3 id="超几何分布"><a href="#超几何分布" class="headerlink" title="超几何分布"></a>超几何分布</h3><p>设 $N$ 个元素分为两类，其中 $M$ 个属于第一类， $N-M$ 个属于第二类。现从中按不重复抽样取 $n$ 个，以 $X$ 记这 $n$ 个中属于第一类元素的个数。则 $X$ 的分布律为：</p>
+<script type="math/tex; mode=display">
+P\{X=k\}=\frac{C_M^kC_{N-M}^{n-k}}{C_N^n}</script><p>称 $X$ 服从参数为 $(N, M, n)$ 的超几何分布。</p>
+<h3 id="常用分布律之间的关系"><a href="#常用分布律之间的关系" class="headerlink" title="常用分布律之间的关系"></a>常用分布律之间的关系</h3><ol>
+<li>（0-1） 分布是二项分布 $B(n, p)$ 中 $n＝1$ 时的特例。</li>
+<li>几何分布是负二项分布 $NB(r, p)$ 中 $r＝1$ 时的特例。</li>
+<li>超几何分布和二项分布的关系：</li>
+</ol>
+<p>设在超几何分布中， $n$ 是一个取定的正整数，而 $\lim_{N\rightarrow\infty}\frac MN=p$ ，则</p>
+<script type="math/tex; mode=display">
+\lim_{n\rightarrow\infty}\frac{C_M^kC_{N-M}^{n-k}}{C_N^n}=C_n^kp^k(1-p)^{n-k}</script><p>即：当 $N$ 充分大时，超几何分布趋向于二项分布。</p>
+<p>事实上，超几何分布用来描述不放回抽样的情况，而二项分布则用来描述放回抽样的情况，当 $N$ 充分大时，两种抽样方式的差别很小。</p>
+<ol>
+<li>二项分布和泊松分布的关系</li>
+</ol>
+<p>设随机变量 $X_n\sim B(n, p_n), (n＝0, 1, 2, \cdots)$ ，且 $\lim_{n\rightarrow\infty}np_n=\lambda\gt0$ ， $\lambda$ 为常数，则</p>
+<script type="math/tex; mode=display">
+\lim_{n\rightarrow\infty}C_n^kp_n^k(1-p_n)^{n-k}=\frac{\lambda^k}{k!}e^{-\lambda}</script><p>该定理也称为<strong>泊松定理</strong>。</p>
+<p>泊松定理表明，泊松分布是二项分布的极限分布，当 $n$ 很大， $p$ 很小时，二项分布就可近似地看成是泊松分布。其中 $\lambda=np$</p>
+<p>一般的，当 $n\ge10, p\le0.1$ 时就可用泊松分布近似代替二项分布。</p>
+<h2 id="二维离散型随机变量"><a href="#二维离散型随机变量" class="headerlink" title="二维离散型随机变量"></a>二维离散型随机变量</h2><h3 id="联合分布律"><a href="#联合分布律" class="headerlink" title="联合分布律"></a>联合分布律</h3><p>若二维随机变量 $(X,Y)$ 只能取至多可列个值 $(x_i,y_j), (i,j＝1, 2, \cdots)$ ，则称 $(X,Y)$ 为二维离散型随机变量。</p>
+<p>若二维离散型随机变量 $(X,Y)$ 取 $(x_i,y_j)$ 的概率为 $p_{ij}$，即 $P\{X=x_i,Y=y_j\}=p_{ij},(i,j=1,2,\cdots)$</p>
+<p>则称 $p_{ij}$ 为二维离散型随机变量 $(X,Y)$ 的分布律，或随机变量 $X$ 与 $Y$ 的<strong>联合分布律</strong>。<br>可记为</p>
+<script type="math/tex; mode=display">
+(X,Y)\sim P\{X=x_i,Y=y_j\}=p_{ij},(i,j=1,2,\cdots)</script><p>联合分布律的性质</p>
+<ol>
+<li>$p_{ij}\ge0,i,j=1,2,\cdots$</li>
+<li>$\sum\limits_{i=1}^\infty\sum\limits_{j=1}^\infty p_{ij}=1$</li>
+</ol>
+<p>二维离散型随机变量的联合分布律也可列表表示如下：</p>
+<script type="math/tex; mode=display">
+\begin{array}{c|c}
+X\diagdown Y & y_1 & y_2 & \cdots & y_j & \cdots\\
+\hline
+x_1 & p_{11} & p_{12} & \cdots & p_{1j} & \cdots\\
+x_2 & p_{21} & p_{22} & \cdots & p_{2j} & \cdots\\
+\vdots & \vdots & \vdots &  & \vdots & \\
+x_i & p_{i1} & p_{i2} & \cdots & p_{ij} & \cdots\\
+\vdots & \vdots & \vdots &  & \vdots & \\
+
+\end{array}</script><h3 id="边缘分布律"><a href="#边缘分布律" class="headerlink" title="边缘分布律"></a>边缘分布律</h3><p>若随机变量 $X$ 与 $Y$ 的联合分布律为</p>
+<script type="math/tex; mode=display">
+(X,Y)\sim P\{X=x_i,Y=y_j\}=p_{ij},(i,j=1,2,\cdots)</script><p>则称</p>
+<script type="math/tex; mode=display">
+P\{X=x_i\}=p_{i\cdot}=\sum_{j=1}^\infty p_{ij},i=1,2,\cdots</script><p>为 $(X,Y)$ 关于 $X$ 的边缘分布律</p>
+<p>同理，</p>
+<script type="math/tex; mode=display">
+P\{Y=y_j\}=p_{\cdot j}=\sum_{i=1}^\infty p_{ij},j=1,2,\cdots</script><p>称为 $(X,Y)$ 关于 $Y$ 的边缘分布律</p>
+<p>边缘分布律自然也满足分布律的性质：</p>
+<ol>
+<li>$p_{i\cdot}\ge0;(p_{\cdot j}\ge0)$</li>
+<li>$\sum\limits_{i=1}^\infty p_{i\cdot}=1;(\sum\limits_{j=1}^\infty p_{\cdot j}=1)$</li>
+</ol>
+<p>二维离散型随机变量的边缘分布律也可列表表示如下：</p>
+<script type="math/tex; mode=display">
+\begin{array}{c|ccccc|}
+X\diagdown Y & y_1 & y_2 & \cdots & y_j & \cdots & p_{i\cdot}\\
+\hline
+x_1 & p_{11} & p_{12} & \cdots & p_{1j} & \cdots & p_{1\cdot}\\
+x_2 & p_{21} & p_{22} & \cdots & p_{2j} & \cdots & p_{2\cdot}\\
+\vdots & \vdots & \vdots &  & \vdots &  & \vdots\\
+x_i & p_{i1} & p_{i2} & \cdots & p_{ij} & \cdots & p_{i\cdot}\\
+\vdots & \vdots & \vdots &  & \vdots &  & \vdots\\
+\hline
+p_{\cdot j} & p_{\cdot 1} & p_{\cdot 2} & \cdots & p_{\cdot j} & \cdots & 1
+\end{array}</script><h3 id="条件分布律"><a href="#条件分布律" class="headerlink" title="条件分布律"></a>条件分布律</h3><p>设随机变量 $X$ 与 $Y$ 的联合分布律为</p>
+<script type="math/tex; mode=display">
+(X,Y)\sim P\{X=x_i,Y=y_j\}=p_{ij},(i,j=1,2,\cdots)</script><p>$X$ 和 $Y$ 的边缘分布律为</p>
+<script type="math/tex; mode=display">
+P\{X=x_i\}=p_{i\cdot}\\
+P\{Y=y_j\}=p_{\cdot j}</script><p>若对固定的 $j, p_{\cdot j}\gt0$ ，则称</p>
+<script type="math/tex; mode=display">
+P\{X=x_i|Y=y_j\}=\frac{P\{X=x_i,Y=y_j\}}{P\{Y=y_j\}}=\frac{p_{ij}}{p_{\cdot j}}</script><p>为 $Y=y_j$ 的条件下， $X$ 的条件分布律</p>
+<p>记为 </p>
+<script type="math/tex; mode=display">
+p_{i|j}=P\{X=x_i|Y=y_j\}=\frac{p_{ij}}{p_{\cdot j}}</script><p>同理，若对固定的 $i, p_{i\cdot}\gt0$ ，则称</p>
+<script type="math/tex; mode=display">
+p_{j|i}=P\{Y=y_j|X=x_i\}=\frac{p_{ij}}{p_{i\cdot}}</script><p>为 $X=x_i$ 的条件下， $Y$ 的条件分布律</p>
+<p>条件分布律也满足分布律的性质</p>
+<h3 id="离散型随机变量的相互独立性"><a href="#离散型随机变量的相互独立性" class="headerlink" title="离散型随机变量的相互独立性"></a>离散型随机变量的相互独立性</h3><p>设随机变量 $X$ 与 $Y$ 的联合分布律为</p>
+<script type="math/tex; mode=display">
+(X,Y)\sim P\{X=x_i,Y=y_j\}=p_{ij},(i,j=1,2,\cdots)</script><p>若对任意的 $i, j$ 有 $p_{ij}=p_{i\cdot}p_{\cdot j}$</p>
+<p>即</p>
+<script type="math/tex; mode=display">
+P\{X=x_i,Y=y_j\}=P\{X=x_i\}P\{Y=y_j\}</script><p>则称随机变量 $X$ 和 $Y$ 相互独立。</p>
+<p>上述独立的概念不难推广到n维离散型随机变量的情形。</p>
+<p>设 $X_1, X_2, \cdots, X_n$ 为一个 $n$ 维离散型随机变量，若对任意的 $x_1,x_2,\cdots,x_n$ 有</p>
+<script type="math/tex; mode=display">
+P\{X_1=x_1,X_2=x_2,\cdots,X_n=x_n\}=P\{X_1=x_1\}P\{X_2=x_2\}\cdots P\{X_n=x_n\}</script><p>则称随机变量 $X_1, X_2, \cdots, X_n$ 相互独立。</p>
+<p>以 $X$ 记 $n$ 重贝努里试验中 $A$ 发生的次数，则 $X\sim B(n,p)$</p>
+<p>若记 $X_i=\left\{\begin{aligned}<br>1&amp; &amp; 若在第 i 次试验中 A 发生 \\<br>0&amp; &amp; 若在第 i 次试验中 A 不发生<br>\end{aligned}\right.$</p>
+<script type="math/tex; mode=display">
+X_i\sim\begin{array}{c|cc}
+X & 0 & 1\\
+\hline
+P & 1-p & p
+\end{array}</script><p>且 $X_1,X_2,\cdots,X_n$ 相互独立</p>
+<p>于是有</p>
+<script type="math/tex; mode=display">
+X=X_1+X_2+\cdots+X_n</script><p>若 $r.v. X_1,X_2,\cdots,X_n$ 相互独立且服从同一 0-1 分布，则</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^nX_i\sim B(n,p)</script><h2 id="离散型随机变量函数的分布律"><a href="#离散型随机变量函数的分布律" class="headerlink" title="离散型随机变量函数的分布律"></a>离散型随机变量函数的分布律</h2><h3 id="一维离散型随机变量函数的分布律"><a href="#一维离散型随机变量函数的分布律" class="headerlink" title="一维离散型随机变量函数的分布律"></a>一维离散型随机变量函数的分布律</h3><p>设 $X$ 一个随机变量，若 $y＝g(x)$ 是一元单值实函数，则 $Y＝g(X)$ 也是一个随机变量。</p>
+<p>若</p>
+<script type="math/tex; mode=display">
+X\sim P{X=x_k}=p_k,k=1,2,\cdots</script><p>则</p>
+<script type="math/tex; mode=display">
+Y=g(x)\sim P\{Y=g(x_k)\}=p_k</script><p>其中 $g(x_k)$ 有相同的，其对应概率合并。</p>
+<p>显然， $Y$ 的分布律也满足分布律性质。</p>
+<h3 id="多维离散型随机变量函数的分布律"><a href="#多维离散型随机变量函数的分布律" class="headerlink" title="多维离散型随机变量函数的分布律"></a>多维离散型随机变量函数的分布律</h3><p>设 $X_1, X_2, \cdots, X_n$ 是一个 $n$ 维随机变量，若 $y=g(x_1, x_2, \cdots, x_n)$ 是一个 $n$ 元实值函数，则 $Y=g(X_1,X_2,\cdots,X_n)$ 也是一个随机变量</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/probability/02/">
+    <time datetime="2022-07-13T14:12:51.616Z" class="entry-date">
+        2022-07-13
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="matlab" />
+  
+  
+  
+  
+  
+  
+  <title>MATLAB笔记 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考资料：MATLAB 快速入门 虽然网站上写着中文翻译版本已经过时，但我还是照着中文版来了。因为英文苦手。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MATLAB笔记">
+<meta property="og:url" content="https://vcode28629.github.io/matlab/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="参考资料：MATLAB 快速入门 虽然网站上写着中文翻译版本已经过时，但我还是照着中文版来了。因为英文苦手。">
+<meta property="og:locale">
+<meta property="og:image" content="https://vcode28629.github.io/images/014.png">
+<meta property="og:image" content="https://vcode28629.github.io/images/015.png">
+<meta property="og:image" content="https://vcode28629.github.io/images/016.png">
+<meta property="og:image" content="https://vcode28629.github.io/images/017.png">
+<meta property="og:image" content="https://vcode28629.github.io/images/018.png">
+<meta property="article:published_time" content="2022-07-13T14:12:51.505Z">
+<meta property="article:modified_time" content="2021-09-28T06:58:19.000Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vcode28629.github.io/images/014.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      MATLAB笔记
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/matlab/" data-id="cl5joxku30013moue7xevfaac" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>参考资料：<a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/matlab/getting-started-with-matlab.html">MATLAB 快速入门</a></p>
+<p>虽然网站上写着中文翻译版本已经过时，但我还是照着中文版来了。因为英文苦手。</p>
+<span id="more"></span>
+<p>使用 <code>%</code> 进行注释</p>
+<pre><code class="lang-matlab">% 这是注释
+</code></pre>
+<p>创建变量</p>
+<pre><code class="lang-matlab">a = 1
+b = 2
+c = a + b
+d = cos(a)
+</code></pre>
+<p>可以观察到交互界面的输出</p>
+<p>如果不指定输出变量，则默认使用 <code>ans</code></p>
+<pre><code class="lang-matlab">sin(a)
+</code></pre>
+<p>如果语句末尾加了分号，则不在交互界面输出</p>
+<pre><code class="lang-matlab">e = a * b;
+</code></pre>
+<hr>
+<p>数组/行向量</p>
+<pre><code class="lang-matlab">a = [1 2 3 4]
+</code></pre>
+<p>矩阵</p>
+<pre><code class="lang-matlab">a = [1 2 3; 4 5 6; 7 8 10]
+a = [
+1 2 3
+4 5 6
+7 8 10
+]
+</code></pre>
+<p>或者使用 <code>ones</code> 、 <code>zeros</code> 或 <code>rand</code> 创建</p>
+<pre><code class="lang-matlab">a = zeros(5, 1)
+</code></pre>
+<p>矩阵和数组的基本运算与 numpy 相同</p>
+<pre><code class="lang-matlab">a + 10
+sin(a)
+</code></pre>
+<p>使用单引号进行矩阵转置，使用 <code>inv</code> 求逆</p>
+<pre><code class="lang-matlab">a&#39;
+inv(a)
+</code></pre>
+<p>使用 <code>*</code> 进行标准矩阵乘法，使用 <code>.*</code> 进行元素级乘法</p>
+<pre><code class="lang-matlab">a * b
+a .* b
+</code></pre>
+<p>使用 <code>^</code> 进行乘方，使用 <code>.^</code> 进行元素级乘方</p>
+<pre><code class="lang-matlab">a * b
+a .* b
+</code></pre>
+<p>可以使用 <code>format</code> 显示不同位数的小数</p>
+<pre><code class="lang-matlab">format long
+format short
+</code></pre>
+<p><strong>串联</strong>是连接数组以便形成更大数组的过程。实际上，第一个数组是通过将其各个元素串联起来而构成的。成对的方括号 <code>[]</code> 即为串联运算符。</p>
+<pre><code class="lang-matlab">A = [a a]
+A = [a, a]
+A = [a; a]
+</code></pre>
+<p>复数</p>
+<pre><code class="lang-matlab">sqrt(-1)
+</code></pre>
+<p>表示复数的虚部，使用 <code>i</code> 或 <code>j</code>。</p>
+<pre><code class="lang-matlab">c = [3 + 4i 4 + 3j; -i 10j]
+</code></pre>
+<hr>
+<p>生成n阶幻方</p>
+<pre><code class="lang-matlab">A = magic(n)
+</code></pre>
+<p>调用数组中特定元素可以用行和列下标或者使用单一下标。下标从 1 开始：</p>
+<pre><code class="lang-matlab">A(4, 2)
+A(8)
+</code></pre>
+<p>其中，使用单一下标引用数组中特定元素的方法称为<strong>线性索引</strong>。</p>
+<p>虽然不可以直接调用矩阵外的值，但可以通过向其附值来扩展矩阵</p>
+<pre><code class="lang-matlab">A(5, 3) = 3
+</code></pre>
+<p>可以使用冒号来选择多个元素</p>
+<pre><code class="lang-matlab">A(1:3, 2)
+</code></pre>
+<p>若冒号两遍没有数字则选择所有</p>
+<pre><code class="lang-matlab">A(3, :)
+</code></pre>
+<p>还可以使用较通用的格式 <code>start:step:end</code> 创建等距向量值。如果省略 step ，则默认为 1 。</p>
+<pre><code class="lang-matlab">B = 0:10:100
+</code></pre>
+<hr>
+<p>工作区包含在 MATLAB 中创建或从数据文件或其他程序导入的变量。</p>
+<pre><code class="lang-matlab">A = magic(4);
+B = rand(3,5,2);
+</code></pre>
+<p>使用 <code>whos</code> 可以查看工作区的内容。</p>
+<pre><code class="lang-matlab">whos
+  Name      Size             Bytes  Class     Attributes
+
+  A         4x4                128  double              
+  B         3x5x2              240  double
+</code></pre>
+<p>此外，桌面上的“工作区”窗格也会显示变量。</p>
+<p>退出 MATLAB 后，工作区变量不会保留。使用 <code>save</code> 命令保存数据以供将来使用</p>
+<pre><code class="lang-matlab">save myfile.mat
+</code></pre>
+<p>使用 <code>load</code> 将 MAT 文件中的数据还原到工作区。</p>
+<pre><code class="lang-matlab">load myfile.mat
+</code></pre>
+<p>通过保存，系统会使用 .mat 扩展名将工作区保存在当前工作文件夹中一个名为 MAT 文件的压缩文件中。</p>
+<p>可以使用 <code>clear</code> 命令清除工作区中的所有变量。</p>
+<hr>
+<p>当处理文本时，将字符序列括在双引号中。可以将文本赋给变量。</p>
+<pre><code class="lang-matlab">t = &quot;Hello, world&quot;;
+</code></pre>
+<p>如果文本包含双引号，可以在定义中使用两个双引号。</p>
+<pre><code class="lang-matlab">q = &quot;Something &quot;&quot;quoted&quot;&quot; and something else.&quot;
+</code></pre>
+<p>与所有 MATLAB 变量一样，<code>t</code> 和 <code>q</code> 为数组。它们的类或数据类型是 <code>string</code>。</p>
+<p>使用双引号创建字符串数组是在 R2017a 中引入的。更早期的版本使用字符数组。</p>
+<p>可以使用 <code>+</code> 连接字符串</p>
+<p>与数值数组类似，字符串数组可以有多个元素。使用 <code>strlength</code> 函数求数组中每个字符串的长度。</p>
+<pre><code class="lang-matlab">&gt;&gt; A = [&quot;a&quot;,&quot;bb&quot;,&quot;ccc&quot;; &quot;dddd&quot;,&quot;eeeeee&quot;,&quot;fffffff&quot;]
+A = 
+  2×3 string array
+    &quot;a&quot;       &quot;bb&quot;        &quot;ccc&quot;    
+    &quot;dddd&quot;    &quot;eeeeee&quot;    &quot;fffffff&quot;
+&gt;&gt; strlength(A)
+ans =
+
+     1     2     3
+     4     6     7
+</code></pre>
+<p>字符数组使用单引号</p>
+<pre><code class="lang-matlab">&gt;&gt; seq = &#39;GCTAGAATCC&#39;;
+&gt;&gt; whos seq
+  Name      Size            Bytes  Class    Attributes
+  seq       1x10               20  char
+</code></pre>
+<p>数组的每个元素都包含单个字符。</p>
+<pre><code class="lang-matlab">seq(4)
+</code></pre>
+<p>使用方括号串联字符数组，就像串联数值数组一样。</p>
+<pre><code class="lang-matlab">&gt;&gt; seq2 = [seq &#39;ATTAGAAACC&#39;]
+seq2 =
+    &#39;GCTAGAATCCATTAGAAACC&#39;
+</code></pre>
+<p>接受 <code>string</code> 数据的所有 MATLAB 函数都能接受 <code>char</code> 数据，反之亦然。</p>
+<hr>
+<p>要调用函数，例如 <code>max</code>，就将其输入参数括在圆括号中：</p>
+<pre><code class="lang-matlab">A = [1 3 5];
+max(A)
+</code></pre>
+<p>如果存在多个输入参数，使用逗号加以分隔：</p>
+<pre><code class="lang-matlab">&gt;&gt; B = [10 6 4];
+&gt;&gt; max(A,B)
+ans = 1×3
+
+    10     6     5
+</code></pre>
+<p>通过将函数赋值给变量，返回该函数的输出：</p>
+<pre><code class="lang-matlab">&gt;&gt; maxA = max(A)
+maxA = 5
+</code></pre>
+<p>如果存在多个输出参数，可以将其括在方括号中：</p>
+<pre><code class="lang-matlab">[maxA,location] = max(A)
+% maxA = 5
+% location = 3
+</code></pre>
+<p>将任何字符输入括在单引号中：</p>
+<pre><code class="lang-matlab">disp(&#39;hello world&#39;) % 显示 hello world
+% hello world
+</code></pre>
+<p>要调用不需要任何输入且不会返回任何输出的函数，可以只键入函数名称：</p>
+<pre><code class="lang-matlab">clc % clc 函数清空命令行窗口。
+</code></pre>
+<hr>
+<p>使用 <code>plot</code> 函数创建二维线图。</p>
+<pre><code class="lang-matlab">x = 0:pi/100:2*pi;
+y = sin(x);
+plot(x,y)
+</code></pre>
+<p><img src="/images/014.png" alt=""></p>
+<p>可以使用 <code>xlabel</code>/<code>ylabel</code> 标记轴并用 <code>title</code> 添加标题。</p>
+<pre><code class="lang-matlab">xlabel(&#39;x&#39;)
+ylabel(&#39;sin(x)&#39;)
+title(&#39;Plot of the Sine Function&#39;)
+</code></pre>
+<p><img src="/images/015.png" alt=""></p>
+<p>通过向 <code>plot</code> 函数添加第三个输入参数，您可以改变曲线的颜色或形式。</p>
+<pre><code class="lang-matlab">plot(x, y, &#39;r--&#39;) % 红色虚线
+</code></pre>
+<p>每个设定可包含表示线条颜色、样式和标记的字符。标记是在绘制的每个数据点上显示的符号，例如，+、o 或 *。例如，<code>g:*</code> 请求绘制使用 * 标记的绿色点线。</p>
+<p>为上一次绘图定义的标题和标签不再被用于当前的图窗窗口中。</p>
+<p>默认情况下，每次调用绘图函数、重置坐标区及其他元素以准备新绘图时，MATLAB 都会清空图窗。</p>
+<p>要将绘图添加到现有图窗中，可以使用 <code>hold on</code>。在使用 <code>hold off</code> 或关闭窗口之前，当前图窗窗口中会显示所有绘图。</p>
+<pre><code class="lang-matlab">x = 0:pi/100:2*pi;
+y = sin(x);
+plot(x,y)
+
+hold on
+
+y2 = cos(x);
+plot(x,y2,&#39;:&#39;)
+legend(&#39;sin&#39;,&#39;cos&#39;)
+
+hold off
+</code></pre>
+<p><img src="/images/016.png" alt=""></p>
+<p>三维图通常显示一个由带两个变量的函数（即 $z = f (x,y)$）定义的曲面图。</p>
+<p>要计算 z，首先要使用 <code>meshgrid</code> 在此函数的域中创建一组 <code>(x,y)</code> 点。</p>
+<pre><code class="lang-matlab">[X,Y] = meshgrid(-2:.2:2);                                
+Z = X .* exp(-X.^2 - Y.^2);
+</code></pre>
+<p>然后，创建曲面图。</p>
+<pre><code class="lang-matlab">surf(X,Y,Z)
+</code></pre>
+<p><img src="/images/017.png" alt=""></p>
+<p><code>surf</code> 函数及其伴随函数 <code>mesh</code> 以三维形式显示曲面图。<code>surf</code> 使用颜色显示曲面图的连接线和面。<code>mesh</code> 生成仅以颜色标记连接定义点的线条的线框曲面图。</p>
+<p>使用 <code>subplot</code> 函数可以在同一窗口的不同子区域显示多个绘图。</p>
+<p><code>subplot</code> 的前两个输入表示每行和每列中的绘图数。</p>
+<p>第三个输入指定绘图是否处于活动状态。</p>
+<blockquote>
+<p>这操作怎么和 python 一模一样. ——VCode</p>
+</blockquote>
+<pre><code class="lang-matlab">t = 0:pi/10:2*pi;
+[X,Y,Z] = cylinder(4*cos(t)); 
+% [X,Y,Z] = cylinder(r) 返回具有指定剖面曲线 r 和圆周上 20 个等距点的圆柱的 x、y 和 z 坐标。该函数将 r 中的每个元素视为沿圆柱单位高度的等距高度的半径。
+subplot(2,2,1); mesh(X); title(&#39;X&#39;); 
+% mesh(Z) 创建一个网格图，并将 Z 中元素的列索引和行索引用作 x 坐标和 y 坐标。
+subplot(2,2,2); mesh(Y); title(&#39;Y&#39;);
+subplot(2,2,3); mesh(Z); title(&#39;Z&#39;);
+subplot(2,2,4); mesh(X,Y,Z); title(&#39;X,Y,Z&#39;);
+</code></pre>
+<p><img src="/images/018.png" alt=""></p>
+<hr>
+<p>脚本是最简单的一种 MATLAB® 程序。脚本是一个包含多行连续的 MATLAB 命令和函数调用的文件。在命令行中键入脚本名称即可运行该脚本。</p>
+<p>使用 <code>edit</code> 命令创建脚本。</p>
+<pre><code class="lang-matlab">edit mysphere
+</code></pre>
+<p>该命令会打开一个名为 mysphere.m 的空白文件。</p>
+<p>输入代码，以创建一个单位球、将半径加倍并绘制结果图：</p>
+<pre><code class="lang-matlab">[x,y,z] = sphere; 
+% [X,Y,Z] = sphere 返回球面的 x、y 和 z 坐标而不对其绘图。返回的球面的半径等于 1，由 20×20 个面组成。
+% 该函数以三个 21×21 矩阵形式返回 x、y 和 z 坐标。
+r = 2;
+surf(x*r,y*r,z*r)
+axis equal
+% axis style 使用预定义样式设置轴范围和尺度。
+% style = tight | padded | fill | equal | image | square | vis3d | normal
+</code></pre>
+<p>接下来，添加代码以计算球的表面积和体积：</p>
+<pre><code class="lang-matlab">A = 4*pi*r^2;
+V = (4/3)*pi*r^3;
+</code></pre>
+<p>将文件保存在当前文件夹中。要运行脚本，可以在命令行中键入脚本名称：</p>
+<pre><code class="lang-matlab">mysphere
+</code></pre>
+<p>还可以使用编辑器中的运行按钮运行脚本。</p>
+<p>通过选择另存为并将文件类型更改为 MATLAB 实时代码文件 (<em>.mlx)，将 mysphere 转换为<em>*实时脚本</em></em>。然后，用格式化文本替换代码注释。例如：</p>
+<ul>
+<li>将注释行转换为文本。选择以百分比符号开头的每一行，然后选择文本，删除百分比符号。</li>
+<li>重写文本以替换代码行末尾的注释。要将等宽字体应用于文本中的函数名，可以选择 M。要添加方程，可以在<strong>插入</strong>选项卡上选择<strong>方程</strong>。</li>
+</ul>
+<p>使用 <code>edit</code> 命令创建新的实时脚本，要在文件名中包含 .mlx 扩展名：</p>
+<pre><code class="lang-matlab">edit newfile.mlx
+</code></pre>
+<p>循环使用 <code>for</code> 或 <code>while</code> 关键字，条件语句使用 <code>if</code> 或 <code>switch</code>。</p>
+<pre><code class="lang-matlab">N = 100;
+f(1) = 1;
+f(2) = 1;
+
+for n = 3:N
+    f(n) = f(n-1) + f(n-2);
+end
+f(1:10)
+</code></pre>
+<pre><code class="lang-matlab">num = randi(100)
+if num &lt; 34
+   sz = &#39;low&#39;
+elseif num &lt; 67
+   sz = &#39;medium&#39;
+else
+   sz = &#39;high&#39;
+end
+</code></pre>
+<p>MATLAB 在特定位置中查找脚本及其他文件。要运行脚本，该文件必须位于当前文件夹或搜索路径中的某个文件夹内。</p>
+<p>默认情况下，MATLAB 安装程序创建的 MATLAB 文件夹位于此搜索路径中。如果要将程序存储在其他文件夹，或者要运行其他文件夹中的程序，请将其添加到此搜索路径。在当前文件夹浏览器中选中相应的文件夹，右键点击，然后选择添加到路径。</p>
+<hr>
+<p>所有 MATLAB 函数都有辅助文档，这些文档包含一些示例，并介绍函数输入、输出和调用语法。从命令行访问此信息有多种方法：</p>
+<p>使用 <code>doc</code> 命令在单独的窗口中打开函数文档。</p>
+<pre><code class="lang-matlab">doc mean
+</code></pre>
+<p>在键入函数输入参数的左括号之后暂停，此时命令行窗口中会显示相应函数的提示（函数文档的语法部分）。</p>
+<pre><code class="lang-matlab">mean(
+</code></pre>
+<p>使用 <code>help</code> 命令可在命令行窗口中查看相应函数的简明文档。</p>
+<pre><code class="lang-matlab">help mean
+</code></pre>
+<p>点击帮助图标可访问完整的产品文档。</p>
+<hr>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/matlab/">
+    <time datetime="2022-07-13T14:12:51.505Z" class="entry-date">
+        2022-07-13
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/neural_networks_base/">神经网络基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 17.5px;">AI</a> <a href="/tags/DP/" style="font-size: 15px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12.5px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 17.5px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12.5px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12.5px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12.5px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12.5px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>
