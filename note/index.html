@@ -15,17 +15,17 @@
   
   
   
-  <title>笔记 | 可能是VCode的博客</title>
+  <title>pytorch | 可能是VCode的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="数值计算方法 大学物理 概率论与数理统计 离散数学 高等数学 matlab $\LaTeX$">
+  <meta name="description" content="张量是一种特殊的数据结构，与数组和矩阵非常相似。在 PyTorch 中，我们使用张量对模型的输入和输出以及模型的参数进行编码。 张量类似于 NumPy 的 ndarray ，不同之处在于张量可以在 GPU 或其他硬件加速器上运行。事实上，张量和 NumPy 数组通常可以共享相同的底层内存，从而无需复制数据。张量也针对自动微分进行了优化。如果您熟悉 ndarrays，那么您将熟悉 Tensor AP">
 <meta property="og:type" content="website">
-<meta property="og:title" content="笔记">
+<meta property="og:title" content="pytorch">
 <meta property="og:url" content="https://vcode28629.github.io/note/">
 <meta property="og:site_name" content="可能是VCode的博客">
-<meta property="og:description" content="数值计算方法 大学物理 概率论与数理统计 离散数学 高等数学 matlab $\LaTeX$">
+<meta property="og:description" content="张量是一种特殊的数据结构，与数组和矩阵非常相似。在 PyTorch 中，我们使用张量对模型的输入和输出以及模型的参数进行编码。 张量类似于 NumPy 的 ndarray ，不同之处在于张量可以在 GPU 或其他硬件加速器上运行。事实上，张量和 NumPy 数组通常可以共享相同的底层内存，从而无需复制数据。张量也针对自动微分进行了优化。如果您熟悉 ndarrays，那么您将熟悉 Tensor AP">
 <meta property="og:locale">
-<meta property="article:published_time" content="2022-07-13T14:12:51.506Z">
-<meta property="article:modified_time" content="2021-09-28T07:00:13.000Z">
+<meta property="article:published_time" content="2022-11-17T00:50:42.080Z">
+<meta property="article:modified_time" content="2021-10-28T03:54:02.000Z">
 <meta property="article:author" content="VCode">
 <meta property="article:tag" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286">
 <meta name="twitter:card" content="summary">
@@ -55,7 +55,7 @@
       </h1>
       
         <h2 class="site-description">
-          <a href="/" id="subtitle">不能吃！</a>
+          <a href="/" id="subtitle">不能吃！/工作联系vcodechina@gmail.com/私人联系vcode28629@qq.com</a>
         </h2>
       
     </hgroup>
@@ -90,36 +90,170 @@
         
   
     <h1 class="entry-title article-title">
-      笔记
+      pytorch
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/note/" data-id="cl5joxku9001fmouedk8998sc" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/note/" data-id="clakcy9zh0005t0ue7ahoa94o" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <ul>
-<li><a href="/numerical_analysis">数值计算方法</a></li>
-<li><a href="/physics">大学物理</a></li>
-<li><a href="/probability">概率论与数理统计</a></li>
-<li><a href="/discrete_mathematics">离散数学</a></li>
-<li><a href="/advanced_math">高等数学</a></li>
-<li><a href="/matlab">matlab</a></li>
-<li><a href="/LaTeX">$\LaTeX$</a></li>
-</ul>
+        <p>张量是一种特殊的数据结构，与数组和矩阵非常相似。在 PyTorch 中，我们使用张量对模型的输入和输出以及模型的参数进行编码。</p>
+<p>张量类似于 NumPy 的 ndarray ，不同之处在于张量可以在 GPU 或其他硬件加速器上运行。事实上，张量和 NumPy 数组通常可以共享相同的底层内存，从而无需复制数据。张量也针对自动微分进行了优化。如果您熟悉 ndarrays，那么您将熟悉 Tensor API。如果没有，请继续！</p>
+<pre><code class="lang-python">import torch
+import numpy as np
+</code></pre>
+<h2 id="初始化张量"><a href="#初始化张量" class="headerlink" title="初始化张量"></a>初始化张量</h2><p>张量可以通过多种方式初始化。</p>
+<h3 id="直接从数据"><a href="#直接从数据" class="headerlink" title="直接从数据"></a>直接从数据</h3><p>张量可以直接从数据中创建。数据类型是自动推断的。</p>
+<pre><code class="lang-python">data = [[1, 2],[3, 4]]
+x_data = torch.tensor(data)
+</code></pre>
+<h3 id="从-NumPy-数组"><a href="#从-NumPy-数组" class="headerlink" title="从 NumPy 数组"></a>从 NumPy 数组</h3><p>张量可以从 NumPy 数组创建，反之亦然。</p>
+<pre><code class="lang-python">np_array = np.array(data)
+x_np = torch.from_numpy(np_array)
+</code></pre>
+<p>从另一个张量：</p>
+<p>除非明确 override，否则新张量保留参数张量的属性（形状、数据类型）。</p>
+<pre><code class="lang-python">x_ones = torch.ones_like(x_data) # retains the properties of x_data
+print(f&quot;Ones Tensor: \n &#123;x_ones&#125; \n&quot;)
 
+x_rand = torch.rand_like(x_data, dtype=torch.float) # overrides the datatype of x_data
+print(f&quot;Random Tensor: \n &#123;x_rand&#125; \n&quot;)
+</code></pre>
+<h3 id="使用随机值或常量值："><a href="#使用随机值或常量值：" class="headerlink" title="使用随机值或常量值："></a>使用随机值或常量值：</h3><p>shape 是记录张量维度的元组。在下面的函数中，它决定了输出张量的维度。</p>
+<pre><code class="lang-python">shape = (2,3,)
+rand_tensor = torch.rand(shape)
+ones_tensor = torch.ones(shape)
+zeros_tensor = torch.zeros(shape)
+
+print(f&quot;Random Tensor: \n &#123;rand_tensor&#125; \n&quot;)
+print(f&quot;Ones Tensor: \n &#123;ones_tensor&#125; \n&quot;)
+print(f&quot;Zeros Tensor: \n &#123;zeros_tensor&#125;&quot;)
+</code></pre>
+<h2 id="张量的属性"><a href="#张量的属性" class="headerlink" title="张量的属性"></a>张量的属性</h2><p>张量属性描述了它们的 shape 、 dtype 和存储它们的 device 。</p>
+<pre><code>tensor = torch.rand(3,4)
+
+print(f&quot;Shape of tensor: &#123;tensor.shape&#125;&quot;)
+print(f&quot;Datatype of tensor: &#123;tensor.dtype&#125;&quot;)
+print(f&quot;Device tensor is stored on: &#123;tensor.device&#125;&quot;)
+</code></pre><h2 id="张量运算"><a href="#张量运算" class="headerlink" title="张量运算"></a>张量运算</h2><p>张量有 100 多种运算，包括算术、线性代数、矩阵操作（转置、索引、切片）、采样等。</p>
+<p>这些操作中的每一个都可以在 GPU 上运行（速度通常比在 CPU 上更高）。</p>
+<p>默认情况下，张量是在 CPU 上创建的。我们需要使用 <code>.to</code> 方法明确地将张量移动到 GPU （在检查 GPU 可用性之后）。请记住，跨设备复制大张量在时间和内存方面可能很昂贵！</p>
+<pre><code class="lang-python"># We move our tensor to the GPU if available
+device = torch.device(&quot;cpu&quot;)
+if torch.cuda.is_available():
+    device = torch.device(&quot;cuda&quot;)
+else:
+    device = torch.device(&quot;cpu&quot;)
+y = torch.ones(4, device=device)
+</code></pre>
+<p>如果您熟悉 NumPy API，您会发现 Tensor API 使用起来轻而易举。</p>
+<p>标准的类似 numpy 的索引和切片：</p>
+<pre><code class="lang-python">tensor = torch.ones(4, 4)
+print(&#39;First row: &#39;, tensor[0])
+print(&#39;First column: &#39;, tensor[:, 0])
+print(&#39;Last column:&#39;, tensor[..., -1])
+tensor[:,1] = 0
+print(tensor)
+</code></pre>
+<p>输出：</p>
+<pre><code>First row:  tensor([1., 1., 1., 1.])
+First column:  tensor([1., 1., 1., 1.])
+Last column: tensor([1., 1., 1., 1.])
+tensor([[1., 0., 1., 1.],
+        [1., 0., 1., 1.],
+        [1., 0., 1., 1.],
+        [1., 0., 1., 1.]])
+</code></pre><p>可以用 <code>torch.cat</code> 来连接沿给定维度的一系列张量。使用 <code>torch.stack</code> 来连接一系列张量并创建新的维度。</p>
+<pre><code class="lang-python">t1 = torch.cat([tensor, tensor, tensor], dim=1)
+print(t1)
+</code></pre>
+<p>输出：</p>
+<pre><code>tensor([[1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],
+        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],
+        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.],
+        [1., 0., 1., 1., 1., 0., 1., 1., 1., 0., 1., 1.]])
+</code></pre><h3 id="算术运算"><a href="#算术运算" class="headerlink" title="算术运算"></a>算术运算</h3><pre><code># 矩阵乘法
+y1 = tensor @ tensor.T
+y2 = tensor.matmul(tensor.T)
+
+y3 = torch.rand_like(tensor)
+torch.matmul(tensor, tensor.T, out=y3)
+
+
+# 元素级乘法
+z1 = tensor * tensor
+z2 = tensor.mul(tensor)
+
+z3 = torch.rand_like(tensor)
+torch.mul(tensor, tensor, out=z3)
+</code></pre><p>如果您有一个单元素张量，可以使用 <code>item()</code> 方法将其转换为 Python 数值：</p>
+<pre><code>agg = tensor.sum() # 返回一个单元素张量
+agg_item = agg.item()
+print(agg_item, type(agg_item))
+</code></pre><p>输出：</p>
+<pre><code>12.0 &lt;class &#39;float&#39;&gt;
+</code></pre><p>将结果存储到操作数中的操作称为就地操作。它们由_后缀表示。例如：<code>x.copy_(y)</code>, <code>x.t_()</code>, 将改变 <code>x</code>。</p>
+<pre><code class="lang-python">print(tensor, &quot;\n&quot;)
+tensor.add_(5)
+print(tensor)
+</code></pre>
+<p>输出：</p>
+<pre><code>tensor([[1., 0., 1., 1.],
+        [1., 0., 1., 1.],
+        [1., 0., 1., 1.],
+        [1., 0., 1., 1.]])
+
+tensor([[6., 5., 6., 6.],
+        [6., 5., 6., 6.],
+        [6., 5., 6., 6.],
+        [6., 5., 6., 6.]])
+</code></pre><blockquote>
+<p>就地操作节省了一些内存，但在计算导数时可能会出现问题，因为会立即丢失历史记录。因此，不鼓励使用它们。</p>
+</blockquote>
+<p>使用 NumPy 桥接<br>CPU 和 NumPy 数组上的张量可以共享它们的底层内存位置，改变一个将改变另一个。</p>
+<p>张量到 NumPy 数组</p>
+<pre><code class="lang-python">t = torch.ones(5)
+print(f&quot;t: &#123;t&#125;&quot;)
+n = t.numpy()
+print(f&quot;n: &#123;n&#125;&quot;)
+</code></pre>
+<p>输出：</p>
+<pre><code>t: tensor([1., 1., 1., 1., 1.])
+n: [1. 1. 1. 1. 1.]
+</code></pre><p>张量的变化反映在 NumPy 数组中。</p>
+<pre><code class="lang-python">t.add_(1)
+print(f&quot;t: &#123;t&#125;&quot;)
+print(f&quot;n: &#123;n&#125;&quot;)
+</code></pre>
+<p>输出：</p>
+<pre><code>t: tensor([2., 2., 2., 2., 2.])
+n: [2. 2. 2. 2. 2.]
+</code></pre><p>NumPy 数组到张量</p>
+<pre><code class="lang-python">n = np.ones(5)
+t = torch.from_numpy(n)
+</code></pre>
+<p>NumPy 数组中的变化反映在张量中。</p>
+<pre><code class="lang-python">np.add(n, 1, out=n)
+print(f&quot;t: &#123;t&#125;&quot;)
+print(f&quot;n: &#123;n&#125;&quot;)
+</code></pre>
+<p>输出：</p>
+<pre><code>t: tensor([2., 2., 2., 2., 2.], dtype=torch.float64)
+n: [2. 2. 2. 2. 2.]
+</code></pre>
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
     <a href="/note/">
-    <time datetime="2022-07-13T14:12:51.506Z" class="entry-date">
-        2022-07-13
+    <time datetime="2022-11-17T00:50:42.080Z" class="entry-date">
+        2022-11-17
     </time>
 </a>
     
@@ -198,7 +332,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
