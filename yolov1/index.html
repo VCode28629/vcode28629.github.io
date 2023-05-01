@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Seecurity-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="其实确实是VCode的博客" />
+  
+
+  
+  <meta name="keywords" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286" />
+  
+  
+  
+  
+  
+  
+  <title>《You Only Look Once: Unified, Real-Time Object Detection》论文精读报告 | 可能是VCode的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="YOLO是当前最常用的实时目标检测方法之一，从YOLOv1发布起已经经历了诸多版本迭代与改进，截止到2023年1月，YOLOv8已经问世。 《You Only Look Once》这篇论文就是在2016年提出YOLOv1的论文，从标题的Unified（统一）、Real-Time（实时）就可以看出YOLO的卖点：架构简单，速度快。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《You Only Look Once: Unified, Real-Time Object Detection》论文精读报告">
+<meta property="og:url" content="https://vcode28629.github.io/yolov1/">
+<meta property="og:site_name" content="可能是VCode的博客">
+<meta property="og:description" content="YOLO是当前最常用的实时目标检测方法之一，从YOLOv1发布起已经经历了诸多版本迭代与改进，截止到2023年1月，YOLOv8已经问世。 《You Only Look Once》这篇论文就是在2016年提出YOLOv1的论文，从标题的Unified（统一）、Real-Time（实时）就可以看出YOLO的卖点：架构简单，速度快。">
+<meta property="og:locale">
+<meta property="og:image" content="https://vcode28629.github.io/yolov1/yolov1/2.png">
+<meta property="og:image" content="https://vcode28629.github.io/yolov1/yolov1/3.png">
+<meta property="og:image" content="https://vcode28629.github.io/yolov1/yolov1/4.png">
+<meta property="og:image" content="https://vcode28629.github.io/yolov1/yolov1/5.png">
+<meta property="og:image" content="https://vcode28629.github.io/yolov1/yolov1/6.png">
+<meta property="og:image" content="https://vcode28629.github.io/yolov1/yolov1/7.png">
+<meta property="og:image" content="https://vcode28629.github.io/yolov1/yolov1/8.png">
+<meta property="og:image" content="https://vcode28629.github.io/yolov1/yolov1/9.png">
+<meta property="og:image" content="https://vcode28629.github.io/yolov1/yolov1/10.png">
+<meta property="og:image" content="https://vcode28629.github.io/yolov1/yolov1/11.png">
+<meta property="article:published_time" content="2023-04-29T13:03:59.000Z">
+<meta property="article:modified_time" content="2023-05-01T17:46:09.995Z">
+<meta property="article:author" content="VCode">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="yolo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vcode28629.github.io/yolov1/yolov1/2.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <!-- <script src='//push.zhanzhang.baidu.com/push.js'></script> -->
+  <!-- highlight.js -->
+  <script src="/plugins/highlight/highlight.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="/plugins/highlight/styles/xcode.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="可能是VCode的博客" rel="home">可能是VCode的博客</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">不能吃！/工作联系vcodechina@gmail.com/私人联系vcode28629@qq.com</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">首页</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">文章</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/friends">友链</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/code">模板</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/note">笔记</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-yolov1" class="post-yolov1 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      《You Only Look Once: Unified, Real-Time Object Detection》论文精读报告
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/yolov1/" data-id="clh54tk0n000014ue4mxf3yjn" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>YOLO是当前最常用的实时目标检测方法之一，从YOLOv1发布起已经经历了诸多版本迭代与改进，截止到2023年1月，YOLOv8已经问世。</p>
+<p>《You Only Look Once》这篇论文就是在2016年提出YOLOv1的论文，从标题的Unified（统一）、Real-Time（实时）就可以看出YOLO的卖点：架构简单，速度快。</p>
+<span id="more"></span>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>目标检测是人类能够快速准确地识别图像中的物体，并感知它们的位置和关系，但计算机很难做到这一点。<strong>快速准确的目标检测算法</strong>可以使计算机在没有专门传感器和辅助设备的情况下执行驾驶等任务，为人类提供实时场景信息。目标检测关心图像中出现的<strong>物体类别</strong>、<strong>位置</strong>和<strong>大小</strong>，并且实时的目标检测通常有速度要求（30FPS）</p>
+<p>当前的检测系统通过<strong>重用分类器</strong>来执行检测。为了检测对象，这些系统为该对象获取分类器，并在测试图像中的不同位置和尺度对其进行评估。如DPM使用滑动窗口方法，其中分类器在整个图像上以均匀间隔的位置运行。</p>
+<p>更近期的方法，如R-CNN，则使用<strong>区域建议方法</strong>首先在图像中生成潜在的bounding box，然后在这些提议的bounding box上运行<strong>分类</strong>器。分类后，使用<strong>后处理</strong>来调整边界框、消除重复检测，并基于场景中的其他物体对框进行<strong>重新评分</strong>。由于<strong>每个单独的组件必须分别进行训练</strong>，所以这些<strong>复杂</strong>的流水线很难进行优化。</p>
+<p>通过这些步骤的描述就可以看出，当前的目标检测方法都是需要有一套相应的pipline，这种复杂的流程很难达到实时检测的速度要求。</p>
+<p>传统目标检测方法（如R-CNN、Fast R-CNN、Faster R-CNN等）存在的问题包括：</p>
+<ul>
+<li><strong>计算量大</strong>：这些方法需要多次计算，速度较慢。</li>
+<li><strong>候选区域生成不准确</strong>：这些方法先生成大量候选区域，再对每个区域进行分类，但是生成的候选区域往往包含很多不相关的区域，造成了冗余计算。</li>
+<li><strong>模型结构复杂</strong>：这些方法的模型结构比较复杂，需要多个组件的组合和调整。</li>
+</ul>
+<p>而YOLO将目标检测看成一个简单的回归问题而非分类问题，这样有许多好处：</p>
+<ul>
+<li><strong>只需一次前向计算</strong>：YOLO算法只需要一次前向计算就能同时完成目标检测和分类任务，避免了多次计算的问题，<strong>速度更快</strong>。</li>
+<li><strong>基于全图卷积</strong>：YOLO采用全图卷积的方式进行目标检测，通过对<strong>整个图像</strong>进行卷积来检测目标，避免了候选区域生成的问题。</li>
+<li><strong>简单的模型结构</strong>：YOLO的模型结构比较简单，只包含卷积层、池化层和全连接层，便于实现和调整，可以<strong>端到端</strong>地训练网络</li>
+</ul>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="预测阶段"><a href="#预测阶段" class="headerlink" title="预测阶段"></a>预测阶段</h3><p><img src="yolov1/2.png" alt=""></p>
+<p>YOLO将图片划分为$S\times S$的网格，其中每个网格负责预测中心落在其中的B个bounding box，并预测是grid cell中的bounding box是某一类别的条件概率$𝑃𝑟(𝐶𝑙𝑎𝑠𝑠_𝑖│𝑂𝑏𝑗𝑒𝑐𝑡)$</p>
+<p>每个bounding box由5个参数组成：中心点的位置$x$, $y$，大小$h$, $w$，以及bounding box内有一个物体的置信度$Pr⁡(𝑂𝑏𝑗𝑒𝑐𝑡)\times 𝐼𝑂𝑈_{𝑝𝑟𝑒𝑑}^{𝑡𝑟𝑢𝑡ℎ}$</p>
+<p>在共有$C$种物体的情况下，我们会获得一个$S\times S\times (B\times 5+C)$的张量</p>
+<p>在YOLO原文所使用的PASCAL VOC数据集中，$S=7$, $B=2$, $C=20$</p>
+<p>比起以往的算法，YOLO的预测阶段非常简单：</p>
+<ol>
+<li>Resize图片为$448\times 448$</li>
+<li>输入单个卷积神经网络，输出一个$S\times S\times (B\times 5+C)$的张量</li>
+<li>对这个张量进行后处理（非极大值抑制），即可得到所有物体的位置、大小、类别</li>
+</ol>
+<p><img src="yolov1/3.png" alt=""></p>
+<h3 id="网络设计"><a href="#网络设计" class="headerlink" title="网络设计"></a>网络设计</h3><p><img src="yolov1/4.png" alt=""></p>
+<p>YOLO的网络设计非常简单，只有24个卷积层，4个最大池化层和2个全连接层。这种简单的结构也是YOLO运行速度快的重要原因。</p>
+<h3 id="后处理"><a href="#后处理" class="headerlink" title="后处理"></a>后处理</h3><p>为了从神经网络输出的结果中得到最终结果，我们需要对输出结果进行后处理：</p>
+<ol>
+<li>用每个bounding box所预测的置信度乘以对应grid cell所预测的每个类别的条件概率，得到每个bounding box中是对应类别的概率，即B<em>S</em>S个大小为C的向量</li>
+<li>将低于域值的所有值置为0（因为概率太低）</li>
+<li>对每种类别分别按概率对向量排序，并采取NMS算法</li>
+<li>将剩余的非0值作为目标检测结果</li>
+</ol>
+<p>NMS算法：对于每两个bounding box，若其IOU大于某一域值，则认为指向同一物体，将概率较小值设为0。</p>
+<p>YOLO的后处理流程非常简单，这也是其高处理速度的原因之一。</p>
+<h3 id="训练阶段"><a href="#训练阶段" class="headerlink" title="训练阶段"></a>训练阶段</h3><p>YOLOv1在ImageNet-1000 Class上预训练前20层卷积层，后接平均池化层和全连接层，然后在用预训练的20层卷积层后接随机权重的4层卷积层和2层全连接层。</p>
+<p>在训练之前，通过图像宽度和高度对bounding box的宽度和高度进行归一化，使它们落在 $0$ 到 $1$ 之间。将bounding box的$x$ 和 $y$ 坐标参数化为特定grid cell位置的偏移量，因此它们也限制在 $0$ 到 $1$ 之间。这样一来所有的输入输出值均应处于$[0, 1]$，便于神经网络进行处理。</p>
+<p>在网络中，最后一层不使用激活函数，其他层使用leaky ReLU作为激活函数</p>
+<p>损失函数使用平方和误差函数，易于优化。但平方和误差与最大化平均精度、最大化目标检测性能并不能很好吻和，会产生各类问题。为了消除或削弱这些问题，作者给出了他们的解决方法：</p>
+<ol>
+<li>由于一张图片中物体通常很少，所以负责真正预测目标的bounding box数量过少，会导致不预测的bounding box所带来的Loss占比过大：因此需要<strong>对负责预测的和不负责预测的bouding box采用不同的权值</strong>。论文中$\lambda_{𝑐𝑜𝑜𝑟𝑑}=5$,$\lambda_{𝑛𝑜𝑜𝑏𝑗}=0.5$</li>
+<li>对于不同大小的bounding box，在相对误差相同时，大框的绝对误差更大，而平方和误差没有考虑这一点。为了削减这一点，<strong>对长宽开根</strong>以削弱大框的误差。</li>
+</ol>
+<p>由此我们可以得到最终的损失函数：</p>
+<p><img src="yolov1/5.png" alt=""></p>
+<p>其中：</p>
+<ul>
+<li>前三行是负责检测物体的bounding box的损失函数</li>
+<li>第四行是不负责检测物体的bounding box的损失函数</li>
+<li><p>第五行是负责检测物体的grid cell的损失函数</p>
+</li>
+<li><p>第一行是中心点的损失函数</p>
+</li>
+<li>第二行是宽和高的损失函数</li>
+<li>第三四行是置信度误差</li>
+<li><p>最后一行是分类误差</p>
+</li>
+<li><p>第三行中$\hat 𝐶_𝑖$为bounding box与ground truth的IOU</p>
+</li>
+<li>第四行中$\hat C_i$为0</li>
+</ul>
+<p>在论文中，作者也给出了他们训练时所用的超参数和一些细节：<br><code>num_epochs=135</code>, <code>batch_size=64</code>, <code>momentum=0.9</code>, <code>decay=0.0005</code>, 学习率从$10^{-3}$Warm up到$10^{−2}$，然后再逐渐衰减（75次$10^{-2}$，30次$10^{−3}$，30次$10^{-4}$)，<code>Drop_out=0.5</code>，并使用了适当的数据增强</p>
+<h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><h3 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h3><p>从模型结构和算法流程中我们可以看出，YOLO虽然快，但也有一些天然的限制：</p>
+<ul>
+<li>每个grid cell只能产生B个bounding box，1个类别，只能预测出一个物体。<strong>对于密集的小目标而言效果不佳</strong></li>
+<li>由于YOLO从数据中学习预测边界框，并且因为架构中有多个池化层和下采样层，<strong>使用相对粗粒度的特征来预测边界框，很难推广到新的或不寻常的纵横比或配置中的对象</strong>。</li>
+<li>最后，YOLO在小bounding box和大bounding box中采用相同的损失函数。大框中的一个小误差通常是良性的，但小框中的一个小误差对 IOU 的影响要大得多。<strong>主要误差来源是不正确的定位</strong>。</li>
+</ul>
+<h3 id="与其他模型的比较"><a href="#与其他模型的比较" class="headerlink" title="与其他模型的比较"></a>与其他模型的比较</h3><p>以往的目标检测流程通常从输入图像中提取一组鲁棒的特征，然后，用classifiers或localizers在特征空间中识别目标。这些classifiers或localizers在整个图像上以滑动窗口的方式运行，或者在图像的某些区域子集上运行。</p>
+<ul>
+<li>DPM：DPM的<strong>pipeline非常长</strong>且采用<strong>静态特征</strong>，YOLO使用更简单的单一网络构建了<strong>更快更准</strong>的模型。</li>
+<li>R-CNN：R-CNN是<strong>多阶段</strong>的流程，每个阶段都需要精确地独立地调整，产生2000个候选框，<strong>处理一张图片需要40秒</strong>。而YOLO<strong>将各步骤组建在一起</strong>，只产生98个候选框，<strong>每秒能处理45张图片</strong>。</li>
+<li>其他的快速的Detectors：<ul>
+<li>Fast R-CNN和Faster R-CNN在R-CNN的基础上进行了改进和加速，虽然在速度和精度上都比R-CNN要高，但仍然<strong>达不到实时检测的速度需求</strong>。</li>
+<li>很多工作提出了很多方法试图加速DPM的速度，但<strong>只有30Hz DPM能够达到实时检测的速度</strong></li>
+<li>Dectector在一些<strong>特殊的、专用的</strong>目标检测领域可以被高度优化</li>
+<li>而YOLO从设计方面就决定是非常<strong>快</strong>的，是一个<strong>通用目标检测</strong>模型，可以检测大部分物体</li>
+</ul>
+</li>
+<li>Deep MultiBox：<strong>无法实现通用目标检测</strong>，且是一个庞大的工作流程</li>
+<li>OverFeat：采用滑动窗口方法，有所有滑动窗口方法的共有问题：<strong>无法感知全图信息</strong>。同时需要<strong>庞大的后处理</strong>工作才能产生符合逻辑的结果。</li>
+<li>MultiGrasp：MultiGrasp的目标是找到一个可抓取的区域，无关大小，位置等，而YOLO需要把所有信息预测出来</li>
+</ul>
+<p>这些对比主要突出了YOLO的几个关键特征：<strong>快速、简单、通用</strong></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>为了验证YOLO的性能，作者进行了几个实验：</p>
+<ol>
+<li>首先和其他实时检测系统，特别是R-CNN的变种在Pascal VOC 2007上进行了对比</li>
+<li>和Fast R-CNN一起，对各类错误的比例进行了分析。</li>
+<li>把YOLO和Fast R-CNN进行了结合以提升目标检测的性能</li>
+<li>展示了2016年当年最先进的几种目标检测方法在VOC 2012上的性能</li>
+<li>最后展示YOLO在新领域的非常强的泛化能力，如艺术作品数据集</li>
+</ol>
+<h3 id="实验一：与其他实时目标检测方法对比"><a href="#实验一：与其他实时目标检测方法对比" class="headerlink" title="实验一：与其他实时目标检测方法对比"></a>实验一：与其他实时目标检测方法对比</h3><p><img src="yolov1/6.png" alt=""></p>
+<ol>
+<li>在所有实时目标检测方法中，YOLO是最准的（其他模型的两倍），Fast YOLO是最快的</li>
+<li>YOLO比Fast YOLO高了10个mAP，同时保持住了实时目标检测的水准</li>
+</ol>
+<h3 id="实验二：YOLO与Fast-R-CNN的错误比例分析"><a href="#实验二：YOLO与Fast-R-CNN的错误比例分析" class="headerlink" title="实验二：YOLO与Fast R-CNN的错误比例分析"></a>实验二：YOLO与Fast R-CNN的错误比例分析</h3><p>作者分别使用YOLO和Fast R-CNN，将测试阶段时每一个类别的概率最高的N个预测结果进行分类：</p>
+<ul>
+<li>Correct：类别正确且IOU&gt;0.5</li>
+<li>Localization：类别正确且0.1&lt;IOU&lt;0.5</li>
+<li>Similar：类别相似且IOU&gt;0.1</li>
+<li>Other：类别错误，IOU&gt;0.1</li>
+<li>Background：IOU&lt;0.1</li>
+</ul>
+<p>这里的IOU指的都是预测值与ground truth的IOU</p>
+<p><img src="yolov1/7.png" alt=""></p>
+<p>结论：</p>
+<ol>
+<li>Fast R-CNN比YOLO准确性更高</li>
+<li>YOLO的定位错误比例更高</li>
+<li>YOLO的背景区分错误率很低</li>
+</ol>
+<p>分析原因：</p>
+<ol>
+<li>Fast R-CNN是两阶段模型，其精度比单一阶段的YOLO更准确</li>
+<li>YOLO使用粗粒度特征，在细节的把控上较差</li>
+<li>YOLO能看到全部的图片，能隐式地区分背景和物体，而Fast R-CNN只能看到候选框内的物体</li>
+</ol>
+<h3 id="实验三：结合Fast-R-CNN与YOLO"><a href="#实验三：结合Fast-R-CNN与YOLO" class="headerlink" title="实验三：结合Fast R-CNN与YOLO"></a>实验三：结合Fast R-CNN与YOLO</h3><p>Fast R-CNN定位能力强而识别背景能力差，YOLO定位能力差而识别背景能力强。这让作者想到能否使用YOLO来优化Fast R-CNN的性能：</p>
+<p>对于Fast R-CNN预测出的每一个bounding box，如果YOLO也预测出了类似的bounding box，则根据YOLO预测出的概率和两个bounding box的重合程度对其加一个boost。</p>
+<p><img src="yolov1/8.png" alt=""></p>
+<p>可以看到Fast R-CNN在前三种优化中提升都较小，而结合了YOLO后较基模型提升较大。Fast R-CNN和YOLO的原理差别很大，这种大差别的两个模型的结合才能获取较大程序的优化。</p>
+<h3 id="实验四：Pascal-VOC-2012测试集排行榜"><a href="#实验四：Pascal-VOC-2012测试集排行榜" class="headerlink" title="实验四：Pascal VOC 2012测试集排行榜"></a>实验四：Pascal VOC 2012测试集排行榜</h3><p>作者在论文中给出了各种模型在Pascal VOC 2012测试集上的排行榜：</p>
+<p><img src="yolov1/9.png" alt=""></p>
+<p>在排行榜上我们可以看出：</p>
+<ul>
+<li>YOLO是排行榜上唯一的实时检测模型</li>
+<li>YOLO在小物体上的性能不如其他模型</li>
+<li>Fast R-CNN在结合了YOLO后排名上升了5名</li>
+</ul>
+<p>这个排行榜与运行速度无关，只考虑结果精度，这让以速度见长的YOLO吃了小亏。</p>
+<h3 id="实验五：泛化能力"><a href="#实验五：泛化能力" class="headerlink" title="实验五：泛化能力"></a>实验五：泛化能力</h3><p>该实验测试了YOLO在其他的数据集（People-Art和Picasso）的性能，所有模型均在VOC 2007自然数据集上训练，然后拿到一些艺术品的数据集上去测试。在Picasso模型上训练VOC 2012的数据，在People-Art上训练VOC2010的数据。</p>
+<p><img src="yolov1/10.png" alt=""></p>
+<p>在最后，作者也给我们看了一下YOLO的定性实验结果：</p>
+<p><img src="yolov1/11.png" alt=""></p>
+<p>可以看到，除了下方第二张图将空中飞人识别成了飞机外，没有出现其他错误。这样的定性结果是相当好的。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文介绍了一种统一的目标检测模型YOLO。YOLO构造简单，可以直接在完整的图像上进行训练。</p>
+<p>与基于分类器的方法不同，YOLO是在直接对应于检测性能的损失函数上进行训练的，并且整个模型是联合训练的。</p>
+<p>Fast YOLO是当年(2016年)最快的通用对象检测模型，YOLO推动了实时对象检测的最先进技术。</p>
+<p>YOLO还可以很好地推广到新的领域，使其成为依赖于快速、健壮的对象检测的应用程序的理想选择。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/yolov1/">
+    <time datetime="2023-04-29T13:03:59.000Z" class="entry-date">
+        2023-04-29
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/yolo/" rel="tag">yolo</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/mult/" rel="next">【模板】慢速乘 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+  
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU1OC8xMjA5NA==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/yolov1/">《You Only Look Once: Unified, Real-Time Object Detection》论文精读报告</a>
+          </li>
+        
+          <li>
+            <a href="/mult/">【模板】慢速乘</a>
+          </li>
+        
+          <li>
+            <a href="/bzoj3864/">bzoj3864-Hero meet devil-DP套DP</a>
+          </li>
+        
+          <li>
+            <a href="/P/">自然推理系统</a>
+          </li>
+        
+          <li>
+            <a href="/CNN/">卷积神经网络</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP%E5%A5%97DP/" rel="tag">DP套DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" rel="tag">最大流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E7%89%88/" rel="tag">模版</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/" rel="tag">FFT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" rel="tag">傅丽叶</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCT/" rel="tag">LCT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E8%AE%AD/" rel="tag">集训</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HLOI/" rel="tag">HLOI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">回滚并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">可持久化并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGT/" rel="tag">SGT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SA-IS/" rel="tag">SA-IS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag">后缀数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" rel="tag">欧拉定理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rust/" rel="tag">rust</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="tag">离散数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yolo/" rel="tag">yolo</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 18px;">AI</a> <a href="/tags/DP/" style="font-size: 14px;">DP</a> <a href="/tags/DP%E5%A5%97DP/" style="font-size: 10px;">DP套DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HLOI/" style="font-size: 10px;">HLOI</a> <a href="/tags/LCT/" style="font-size: 10px;">LCT</a> <a href="/tags/SA-IS/" style="font-size: 10px;">SA-IS</a> <a href="/tags/SGT/" style="font-size: 10px;">SGT</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/python/" style="font-size: 12px;">python</a> <a href="/tags/rust/" style="font-size: 10px;">rust</a> <a href="/tags/yolo/" style="font-size: 10px;">yolo</a> <a href="/tags/%E5%82%85%E4%B8%BD%E5%8F%B6/" style="font-size: 12px;">傅丽叶</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 10px;">分治</a> <a href="/tags/%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">可持久化并查集</a> <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" style="font-size: 10px;">后缀数组</a> <a href="/tags/%E5%9B%9E%E6%BB%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">回滚并查集</a> <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" style="font-size: 10px;">平衡树</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 10px;">并查集</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">数学</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 16px;">日常</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%B5%81/" style="font-size: 10px;">最大流</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a> <a href="/tags/%E6%A8%A1%E7%89%88/" style="font-size: 20px;">模版</a> <a href="/tags/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" style="font-size: 10px;">欧拉定理</a> <a href="/tags/%E7%8A%B6%E5%8E%8B/" style="font-size: 10px;">状压</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 12px;">环境配置</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">矩阵</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" style="font-size: 12px;">离散化</a> <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" style="font-size: 10px;">离散数学</a> <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" style="font-size: 12px;">线段树</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" style="font-size: 12px;">计算几何</a> <a href="/tags/%E9%9B%86%E8%AE%AD/" style="font-size: 10px;">集训</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 VCode
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+<!-- <script src="https://raw.githubusercontent.com/mathjax/cdn-redirect/master/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="/plugins/mathjax/latest.min.js?config=TeX-MML-AM_CHTML"></script> -->
+</body>
+</html>
