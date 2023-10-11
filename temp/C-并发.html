@@ -8,31 +8,27 @@
   
 
   
-  <meta name="keywords" content="计算机图形学,线性代数" />
+  <meta name="keywords" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286" />
   
   
   
   
   
   
-  <title>GAMES101-03 变换 | 可能是VCode的博客</title>
+  <title>C++并发 | 可能是VCode的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="二维变换缩放Scale： $\begin{bmatrix}x’\\y’\end{bmatrix}&#x3D;\begin{bmatrix}s_x&amp;0\\0&amp;s_y\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$，缩放矩阵 $\begin{bmatrix}s_x&amp;0\\0&amp;s_y\end{bmatrix}$ 反射（对称）：$\begi">
+  <meta name="description" content="&lt;thread&gt; &lt;future&gt; &lt;mutex&gt; &lt;shared_mutex&gt; &lt;condition_variable&gt; &lt;atomic&gt;  &lt;thread&gt;threadjthread">
 <meta property="og:type" content="website">
-<meta property="og:title" content="GAMES101-03 变换">
-<meta property="og:url" content="https://vcode28629.github.io/GAMES101/03/">
+<meta property="og:title" content="C++并发">
+<meta property="og:url" content="https://vcode28629.github.io/temp/C-%E5%B9%B6%E5%8F%91">
 <meta property="og:site_name" content="可能是VCode的博客">
-<meta property="og:description" content="二维变换缩放Scale： $\begin{bmatrix}x’\\y’\end{bmatrix}&#x3D;\begin{bmatrix}s_x&amp;0\\0&amp;s_y\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$，缩放矩阵 $\begin{bmatrix}s_x&amp;0\\0&amp;s_y\end{bmatrix}$ 反射（对称）：$\begi">
+<meta property="og:description" content="&lt;thread&gt; &lt;future&gt; &lt;mutex&gt; &lt;shared_mutex&gt; &lt;condition_variable&gt; &lt;atomic&gt;  &lt;thread&gt;threadjthread">
 <meta property="og:locale">
-<meta property="og:image" content="https://vcode28629.github.io/GAMES101/03/%E5%8F%98%E6%8D%A2.assets%5Cimage-20220109105736022.png">
-<meta property="og:image" content="https://vcode28629.github.io/GAMES101/03/%5C%E5%8F%98%E6%8D%A2.assets%5Cimage-20220109131158988.png">
-<meta property="article:published_time" content="2021-01-09T09:15:00.000Z">
-<meta property="article:modified_time" content="2023-08-11T09:52:45.357Z">
+<meta property="article:published_time" content="2023-06-30T05:02:09.000Z">
+<meta property="article:modified_time" content="2023-06-30T05:05:54.000Z">
 <meta property="article:author" content="VCode">
-<meta property="article:tag" content="计算机图形学">
-<meta property="article:tag" content="线性代数">
+<meta property="article:tag" content="VCode的博客,VCode28629的博客,VCode28629,VCode,VC286">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://vcode28629.github.io/GAMES101/03/%E5%8F%98%E6%8D%A2.assets%5Cimage-20220109105736022.png">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -94,105 +90,40 @@
         
   
     <h1 class="entry-title article-title">
-      GAMES101-03 变换
+      C++并发
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/GAMES101/03/" data-id="clnlyawqv0004tkseg3j620ha" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://vcode28629.github.io/temp/C-%E5%B9%B6%E5%8F%91" data-id="clnlybv8l0005tksef7nc3ssd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h1 id="二维变换"><a href="#二维变换" class="headerlink" title="二维变换"></a>二维变换</h1><p>缩放Scale： $\begin{bmatrix}x’\\y’\end{bmatrix}=\begin{bmatrix}s_x&amp;0\\0&amp;s_y\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$，缩放矩阵 $\begin{bmatrix}s_x&amp;0\\0&amp;s_y\end{bmatrix}$</p>
-<p>反射（对称）：$\begin{bmatrix}x’\\y’\end{bmatrix}=\begin{bmatrix}-1&amp;0\\0&amp;1\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$</p>
-<p>错切Shear：$\begin{bmatrix}x’\\y’\end{bmatrix}=\begin{bmatrix}1&amp;a\\0&amp;1\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$</p>
-<p><img src="./%E5%8F%98%E6%8D%A2.assets%5Cimage-20220109105736022.png" alt="image-20220109105736022"></p>
-<p>旋转Rotation：$\begin{bmatrix}x’\\y’\end{bmatrix}=\begin{bmatrix}\cos\theta&amp;-\sin\theta\\\sin\theta&amp;\cos\theta\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}$，默认逆时针以原点为中心旋转。$\mathrm R_{-\theta}=\mathrm R_\theta^T=\mathrm R_\theta^{-1}$，为正交矩阵</p>
-<p>齐次坐标：点$(x, y, 1)^T$，向量$(x,y,0)^T$。向量具有平移不变性</p>
-<p>扩充定义：点$(x,y,w)^T$表示二维的点$(\frac xw,\frac yw,1),w\ne0$</p>
-<ul>
-<li>$向量+向量=向量$</li>
-<li>$点-点=向量$</li>
-<li>$点+向量=点$</li>
-<li>$点+点=中点$</li>
+        <ul>
+<li><code>&lt;thread&gt;</code></li>
+<li><code>&lt;future&gt;</code></li>
+<li><code>&lt;mutex&gt;</code></li>
+<li><code>&lt;shared_mutex&gt;</code></li>
+<li><code>&lt;condition_variable&gt;</code></li>
+<li><code>&lt;atomic&gt;</code></li>
 </ul>
-<p>平移Translation变换：$\begin{pmatrix}x’\\y’\\w’\end{pmatrix}=\begin{pmatrix}1&amp;0&amp;t_x\\0&amp;1&amp;t_y\\0&amp;0&amp;1\end{pmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix}$</p>
-<p>任何一种仿射变换$\begin{pmatrix}x’\\y’\end{pmatrix}=\begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}+\begin{pmatrix}t_x\\t_y\end{pmatrix}$都可以写成齐次坐标的形式：$\begin{pmatrix}x’\\y’\\1\end{pmatrix}=\begin{pmatrix}a&amp;b&amp;t_x\\c&amp;d&amp;t_y\\0&amp;0&amp;1\end{pmatrix}\begin{pmatrix}x\\y\\1\end{pmatrix}$</p>
-<p>逆变换：$\mathrm M\vec A=\vec B$，$\vec A=\mathrm M^{-1}\vec B$</p>
-<p>矩阵乘法没有交换律，但是有结合律</p>
-<h1 id="三维变换"><a href="#三维变换" class="headerlink" title="三维变换"></a>三维变换</h1><p>齐次坐标：点$(x, y, z, 1)^T$，向量$(x,y,z,0)^T$。向量具有平移不变性</p>
-<p>扩充定义：点$(x,y,z,w)^T$表示二维的点$(\frac xw,\frac yw,,\frac zw,1),w\ne0$</p>
-<p>三维空间下的仿射变换：</p>
-<p>$\begin{pmatrix}x’\\y’\\z’\\1\end{pmatrix}=\begin{pmatrix}a&amp;b&amp;c&amp;t_x\\d&amp;e&amp;f&amp;t_y\\g&amp;h&amp;i&amp;t_z\\0&amp;0&amp;0&amp;1\end{pmatrix}\begin{pmatrix}x\\y\\z\\1\end{pmatrix}$</p>
-<p>缩放$\begin{pmatrix}x’\\y’\\z’\\1\end{pmatrix}=\begin{pmatrix}<br>s_x&amp;0&amp;0&amp;0\\<br>0&amp;s_y&amp;0&amp;0\\<br>0&amp;0&amp;s_z&amp;0\\<br>0&amp;0&amp;0&amp;1<br>\end{pmatrix}\begin{pmatrix}x\\y\\z\\1\end{pmatrix}$</p>
-<p>平移$\begin{pmatrix}x’\\y’\\z’\\1\end{pmatrix}=\begin{pmatrix}<br>1&amp;0&amp;0&amp;t_x\\<br>0&amp;1&amp;0&amp;t_y\\<br>0&amp;0&amp;1&amp;t_z\\<br>0&amp;0&amp;0&amp;1<br>\end{pmatrix}\begin{pmatrix}x\\y\\z\\1\end{pmatrix}$</p>
-<p>旋转：</p>
-<ul>
-<li>$\mathrm R_x(\alpha)=\begin{pmatrix}<br>1&amp;0&amp;0&amp;0\\<br>0&amp;\cos\alpha&amp;-\sin\alpha&amp;0\\<br>0&amp;\sin\alpha&amp;\cos\alpha&amp;0\\<br>0&amp;0&amp;0&amp;1<br>\end{pmatrix}$</li>
-<li>$\mathrm R_y(\alpha)=\begin{pmatrix}<br>\cos\alpha&amp;0&amp;\sin\alpha&amp;0\\<br>0&amp;1&amp;0&amp;0\\<br>-\sin\alpha&amp;0&amp;\cos\alpha&amp;0\\<br>0&amp;0&amp;0&amp;1<br>\end{pmatrix}$</li>
-<li>$\mathrm R_z(\alpha)=\begin{pmatrix}<br>\cos\alpha&amp;-\sin\alpha&amp;0&amp;0\\<br>\sin\alpha&amp;\cos\alpha&amp;0&amp;0\\<br>0&amp;0&amp;1&amp;0\\<br>0&amp;0&amp;0&amp;1<br>\end{pmatrix}$</li>
-<li>$\mathrm R_{xyz}(\alpha,\beta,\gamma)=\mathrm R_x(\alpha)\mathrm R_y(\beta)\mathrm R_z(\gamma)$</li>
-</ul>
-<p>罗德里格旋转公式(Rodrigues’ Rotation Formula)：绕任意轴旋转公式：</p>
-<p>$\mathrm R(\vec n,\alpha)=\cos\alpha\mathrm I+(1-\cos\alpha)\vec n\vec n^T+\sin\alpha\mathrm N$，其中$\mathrm N=\begin{pmatrix}0&amp;-n_z&amp;n_y\\n_z&amp;0&amp;-n_x\-n_y&amp;n_x&amp;0\end{pmatrix}$</p>
-<blockquote>
-<p>扩展：四元数quaternion，用来解决旋转的差值</p>
-</blockquote>
-<h1 id="视图变换"><a href="#视图变换" class="headerlink" title="视图变换"></a>视图变换</h1><p>拍照经历的变换：模型model变换（摆姿势）、视图view变换：（找相机角度）、投影projection变换（拍照），简称MVP变换</p>
-<p>相机的属性：Camera：$\vec e$，LookAt：$\hat g$，UpDirection：$\hat t$</p>
-<p>约定：相机永远在原点，永远看向$-z$方向，永远以$y$方向为上方向</p>
-<p>将相机从原本的位置移到原点且调整方向：</p>
-<ul>
-<li>移动$\vec e$到原点</li>
-<li>将$\hat g$旋转向$-z$</li>
-<li>将$\hat t$旋转向$y$</li>
-<li>将$(\hat g\times\hat t)$旋转向$x$</li>
-</ul>
-<p>其中后三步非常难写。但是考虑逆向变换好写，即将$(1,1,1)$变换为$(\hat g\times\hat t,\hat t,-\hat g)$</p>
-<p>$\mathrm R_{view}^{-1}=\begin{bmatrix}x_{\hat g\times\hat t}&amp;x_t&amp;x_{-g}&amp;0\\y_{\hat g\times\hat t}&amp;y_t&amp;y_{-g}&amp;0\\z_{\hat g\times\hat t}&amp;z_t&amp;z_{-g}&amp;0\\0&amp;0&amp;0&amp;1\end{bmatrix}$</p>
-<p>因为旋转矩阵是正交矩阵，所以矩阵的逆等于矩阵的转置</p>
-<p>$\mathrm R_{view}={\mathrm R_{view}^{-1}}^T=\begin{bmatrix}x_{\hat g\times\hat t}&amp;y_{\hat g\times\hat t}&amp;z_{\hat g\times\hat t}&amp;0\\<br>x_t&amp;y_t&amp;z_t&amp;0\\x_{-g}&amp;y_{-g}&amp;z_{-g}&amp;0\\0&amp;0&amp;0&amp;1\end{bmatrix}$</p>
-<h1 id="投影变换"><a href="#投影变换" class="headerlink" title="投影变换"></a>投影变换</h1><p>正交投影Orthographic：</p>
-<ol>
-<li>对物体进行视图变换</li>
-<li>将$z$坐标扔掉</li>
-<li>通过平移和缩放将结果的范围改到$[-1,1]^2$</li>
-</ol>
-<p>$M_{ortho}=\begin{bmatrix}\frac2{r-l}&amp;0&amp;0&amp;0\\0&amp;\frac2{t-b}&amp;0&amp;0\\0&amp;0&amp;\frac2{n-f}&amp;0\\0&amp;0&amp;0&amp;1\end{bmatrix}\begin{bmatrix}1&amp;0&amp;0&amp;-\frac{r+l}2\\0&amp;1&amp;0&amp;-\frac{t+b}2\\0&amp;0&amp;1&amp;-\frac{n+f}2\\0&amp;0&amp;0&amp;1\end{bmatrix}$</p>
-<p>透视投影Perspective：</p>
-<p>将远平面的内容投影到近平面处</p>
-<ol>
-<li>将物体挤到相应的平面内<ul>
-<li>近平面永远不变</li>
-<li>远平面的$z$值不变</li>
-<li>中心点不变</li>
-</ul>
-</li>
-<li>做正交投影</li>
-</ol>
-<p><img src="./%5C%E5%8F%98%E6%8D%A2.assets%5Cimage-20220109131158988.png" alt="image-20220109131158988"></p>
-<p>经推导可得：</p>
-<p>$\mathrm M_{persp\rightarrow ortho}=\begin{pmatrix}n&amp;0&amp;0&amp;0\\0&amp;n&amp;0&amp;0\\0&amp;0&amp;n+f&amp;-nf\\0&amp;0&amp;1&amp;0\end{pmatrix}$，其中$n$为近平面的$z$坐标，$f$为远平面$z$坐标</p>
-<p>$\mathrm M_{persp}=\mathrm M_{ortho}\mathrm M_{persp\rightarrow ortho}$</p>
+<h2 id="lt-thread-gt"><a href="#lt-thread-gt" class="headerlink" title="&lt;thread&gt;"></a><code>&lt;thread&gt;</code></h2><p>thread<br>jthread</p>
 
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/GAMES101/03/">
-    <time datetime="2021-01-09T09:15:00.000Z" class="entry-date">
-        2021-01-09
+    <a href="/temp/C-%E5%B9%B6%E5%8F%91">
+    <time datetime="2023-06-30T05:02:09.000Z" class="entry-date">
+        2023-06-30
     </time>
 </a>
     
     
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/" rel="tag">undefined</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/" rel="tag">undefined</a></li></ul>
-
     </footer>
 </article>
 
